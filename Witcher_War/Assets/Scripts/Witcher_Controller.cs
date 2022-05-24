@@ -1,19 +1,28 @@
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody))]
 public class Witcher_Controller : MonoBehaviour
 {
     [SerializeField] WITCHER_TYPE witcherType = WITCHER_TYPE.CPU;
 
-    private ICanMove movement;
+    public ICanMove movement;
     
+    private Rigidbody rigidBody;
+
+    private void Awake()
+    {
+        rigidBody = GetComponent<Rigidbody>();        
+    }
+
     private void Start()
     {
         SetMovement(witcherType);                
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
-        movement.Move();
+        if(movement != null)
+            movement.Move(rigidBody);
     }
 
     void SetMovement(WITCHER_TYPE witcherType) 

@@ -1,4 +1,6 @@
+using UnityEngine;
+
 public interface ICanMove 
 {
-    void Move();
+    void Move(Rigidbody rb);
 }

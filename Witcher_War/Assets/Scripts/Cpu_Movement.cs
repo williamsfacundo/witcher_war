@@ -1,9 +1,9 @@
 using UnityEngine;
 
-public class CPU_Movement : MonoBehaviour, ICanMove
+public class CPU_Movement : ICanMove
 {
-    public void Move() 
+    public void Move(Rigidbody rb) 
     {
-
+        
     }
 }
