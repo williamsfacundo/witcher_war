@@ -3,9 +3,10 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class Witcher_Controller : MonoBehaviour
 {
-    [SerializeField] WITCHER_TYPE witcherType = WITCHER_TYPE.CPU;
+    [SerializeField] private WITCHER_TYPE witcherType = WITCHER_TYPE.CPU;
+    [SerializeField] private float moveSpeed;
 
-    public ICanMove movement;
+    private ICanMove movement;
     
     private Rigidbody rigidBody;
 
@@ -22,7 +23,7 @@ public class Witcher_Controller : MonoBehaviour
     private void FixedUpdate()
     {
         if(movement != null)
-            movement.Move(rigidBody);
+            movement.Move(rigidBody, moveSpeed);
     }
 
     void SetMovement(WITCHER_TYPE witcherType) 
