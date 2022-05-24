@@ -1,0 +1,1 @@
+public enum WITCHER_TYPE { PLAYER, CPU };

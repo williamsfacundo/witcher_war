@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
-public class Witcher_Controlle : MonoBehaviour
+public class Witcher_Controller : MonoBehaviour
 {
 
 }
