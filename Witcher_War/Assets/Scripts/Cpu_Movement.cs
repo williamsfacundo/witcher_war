@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class CPU_Movement : ICanMove
+public class Cpu_Movement : ICanMove
 {
     public void Move(Rigidbody rb, float speed) 
     {
