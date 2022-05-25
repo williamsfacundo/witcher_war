@@ -6,9 +6,13 @@ public class Witcher_Controller : MonoBehaviour, IDestroyable
     [SerializeField] private WITCHER_TYPE witcherType = WITCHER_TYPE.CPU;
 
     [SerializeField] private float moveSpeed;
-    
-    private ICanMove movement;
-    
+
+    [SerializeField] private GameObject potionPrefab;
+
+    private ICanMove movementMethod;
+
+    private ICanUsePotion usePotionMehod;
+
     private Rigidbody rigidBody;
 
     private void Awake()
@@ -18,12 +22,19 @@ public class Witcher_Controller : MonoBehaviour, IDestroyable
 
     private void Start()
     {
-        SetMovement(witcherType);                
+        SetMovement(witcherType);
+
+        usePotionMehod = new Player_Instanciate_Potion();
+    }
+
+    private void Update()
+    {
+        usePotionMehod.InstanciatePotion(potionPrefab, transform.position);
     }
 
     private void FixedUpdate()
     {
-        movement?.Move(rigidBody, moveSpeed);
+        movementMethod?.Move(rigidBody, moveSpeed);
     }    
 
     private void OnDestroy()
@@ -37,11 +48,11 @@ public class Witcher_Controller : MonoBehaviour, IDestroyable
         {
             case WITCHER_TYPE.PLAYER:
 
-                movement = new Player_Movement();
+                movementMethod = new Player_Movement();
                 break;
             case WITCHER_TYPE.CPU:
 
-                movement = new CPU_Movement();
+                movementMethod = new CPU_Movement();
                 break;
         }
     }
