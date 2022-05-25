@@ -9,3 +9,8 @@ public interface IDestroyable
 {
     void ObjectDestroyed();
 }
+
+public interface ICanPlantBomb 
+{
+    void PlantBomb();   
+}
