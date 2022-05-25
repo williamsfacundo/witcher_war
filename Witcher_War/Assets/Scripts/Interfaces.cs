@@ -10,7 +10,7 @@ public interface IDestroyable
     void ObjectDestroyed();
 }
 
-public interface ICanPlantBomb 
+public interface ICanUsePotion 
 {
-    void PlantBomb();   
+    void InstanciatePotion();   
 }
