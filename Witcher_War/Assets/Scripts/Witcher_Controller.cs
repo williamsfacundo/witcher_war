@@ -1,11 +1,12 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
-public class Witcher_Controller : MonoBehaviour
+public class Witcher_Controller : MonoBehaviour, IDestroyable
 {
     [SerializeField] private WITCHER_TYPE witcherType = WITCHER_TYPE.CPU;
-    [SerializeField] private float moveSpeed;
 
+    [SerializeField] private float moveSpeed;
+    
     private ICanMove movement;
     
     private Rigidbody rigidBody;
@@ -22,8 +23,12 @@ public class Witcher_Controller : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if(movement != null)
-            movement.Move(rigidBody, moveSpeed);
+        movement?.Move(rigidBody, moveSpeed);
+    }    
+
+    private void OnDestroy()
+    {
+        ObjectDestroyed();
     }
 
     void SetMovement(WITCHER_TYPE witcherType) 
@@ -39,5 +44,10 @@ public class Witcher_Controller : MonoBehaviour
                 movement = new CPU_Movement();
                 break;
         }
+    }
+
+    public void ObjectDestroyed() 
+    {
+        Debug.Log(name + " was destoyed.");
     }
 }
