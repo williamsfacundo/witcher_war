@@ -37,7 +37,7 @@ public class Witcher_Controller : MonoBehaviour, IDestroyable
 
     private void OnDestroy()
     {
-        ObjectDestroyed();
+        objectHit();
     }
 
     void SetWitcher(WITCHER_TYPE witcherType) 
@@ -59,8 +59,8 @@ public class Witcher_Controller : MonoBehaviour, IDestroyable
         }
     }
 
-    public void ObjectDestroyed() 
+    public void objectHit() 
     {
-        Debug.Log(name + " was destoyed.");
+        Debug.Log("Player hit.");
     }
 }
