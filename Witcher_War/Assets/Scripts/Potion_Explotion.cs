@@ -22,11 +22,14 @@ public class Potion_Explotion : MonoBehaviour
         {
             Destroy(gameObject);            
         }
-    }
+    }    
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.tag == "Player" && explotionTimer <= 0f)
+        Debug.Log(other.gameObject.tag);
+
+        if ((other.gameObject.tag == "Player" || other.gameObject.tag == "Destroyable Wall") 
+            && explotionTimer <= 0f)
         {
             other.gameObject.GetComponent<IDestroyable>().objectHit();
         }
