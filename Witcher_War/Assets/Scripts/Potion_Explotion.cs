@@ -3,8 +3,10 @@ using UnityEngine;
 public class Potion_Explotion : MonoBehaviour
 {
     private const float explotionTime = 1.5f;
-    private float explotionTimer;       
-    
+    private float explotionTimer;
+
+    IDestroyable interfaceComparisonAux;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -15,16 +17,19 @@ public class Potion_Explotion : MonoBehaviour
     void Update()
     {
         explotionTimer -= Time.deltaTime;
-    }    
+    }   
 
     private void OnTriggerStay(Collider other)
     {
-        IDestroyable var = other.GetComponent<IDestroyable>();
-        
-        if (var != null && explotionTimer <= 0f) 
+        if (explotionTimer <= 0f) 
         {
-            var.objectHit();
-            Destroy(gameObject);
-        }       
+            interfaceComparisonAux = other.GetComponent<IDestroyable>();
+            
+            if (interfaceComparisonAux != null)
+            {
+                interfaceComparisonAux.objectHit();
+                Destroy(gameObject);
+            }
+        }               
     }    
 }
