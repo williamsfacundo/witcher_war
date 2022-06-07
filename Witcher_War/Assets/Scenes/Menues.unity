@@ -387,7 +387,7 @@ MonoBehaviour:
   m_Colors:
     m_NormalColor: {r: 0.7176471, g: 0.6509804, b: 0.28235295, a: 1}
     m_HighlightedColor: {r: 0.8509804, g: 0.3137255, b: 0.10980392, a: 1}
-    m_PressedColor: {r: 0.7176471, g: 0.6509804, b: 0.28235295, a: 1}
+    m_PressedColor: {r: 0.8862745, g: 0.76862746, b: 0.105882354, a: 1}
     m_SelectedColor: {r: 0.8509804, g: 0.3137255, b: 0.10980392, a: 1}
     m_DisabledColor: {r: 0.7176471, g: 0.6509804, b: 0.28235295, a: 0.5019608}
     m_ColorMultiplier: 1
@@ -642,7 +642,7 @@ MonoBehaviour:
   m_Colors:
     m_NormalColor: {r: 0.7176471, g: 0.6509804, b: 0.28235295, a: 1}
     m_HighlightedColor: {r: 0.8509804, g: 0.3137255, b: 0.10980392, a: 1}
-    m_PressedColor: {r: 0.7176471, g: 0.6509804, b: 0.28235295, a: 1}
+    m_PressedColor: {r: 0.8862745, g: 0.76862746, b: 0.105882354, a: 1}
     m_SelectedColor: {r: 0.8509804, g: 0.3137255, b: 0.10980392, a: 1}
     m_DisabledColor: {r: 0.7176471, g: 0.6509804, b: 0.28235295, a: 0.5019608}
     m_ColorMultiplier: 1
@@ -1386,7 +1386,7 @@ MonoBehaviour:
   m_Colors:
     m_NormalColor: {r: 0.7176471, g: 0.652497, b: 0.28235295, a: 1}
     m_HighlightedColor: {r: 0.8490566, g: 0.31249246, b: 0.108134575, a: 1}
-    m_PressedColor: {r: 0.7176471, g: 0.6509804, b: 0.28235295, a: 1}
+    m_PressedColor: {r: 0.8867924, g: 0.76699334, b: 0.10457456, a: 1}
     m_SelectedColor: {r: 0.85098046, g: 0.3137255, b: 0.10980393, a: 1}
     m_DisabledColor: {r: 0.7176471, g: 0.6509804, b: 0.28235295, a: 0.5019608}
     m_ColorMultiplier: 1
@@ -1562,7 +1562,7 @@ MonoBehaviour:
   m_Colors:
     m_NormalColor: {r: 0.7176471, g: 0.6509804, b: 0.28235295, a: 1}
     m_HighlightedColor: {r: 0.8509804, g: 0.3137255, b: 0.10980392, a: 1}
-    m_PressedColor: {r: 0.7176471, g: 0.6509804, b: 0.28235295, a: 1}
+    m_PressedColor: {r: 0.8862745, g: 0.76862746, b: 0.105882354, a: 1}
     m_SelectedColor: {r: 0.8509804, g: 0.3137255, b: 0.10980392, a: 1}
     m_DisabledColor: {r: 0.7176471, g: 0.6509804, b: 0.28235295, a: 0.5019608}
     m_ColorMultiplier: 1
