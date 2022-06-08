@@ -5,11 +5,13 @@ using UnityEngine;
 public class Tile_Map_Generator : MonoBehaviour
 {
     [SerializeField] private GameObject tileMapObject;
+    [SerializeField] private GameObject potion;
     [SerializeField] private int maxRows = 1;
     [SerializeField] private int maxColumns = 1;
 
-    private Vector2[,] tileMap;
+    private Vector3[,] tileMap;
     private Vector3 mapSize;
+    private Vector3 mapCenter;
 
     private Vector2 tileSize;
     
@@ -22,28 +24,40 @@ public class Tile_Map_Generator : MonoBehaviour
 
     void Start()
     {
+        tileMap = new Vector3[maxRows, maxColumns];
+
         SetMap();                      
     }
 
     private void SetMap() 
     {
         mapSize = _renderer.bounds.size;
-
-        tileSize = new Vector2(mapSize.x /= maxColumns, mapSize.z /= maxRows);
-
-        tileMap = new Vector2[maxRows, maxColumns];
-
+        mapCenter = _renderer.bounds.center;
+               
+        tileSize = new Vector2(mapSize.x / maxColumns, mapSize.z / maxRows);
+        
         for (short i = 0; i < maxRows; i++) 
         {
             for (short v = 0; v < maxColumns; v++) 
             {
-                tileMap[v, i] = GetFirstMapPosition();
+                tileMap[i, v] = GetFirstMapPosition();
+                tileMap[i, v].x += tileSize.x * v;
+                tileMap[i, v].z -= tileSize.y * i;
+                tileMap[i, v].y = 10f;               
             }
-        }
+        }       
     }
 
-    private Vector2 GetFirstMapPosition() 
+    private Vector3 GetFirstMapPosition() 
     {
-        return new Vector2();
+        Vector3 firstMapPosition = mapCenter;
+        
+        firstMapPosition.x -= mapSize.x / 2f;
+        firstMapPosition.z += mapSize.z / 2f;
+
+        firstMapPosition.x += tileSize.x / 2f;
+        firstMapPosition.z -= tileSize.y / 2f;       
+
+        return firstMapPosition;
     }
 }

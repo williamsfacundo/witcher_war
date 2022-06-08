@@ -16,6 +16,11 @@ public class Potion_Explotion : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (explotionTimer <= 0f) 
+        {
+            Destroy(gameObject);
+        }
+
         explotionTimer -= Time.deltaTime;
     }   
 
@@ -27,8 +32,7 @@ public class Potion_Explotion : MonoBehaviour
             
             if (interfaceComparisonAux != null)
             {
-                interfaceComparisonAux.objectHit();
-                Destroy(gameObject);
+                interfaceComparisonAux.objectHit();                
             }
         }               
     }    
