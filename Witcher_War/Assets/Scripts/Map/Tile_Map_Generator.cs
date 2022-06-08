@@ -6,8 +6,24 @@ public class Tile_Map_Generator : MonoBehaviour
 {
     [SerializeField] private GameObject tileMapObject;
     [SerializeField] private GameObject potion;
-    [SerializeField] private int maxRows = 1;
-    [SerializeField] private int maxColumns = 1;
+    [SerializeField] private static int maxRows = 1;
+    [SerializeField] private static int maxColumns = 1;
+
+    public static int MaxRows
+    {
+        get 
+        {
+            return maxRows;
+        }
+    }
+
+    public static int MaxColumns 
+    {
+        get 
+        {
+            return maxColumns;
+        }
+    }
 
     private Vector3[,] tileMap;
     private Vector3 mapSize;
