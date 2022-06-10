@@ -9,11 +9,16 @@ public class Witcher_Controller : MonoBehaviour, IDestroyable
 
     [SerializeField] private GameObject potionPrefab;
 
+    [SerializeField] [Range(0, Tile_Map_Generator.maxColumns)] private int initialXPosIndex;
+    [SerializeField] [Range(0, Tile_Map_Generator.maxRows)] private int initialYPosIndex;
+
     private ICanMove movementMechanic;
 
     private ICanUsePotion usePotionMechanic;
 
     private Rigidbody rigidBody;
+
+    Vector2 posIndex;
 
     private void Awake()
     {
@@ -22,7 +27,9 @@ public class Witcher_Controller : MonoBehaviour, IDestroyable
 
     private void Start()
     {
-        SetWitcher(witcherType);        
+        SetWitcher(witcherType);
+
+        transform.position = Tile_Map_Generator.TileMap[initialYPosIndex, initialXPosIndex];
     }
 
     private void Update()
@@ -32,7 +39,7 @@ public class Witcher_Controller : MonoBehaviour, IDestroyable
 
     private void FixedUpdate()
     {
-        movementMechanic?.Move(rigidBody, moveSpeed);
+        movementMechanic?.Move(ref posIndex);
     }    
 
     private void OnDestroy()

@@ -358,8 +358,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tileMapObject: {fileID: 1061072296}
   potion: {fileID: 4880882686470652000, guid: 7f5dafd62034b6b46aa14abedce9144c, type: 3}
-  maxRows: 30
-  maxColumns: 30
 --- !u!1001 &181634251
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1172,6 +1170,8 @@ MonoBehaviour:
   witcherType: 0
   moveSpeed: 10
   potionPrefab: {fileID: 4880882686470652000, guid: 7f5dafd62034b6b46aa14abedce9144c, type: 3}
+  initialXPosIndex: 15
+  initialYPosIndex: 15
 --- !u!1001 &653599433
 PrefabInstance:
   m_ObjectHideFlags: 0

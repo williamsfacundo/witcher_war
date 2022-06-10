@@ -2,7 +2,7 @@ using UnityEngine;
 
 public interface ICanMove 
 {
-    void Move(Rigidbody rb, float speed);
+    void Move(ref Vector2 indexPos);
 }
 
 public interface IDestroyable
