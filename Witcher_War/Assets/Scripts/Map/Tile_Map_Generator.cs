@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class Tile_Map_Generator : MonoBehaviour
 {
-    [SerializeField] private GameObject floor;
-    [SerializeField] private GameObject a;
+    [SerializeField] private GameObject floor;    
 
     public const int maxRows = 30;
     public const int maxColumns = 30;
@@ -64,9 +63,7 @@ public class Tile_Map_Generator : MonoBehaviour
             for (short v = 0; v < maxColumns; v++) 
             {
                 tileMap[i, v].Position = GetFirstMapPosition() + new Vector3(tileSize.x * v, 0f,-tileSize.y * i);
-                tileMap[i, v].Index = new Vector2(v, i);
-
-                Instantiate(a, tileMap[i, v].Position, Quaternion.identity);
+                tileMap[i, v].Index = new Vector2(v, i);                
             }
         }       
     }

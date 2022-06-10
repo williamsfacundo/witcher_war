@@ -2,34 +2,77 @@ using UnityEngine;
 
 public class Player_Movement : ICanMove
 {    
-    private Vector2 movement = Vector2.zero;    
+    private Vector2 movementAxis;
+
+    private Vector3 oldPosition;
+
+    private const float cooldownTime = 0.3f;
+
+    private float moveCooldown;        
+
+    private float percentageMoved;
+
+    public Player_Movement() 
+    {
+        movementAxis = Vector2.zero;
+        oldPosition = Vector3.zero;
+        moveCooldown = cooldownTime;        
+        percentageMoved = 0f;
+    }
 
     public void Move(ref Tile objectTile, Rigidbody rb) 
     {
-        MovementAxisInput(ref movement.x, KeyCode.D, KeyCode.A);
-        MovementAxisInput(ref movement.y, KeyCode.S, KeyCode.W);     
+        MovementAxisInput(ref movementAxis.x, KeyCode.D, KeyCode.A);
+        MovementAxisInput(ref movementAxis.y, KeyCode.S, KeyCode.W);
 
-        if (movement.x != 0 || movement.y != 0) 
+        if (moveCooldown < cooldownTime && oldPosition != objectTile.Position)
         {
-            Tile_Map_Generator.SetObjectTile(objectTile.Index + movement, ref objectTile);            
+            Debug.Log(Vector3.Lerp(oldPosition, objectTile.Position, percentageMoved));
+            rb.MovePosition(Vector3.Lerp(oldPosition, objectTile.Position, percentageMoved));
+        }
 
-            rb.MovePosition(objectTile.Position);
+        if (movementAxis.x != 0 || movementAxis.y != 0) 
+        {
+            Debug.Log("Inicio de movimiento");
+            oldPosition = objectTile.Position;
+            
+            moveCooldown = 0f;
+            percentageMoved = 0f;
+
+            Tile_Map_Generator.SetObjectTile(objectTile.Index + movementAxis, ref objectTile);
+
+            movementAxis.x = 0;
+            movementAxis.y = 0;            
         }        
-    }    
+    }
+
+    public void Timer() 
+    {
+        if (moveCooldown <= cooldownTime) 
+        {
+            moveCooldown += Time.deltaTime;
+
+            if (moveCooldown > cooldownTime)
+            {
+                moveCooldown = cooldownTime;
+            }
+
+            percentageMoved = moveCooldown / cooldownTime;
+        }        
+    }
 
     void MovementAxisInput(ref float axis, KeyCode positiveAxisMovement, KeyCode negativeAxisMovement) 
     {
-        if (Input.GetKeyDown(positiveAxisMovement))
-        {            
-            axis = 1f;            
-        }
-        else if (Input.GetKeyDown(negativeAxisMovement))
-        {            
-            axis = -1f;
-        }
-        else
+        if (moveCooldown >= cooldownTime) 
         {
-            axis = 0f;
-        }              
+            if (Input.GetKeyDown(positiveAxisMovement))
+            {
+                axis = 1f;               
+            }
+            else if (Input.GetKeyDown(negativeAxisMovement))
+            {
+                axis = -1f;
+            }            
+        }        
     }    
 }

@@ -37,8 +37,9 @@ public class Witcher_Controller : MonoBehaviour, IDestroyable
     }
 
     private void Update()
-    {
+    {        
         usePotionMechanic?.InstanciatePotion(potionPrefab, transform.position);
+        movementMechanic.Timer();
     }
 
     private void FixedUpdate()
