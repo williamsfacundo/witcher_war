@@ -10,15 +10,7 @@ public class Tile_Map_Generator : MonoBehaviour
     public const int maxRows = 30;
     public const int maxColumns = 30;        
 
-    private static Vector3[,] tileMap;
-    
-    public static Vector3[,] TileMap 
-    {
-        get 
-        {
-            return tileMap;
-        }
-    }
+    private static Tile[,] tileMap;   
 
     private Vector3 mapSize;
     private Vector3 mapCenter;
@@ -34,12 +26,25 @@ public class Tile_Map_Generator : MonoBehaviour
 
     void Start()
     {
-        tileMap = new Vector3[maxRows, maxColumns];
+        InitialMapSetting();
 
-        SetMap();                      
+        SetMapPositions();                      
     }
 
-    private void SetMap() 
+    private void InitialMapSetting() 
+    {
+        tileMap = new Tile[maxRows, maxColumns];
+
+        for (short i = 0; i < maxRows; i++)
+        {
+            for (short v = 0; v < maxColumns; v++)
+            {
+                tileMap[i, v] = new Tile();
+            }
+        }
+    }
+
+    private void SetMapPositions() 
     {
         mapSize = _renderer.bounds.size;
         mapCenter = _renderer.bounds.center;
@@ -50,10 +55,10 @@ public class Tile_Map_Generator : MonoBehaviour
         {
             for (short v = 0; v < maxColumns; v++) 
             {
-                tileMap[i, v] = GetFirstMapPosition();
-                tileMap[i, v].x += tileSize.x * v;
-                tileMap[i, v].z -= tileSize.y * i;
-                tileMap[i, v].y = 10f;               
+                tileMap[i, v].Position = GetFirstMapPosition();
+                tileMap[i, v].X += tileSize.x * v;
+                tileMap[i, v].Z -= tileSize.y * i;
+                tileMap[i, v].Y = 10f;               
             }
         }       
     }
@@ -69,5 +74,19 @@ public class Tile_Map_Generator : MonoBehaviour
         firstMapPosition.z -= tileSize.y / 2f;       
 
         return firstMapPosition;
-    }
+    }   
+
+    public static void SetObjectInitialTile(Vector2 initialTileIndex, Tile objectTile) 
+    {
+        if ((initialTileIndex.x >= 0 && initialTileIndex.x <= maxColumns - 1) &&
+            (initialTileIndex.y >= 0 && initialTileIndex.y <= maxRows - 1)) 
+        {
+            if (objectTile == null && tileMap[(int)initialTileIndex.x, (int)initialTileIndex.y].IsEmpty)
+            {
+                tileMap[(int)initialTileIndex.x, (int)initialTileIndex.y].IsEmpty = false;
+
+                objectTile = tileMap[(int)initialTileIndex.x, (int)initialTileIndex.y];
+            }
+        }               
+    }   
 }

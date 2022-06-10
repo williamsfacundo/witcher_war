@@ -1,7 +1,7 @@
 using UnityEngine;
 
 public interface ICanMove 
-{
+{   
     void Move(ref Vector2 indexPos);
 }
 

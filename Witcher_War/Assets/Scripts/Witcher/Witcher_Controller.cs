@@ -29,7 +29,7 @@ public class Witcher_Controller : MonoBehaviour, IDestroyable
     {
         SetWitcher(witcherType);
 
-        transform.position = Tile_Map_Generator.TileMap[initialYPosIndex, initialXPosIndex];
+        //transform.position = Tile_Map_Generator.TileMap[initialYPosIndex, initialXPosIndex];
     }
 
     private void Update()

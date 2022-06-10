@@ -5,25 +5,62 @@ public class Tile
     Vector3 position;
     bool isEmpty;
 
-    Tile() 
+    public Tile() 
     {
         position = Vector3.zero;
         isEmpty = true;
     }
 
-    Vector3 Position 
+    public Vector3 Position 
     {
         set 
         {
-            position = value;
+            position = value;            
         }
         get 
         {
             return position;
         }
-    }   
+    }
     
-    bool IsEmpty 
+    public float X 
+    {
+        set 
+        {
+            position.x = value;
+        }
+        get 
+        {
+            return position.x;
+        }
+    }
+
+    public float Y 
+    {
+        set 
+        {
+            position.y = value;
+        }
+        get 
+        {
+            return position.y;
+        }
+    }
+
+    public float Z 
+    {
+        set 
+        {
+            position.z = value;
+
+        }
+        get 
+        {
+            return position.z;
+        }
+    }
+    
+    public bool IsEmpty 
     {
         set 
         {
