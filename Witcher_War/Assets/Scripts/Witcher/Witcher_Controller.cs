@@ -20,6 +20,8 @@ public class Witcher_Controller : MonoBehaviour, IDestroyable
 
     Vector2 posIndex;
 
+    Tile tile;
+
     private void Awake()
     {
         rigidBody = GetComponent<Rigidbody>();        
@@ -29,7 +31,9 @@ public class Witcher_Controller : MonoBehaviour, IDestroyable
     {
         SetWitcher(witcherType);
 
-        //transform.position = Tile_Map_Generator.TileMap[initialYPosIndex, initialXPosIndex];
+        Tile_Map_Generator.SetObjectTile(new Vector2(initialXPosIndex, initialYPosIndex), ref tile);        
+
+        transform.position = Tile_Map_Generator.TileMap[initialYPosIndex, initialXPosIndex].Position;
     }
 
     private void Update()
@@ -39,7 +43,7 @@ public class Witcher_Controller : MonoBehaviour, IDestroyable
 
     private void FixedUpdate()
     {
-        movementMechanic?.Move(ref posIndex);
+        movementMechanic.Move(ref tile, rigidBody);
     }    
 
     private void OnDestroy()

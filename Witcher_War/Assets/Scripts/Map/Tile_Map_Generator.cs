@@ -4,12 +4,20 @@ using UnityEngine;
 
 public class Tile_Map_Generator : MonoBehaviour
 {
-    [SerializeField] private GameObject floor;    
-    
-    public const int maxRows = 30;
-    public const int maxColumns = 30;        
+    [SerializeField] private GameObject floor;
 
-    private static Tile[,] tileMap;   
+    public const int maxRows = 30;
+    public const int maxColumns = 30;
+
+    private static Tile[,] tileMap;
+
+    public static Tile[,] TileMap 
+    {
+        get 
+        {
+            return tileMap;
+        }
+    }
 
     private Vector3 mapSize;
     private Vector3 mapCenter;
@@ -63,7 +71,9 @@ public class Tile_Map_Generator : MonoBehaviour
     private Vector3 GetFirstMapPosition() 
     {
         Vector3 firstMapPosition = mapCenter;
-        
+
+        firstMapPosition.y += mapSize.y * 2;
+
         firstMapPosition.x -= mapSize.x / 2f;
         firstMapPosition.z += mapSize.z / 2f;
 
@@ -73,7 +83,7 @@ public class Tile_Map_Generator : MonoBehaviour
         return firstMapPosition;
     }
 
-    public static void SetObjectTile(Vector2 tileIndex, Tile objectTile)
+    public static void SetObjectTile(Vector2 tileIndex, ref Tile objectTile)
     {
         if ((tileIndex.x >= 0 && tileIndex.x <= maxColumns - 1) &&
             (tileIndex.y >= 0 && tileIndex.y <= maxRows - 1))
@@ -88,6 +98,6 @@ public class Tile_Map_Generator : MonoBehaviour
                 objectTile = tileMap[(int)tileIndex.y, (int)tileIndex.x];
                 objectTile.IsEmpty = false;
             }            
-        }
+        }        
     }    
 }

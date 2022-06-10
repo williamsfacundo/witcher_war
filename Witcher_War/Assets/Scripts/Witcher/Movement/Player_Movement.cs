@@ -2,18 +2,18 @@ using UnityEngine;
 
 public class Player_Movement : ICanMove
 {
-    private Vector3 movement;
+    private Vector2 movement = Vector2.zero;
     
-    public void Move(ref Vector2 indexPos) 
+    public void Move(ref Tile objectTile, Rigidbody rb) 
     {
-        /*movement.x = Input.GetAxisRaw("Horizontal") * speed * Time.deltaTime;
-        movement.z = Input.GetAxisRaw("Vertical") * speed * Time.deltaTime;
-        
-        rb.MovePosition(rb.position + movement);*/       
-    }
+        movement.x = Input.GetAxisRaw("Horizontal");
+        movement.y = Input.GetAxisRaw("Vertical");
 
-    public void Move() 
-    {
+        if (movement.x != 0 || movement.y != 0) 
+        {
+            Tile_Map_Generator.SetObjectTile(objectTile.Index + movement, ref objectTile);
 
-    }
+            rb.MovePosition(objectTile.Position);
+        }               
+    }   
 }
