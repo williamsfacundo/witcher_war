@@ -88,5 +88,21 @@ public class Tile_Map_Generator : MonoBehaviour
                 objectTile = tileMap[(int)initialTileIndex.x, (int)initialTileIndex.y];
             }
         }               
-    }   
+    }
+
+    public static void SetObjectNewTiles(Vector2 destinyTileIndex, Tile objectTile)
+    {
+        if ((destinyTileIndex.x >= 0 && destinyTileIndex.x <= maxColumns - 1) &&
+            (destinyTileIndex.y >= 0 && destinyTileIndex.y <= maxRows - 1))
+        {
+            if (objectTile == null && tileMap[(int)destinyTileIndex.x, (int)destinyTileIndex.y].IsEmpty)
+            {
+                objectTile.IsEmpty = true;
+
+                objectTile = tileMap[(int)destinyTileIndex.x, (int)destinyTileIndex.y];
+
+                objectTile.IsEmpty = false;
+            }
+        }
+    }
 }
