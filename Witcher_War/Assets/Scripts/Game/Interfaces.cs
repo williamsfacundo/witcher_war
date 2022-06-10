@@ -2,7 +2,7 @@ using UnityEngine;
 
 public interface ICanMove 
 {   
-    void Move(ref Tile objectTile, Rigidbody rb);
+    void Move(ref Tile objectTile, Rigidbody rb);    
 }
 
 public interface IDestroyable
