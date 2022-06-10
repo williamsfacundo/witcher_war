@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class Tile_Map_Generator : MonoBehaviour
 {
-    [SerializeField] private GameObject tileMapObject;
-    [SerializeField] private GameObject potion;
+    [SerializeField] private GameObject floor;    
     
     public const int maxRows = 30;
     public const int maxColumns = 30;        
@@ -21,7 +20,7 @@ public class Tile_Map_Generator : MonoBehaviour
 
     private void Awake()
     {
-        _renderer = tileMapObject.GetComponent<Renderer>();        
+        _renderer = floor.GetComponent<Renderer>();        
     }
 
     void Start()
@@ -55,10 +54,8 @@ public class Tile_Map_Generator : MonoBehaviour
         {
             for (short v = 0; v < maxColumns; v++) 
             {
-                tileMap[i, v].Position = GetFirstMapPosition();
-                tileMap[i, v].X += tileSize.x * v;
-                tileMap[i, v].Z -= tileSize.y * i;
-                tileMap[i, v].Y = 10f;               
+                tileMap[i, v].Position = GetFirstMapPosition() + new Vector3(tileSize.x * v, 0f,-tileSize.y * i);
+                tileMap[i, v].Index = new Vector2(v, i);
             }
         }       
     }
@@ -81,14 +78,14 @@ public class Tile_Map_Generator : MonoBehaviour
         if ((tileIndex.x >= 0 && tileIndex.x <= maxColumns - 1) &&
             (tileIndex.y >= 0 && tileIndex.y <= maxRows - 1))
         {
-            if (tileMap[(int)tileIndex.x, (int)tileIndex.y].IsEmpty) 
+            if (tileMap[(int)tileIndex.y, (int)tileIndex.x].IsEmpty) 
             {
                 if (objectTile != null)
                 {
                     objectTile.IsEmpty = true;
                 }
 
-                objectTile = tileMap[(int)tileIndex.x, (int)tileIndex.y];
+                objectTile = tileMap[(int)tileIndex.y, (int)tileIndex.x];
                 objectTile.IsEmpty = false;
             }            
         }

@@ -3,11 +3,13 @@ using UnityEngine;
 public class Tile
 {
     Vector3 position;
+    Vector2 index;
     bool isEmpty;
 
     public Tile() 
     {
         position = Vector3.zero;
+        index = Vector2.zero;
         isEmpty = true;
     }
 
@@ -21,45 +23,20 @@ public class Tile
         {
             return position;
         }
-    }
-    
-    public float X 
+    }   
+
+    public Vector2 Index 
     {
         set 
         {
-            position.x = value;
+            index = value;
         }
         get 
         {
-            return position.x;
+            return index;
         }
     }
 
-    public float Y 
-    {
-        set 
-        {
-            position.y = value;
-        }
-        get 
-        {
-            return position.y;
-        }
-    }
-
-    public float Z 
-    {
-        set 
-        {
-            position.z = value;
-
-        }
-        get 
-        {
-            return position.z;
-        }
-    }
-    
     public bool IsEmpty 
     {
         set 
