@@ -74,35 +74,23 @@ public class Tile_Map_Generator : MonoBehaviour
         firstMapPosition.z -= tileSize.y / 2f;       
 
         return firstMapPosition;
-    }   
-
-    public static void SetObjectInitialTile(Vector2 initialTileIndex, Tile objectTile) 
-    {
-        if ((initialTileIndex.x >= 0 && initialTileIndex.x <= maxColumns - 1) &&
-            (initialTileIndex.y >= 0 && initialTileIndex.y <= maxRows - 1)) 
-        {
-            if (objectTile == null && tileMap[(int)initialTileIndex.x, (int)initialTileIndex.y].IsEmpty)
-            {
-                tileMap[(int)initialTileIndex.x, (int)initialTileIndex.y].IsEmpty = false;
-
-                objectTile = tileMap[(int)initialTileIndex.x, (int)initialTileIndex.y];
-            }
-        }               
     }
 
-    public static void SetObjectNewTiles(Vector2 destinyTileIndex, Tile objectTile)
+    public static void SetObjectTile(Vector2 tileIndex, Tile objectTile)
     {
-        if ((destinyTileIndex.x >= 0 && destinyTileIndex.x <= maxColumns - 1) &&
-            (destinyTileIndex.y >= 0 && destinyTileIndex.y <= maxRows - 1))
+        if ((tileIndex.x >= 0 && tileIndex.x <= maxColumns - 1) &&
+            (tileIndex.y >= 0 && tileIndex.y <= maxRows - 1))
         {
-            if (objectTile == null && tileMap[(int)destinyTileIndex.x, (int)destinyTileIndex.y].IsEmpty)
+            if (tileMap[(int)tileIndex.x, (int)tileIndex.y].IsEmpty) 
             {
-                objectTile.IsEmpty = true;
+                if (objectTile != null)
+                {
+                    objectTile.IsEmpty = true;
+                }
 
-                objectTile = tileMap[(int)destinyTileIndex.x, (int)destinyTileIndex.y];
-
+                objectTile = tileMap[(int)tileIndex.x, (int)tileIndex.y];
                 objectTile.IsEmpty = false;
-            }
+            }            
         }
-    }
+    }    
 }
