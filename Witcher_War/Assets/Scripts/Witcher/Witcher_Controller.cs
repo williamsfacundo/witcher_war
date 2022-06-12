@@ -3,23 +3,42 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class Witcher_Controller : MonoBehaviour, IDestroyable
 {
-    [SerializeField] private WITCHER_TYPE witcherType = WITCHER_TYPE.CPU;
+    private WITCHER_TYPE witcherType;
+    
+    public WITCHER_TYPE WitcherType 
+    {
+        set 
+        {
+            witcherType = value;
+        }        
+    }
 
-    [SerializeField] private float moveSpeed;
+    private GameObject potionPrefab;
 
-    [SerializeField] private GameObject potionPrefab;
+    public GameObject PotionPrefab 
+    {
+        set 
+        {
+            potionPrefab = value;
+        }
+    }
 
-    [SerializeField] [Range(0, Tile_Map.maxColumns)] private int initialXPosIndex;
-    [SerializeField] [Range(0, Tile_Map.maxRows)] private int initialYPosIndex;
+    private Vector2 initialPosIndex;
+
+    public Vector2 InitialPosIndex 
+    {
+        get 
+        {
+            return initialPosIndex;
+        }
+    }   
 
     private ICanMove movementMechanic;
 
     private ICanUsePotion usePotionMechanic;
 
     private Rigidbody rigidBody;
-
-    private Vector2 posIndex;
-
+    
     private Tile tile;
 
     public Tile Tile 
@@ -43,9 +62,9 @@ public class Witcher_Controller : MonoBehaviour, IDestroyable
     {
         SetWitcher(witcherType);
 
-        Tile_Map.SetObjectTile(new Vector2(initialXPosIndex, initialYPosIndex), ref tile);        
+        Tile_Map.SetObjectTile(initialPosIndex, ref tile);        
 
-        transform.position = Tile_Map.TileMap[initialYPosIndex, initialXPosIndex].Position;
+        transform.position = Tile_Map.TileMap[(int)initialPosIndex.y, (int)initialPosIndex.x].Position;
     }
 
     private void Update()
