@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Tile_Map_Generator : MonoBehaviour
+public class Tile_Map : MonoBehaviour
 {
     [SerializeField] private GameObject floor;    
 
