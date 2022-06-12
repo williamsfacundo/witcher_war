@@ -3,6 +3,14 @@ using UnityEngine;
 public class Wall : MonoBehaviour
 {
     private Tile tile;
+
+    public Tile Tile 
+    {
+        get 
+        {
+            return tile;
+        }
+    }
     
     private Vector2 initialPosIndex;
 
