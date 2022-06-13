@@ -20,12 +20,12 @@ public class Map_Generator : MonoBehaviour
     private const char lineBreakCharOne = (char)13;
     private const char lineBreakCharTwo = (char)10;
 
-    void Start()
+    private void Awake()
     {
         char[] map = GetMapArrayChar();
-        
-        InstanciateObjects(map);                       
-    }
+
+        InstanciateObjects(map);
+    }    
 
     private char[] GetMapArrayChar() 
     {
@@ -86,7 +86,8 @@ public class Map_Generator : MonoBehaviour
         Witcher_Controller witcher_Controller = gameObject.GetComponent<Witcher_Controller>();
         witcher_Controller.WitcherType = WITCHER_TYPE.PLAYER;
         witcher_Controller.PotionPrefab = potion;
-        witcher_Controller.InitialPosIndex = GetTileMapIndex(index);        
+        witcher_Controller.InitialPosIndex = GetTileMapIndex(index);
+        gameObject.transform.tag = "Player";
     }
 
     void NewDestroyableWall(short index) 

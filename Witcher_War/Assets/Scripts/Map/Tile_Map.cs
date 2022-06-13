@@ -26,15 +26,12 @@ public class Tile_Map : MonoBehaviour
 
     private void Awake()
     {
-        _renderer = floor.GetComponent<Renderer>();        
-    }
+        _renderer = floor.GetComponent<Renderer>();
 
-    void Start()
-    {
         InitialMapSetting();
 
-        SetMapPositions();                      
-    }
+        SetMapPositions();
+    }    
 
     private void InitialMapSetting() 
     {
