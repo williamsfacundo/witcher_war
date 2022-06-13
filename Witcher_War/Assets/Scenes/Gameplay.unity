@@ -249,6 +249,8 @@ MonoBehaviour:
   wall: {fileID: 6197444483524468698, guid: 1121fa0bd717d834cba3399c2c193a26, type: 3}
   witcher: {fileID: 811643792500304249, guid: a213bf502c810454296ab1bed36a6e9e, type: 3}
   potion: {fileID: 4880882686470652000, guid: 7f5dafd62034b6b46aa14abedce9144c, type: 3}
+  nonDestroyableWallMat: {fileID: 2100000, guid: c4ea3c53767cba44dac52201214fe626, type: 2}
+  destroyableWallMat: {fileID: 2100000, guid: 9655712e4ac54e0449876c1f98d2b568, type: 2}
 --- !u!114 &750957930
 MonoBehaviour:
   m_ObjectHideFlags: 0

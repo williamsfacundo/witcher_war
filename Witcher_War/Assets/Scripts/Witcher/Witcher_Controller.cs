@@ -104,6 +104,6 @@ public class Witcher_Controller : MonoBehaviour, IDestroyable
 
     public void objectHit() 
     {
-        Debug.Log("Player hit.");
+        //Debug.Log("Player hit.");
     }
 }

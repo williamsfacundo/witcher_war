@@ -7,6 +7,9 @@ public class Map_Generator : MonoBehaviour
     [SerializeField] private GameObject witcher;
     [SerializeField] private GameObject potion;
 
+    [SerializeField] private Material nonDestroyableWallMat;
+    [SerializeField] private Material destroyableWallMat;
+
     const short maxLevel = 3;
 
     [Range(1, maxLevel)] private int level = 1;
@@ -50,11 +53,13 @@ public class Map_Generator : MonoBehaviour
 
                     gameObject = Instantiate(wall);
                     Destroy(gameObject.GetComponent<Destroyable_Wall>());
-                    gameObject.GetComponent<Wall>().InitialPosIndex = GetCorrectTileMapIndex(i);
+                    gameObject.GetComponent<Renderer>().material = nonDestroyableWallMat;
+                    gameObject.GetComponent<Wall>().InitialPosIndex = GetCorrectTileMapIndex(i);                                         
                     break;
                 case destroyableWallChar:
 
                     gameObject = Instantiate(wall);
+                    gameObject.GetComponent<Renderer>().material = destroyableWallMat;
                     gameObject.GetComponent<Wall>().InitialPosIndex = GetCorrectTileMapIndex(i);
                     break;
                 case playerChar:
@@ -63,7 +68,7 @@ public class Map_Generator : MonoBehaviour
                     Witcher_Controller witcher_Controller = gameObject.GetComponent<Witcher_Controller>();
                     witcher_Controller.WitcherType = WITCHER_TYPE.PLAYER;
                     witcher_Controller.PotionPrefab = potion;
-                    witcher_Controller.InitialPosIndex = GetCorrectTileMapIndex(i);
+                    witcher_Controller.InitialPosIndex = GetCorrectTileMapIndex(i);                    
                     break;
                 default:
                     break;
