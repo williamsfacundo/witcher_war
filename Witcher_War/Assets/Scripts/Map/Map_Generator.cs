@@ -2,13 +2,13 @@ using UnityEngine;
 using System.IO;
 
 public class Map_Generator : MonoBehaviour
-{
+{    
     [SerializeField] private GameObject wall;    
     [SerializeField] private GameObject witcher;
     [SerializeField] private GameObject potion;
 
     [SerializeField] private Material nonDestroyableWallMat;
-    [SerializeField] private Material destroyableWallMat;
+    [SerializeField] private Material destroyableWallMat;    
 
     const short maxLevel = 3;
 
@@ -17,11 +17,13 @@ public class Map_Generator : MonoBehaviour
     private const char nonDestroyableWallChar = 'X';
     private const char destroyableWallChar = 'W';
     private const char playerChar = 'P';
+    private const char lineBreakCharOne = (char)13;
+    private const char lineBreakCharTwo = (char)10;
 
     void Start()
     {
         char[] map = GetMapArrayChar();
-
+        
         InstanciateObjects(map);                       
     }
 
@@ -33,12 +35,25 @@ public class Map_Generator : MonoBehaviour
 
         StreamReader sr = new StreamReader(fs);
 
-        char[] map = sr.ReadToEnd().ToCharArray();        
+        char[] map = sr.ReadToEnd().ToCharArray();
+        char[] mapWithOutLineBreaks = new char[map.Length - ((Tile_Map.maxRows - 1) * 2) ];
+
+        int auxIndex = 0;
+
+        for (short i = 0; i < map.Length; i++) 
+        {            
+            if (map[i] != lineBreakCharOne && map[i] != lineBreakCharTwo) 
+            {
+                mapWithOutLineBreaks[auxIndex] = map[i];
+
+                auxIndex++;
+            }
+        }
 
         sr.Close();
-        fs.Close();
+        fs.Close();        
 
-        return map;
+        return mapWithOutLineBreaks;
     }
 
     private void InstanciateObjects(char[] map) 
@@ -54,13 +69,13 @@ public class Map_Generator : MonoBehaviour
                     gameObject = Instantiate(wall);
                     Destroy(gameObject.GetComponent<Destroyable_Wall>());
                     gameObject.GetComponent<Renderer>().material = nonDestroyableWallMat;
-                    gameObject.GetComponent<Wall>().InitialPosIndex = GetCorrectTileMapIndex(i);                                         
+                    gameObject.GetComponent<Wall>().InitialPosIndex = GetTileMapIndex(i);                    
                     break;
                 case destroyableWallChar:
 
                     gameObject = Instantiate(wall);
                     gameObject.GetComponent<Renderer>().material = destroyableWallMat;
-                    gameObject.GetComponent<Wall>().InitialPosIndex = GetCorrectTileMapIndex(i);
+                    gameObject.GetComponent<Wall>().InitialPosIndex = GetTileMapIndex(i);                    
                     break;
                 case playerChar:
 
@@ -68,35 +83,28 @@ public class Map_Generator : MonoBehaviour
                     Witcher_Controller witcher_Controller = gameObject.GetComponent<Witcher_Controller>();
                     witcher_Controller.WitcherType = WITCHER_TYPE.PLAYER;
                     witcher_Controller.PotionPrefab = potion;
-                    witcher_Controller.InitialPosIndex = GetCorrectTileMapIndex(i);                    
+                    witcher_Controller.InitialPosIndex = GetTileMapIndex(i);                    
                     break;
                 default:
                     break;
-            }
-        }
-        
-        //i -> que indice representa en la matriz del tile map
+            }            
+        }       
     }
 
-    Vector2 GetCorrectTileMapIndex(int arrayIndex) 
-    {
-        Vector2 index = Vector2.zero;
+    Vector2 GetTileMapIndex(int arrayIndex) 
+    {        
+        Vector2 index = new Vector2(0f, 0f);                        
 
-        for (short i = 0; i <= arrayIndex; i++) 
+        for (short i = 0; i < arrayIndex; i++) 
         {
             index.x++;
 
-            if (index.x >= Tile_Map.maxColumns) 
+            if (index.x == Tile_Map.maxRows - 1 && i + 1 < arrayIndex) 
             {
-                index.x = 0;
+                index.x = -1;
                 index.y++;
             }
-
-            if (i != 0 && i % Tile_Map.maxColumns == 0) 
-            {
-                i += 2;
-            }
-        }
+        }       
 
         return index;
     }

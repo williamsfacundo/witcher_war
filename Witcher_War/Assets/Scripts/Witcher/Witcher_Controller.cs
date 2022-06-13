@@ -2,7 +2,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
 public class Witcher_Controller : MonoBehaviour, IDestroyable
-{
+{   
     private WITCHER_TYPE witcherType;
     
     public WITCHER_TYPE WitcherType 
