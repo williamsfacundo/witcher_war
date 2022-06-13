@@ -57,38 +57,51 @@ public class Map_Generator : MonoBehaviour
     }
 
     private void InstanciateObjects(char[] map) 
-    {
-        GameObject gameObject;        
-       
+    {       
         for (short i = 0; i < map.Length; i++) 
         {
             switch (map[i])
             {
                 case nonDestroyableWallChar:
 
-                    gameObject = Instantiate(wall);
-                    Destroy(gameObject.GetComponent<Destroyable_Wall>());
-                    gameObject.GetComponent<Renderer>().material = nonDestroyableWallMat;
-                    gameObject.GetComponent<Wall>().InitialPosIndex = GetTileMapIndex(i);                    
+                    NewNonDestroyableWall(i);                 
                     break;
                 case destroyableWallChar:
 
-                    gameObject = Instantiate(wall);
-                    gameObject.GetComponent<Renderer>().material = destroyableWallMat;
-                    gameObject.GetComponent<Wall>().InitialPosIndex = GetTileMapIndex(i);                    
+                    NewDestroyableWall(i);
                     break;
                 case playerChar:
 
-                    gameObject = Instantiate(witcher);
-                    Witcher_Controller witcher_Controller = gameObject.GetComponent<Witcher_Controller>();
-                    witcher_Controller.WitcherType = WITCHER_TYPE.PLAYER;
-                    witcher_Controller.PotionPrefab = potion;
-                    witcher_Controller.InitialPosIndex = GetTileMapIndex(i);                    
+                    NewPlayer(i);
                     break;
                 default:
                     break;
             }            
         }       
+    }
+
+    void NewPlayer(short index) 
+    {
+        GameObject gameObject = Instantiate(witcher);
+        Witcher_Controller witcher_Controller = gameObject.GetComponent<Witcher_Controller>();
+        witcher_Controller.WitcherType = WITCHER_TYPE.PLAYER;
+        witcher_Controller.PotionPrefab = potion;
+        witcher_Controller.InitialPosIndex = GetTileMapIndex(index);        
+    }
+
+    void NewDestroyableWall(short index) 
+    {
+        GameObject gameObject = Instantiate(wall);
+        gameObject.GetComponent<Renderer>().material = destroyableWallMat;
+        gameObject.GetComponent<Wall>().InitialPosIndex = GetTileMapIndex(index);
+    }
+
+    void NewNonDestroyableWall(short index) 
+    {
+        GameObject gameObject = Instantiate(wall);
+        Destroy(gameObject.GetComponent<Destroyable_Wall>());
+        gameObject.GetComponent<Renderer>().material = nonDestroyableWallMat;
+        gameObject.GetComponent<Wall>().InitialPosIndex = GetTileMapIndex(index);
     }
 
     Vector2 GetTileMapIndex(int arrayIndex) 

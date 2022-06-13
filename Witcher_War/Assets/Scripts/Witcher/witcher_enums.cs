@@ -1,0 +1,2 @@
+public enum WITCHER_TYPE { PLAYER, CPU };
+public enum WITCHER_DIRECTION { DOWN, UP, RIGHT, LEFT };

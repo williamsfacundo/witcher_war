@@ -4,7 +4,21 @@ using UnityEngine;
 public class Witcher_Controller : MonoBehaviour, IDestroyable
 {   
     private WITCHER_TYPE witcherType;
-    
+
+    private WITCHER_DIRECTION witcherDirection;
+
+    public WITCHER_DIRECTION WitcherDirection 
+    {
+        set 
+        {
+            witcherDirection = value;
+        }
+        get 
+        {
+            return witcherDirection;
+        }
+    }
+
     public WITCHER_TYPE WitcherType 
     {
         set 
@@ -65,6 +79,10 @@ public class Witcher_Controller : MonoBehaviour, IDestroyable
         Tile_Map.SetObjectTile(initialPosIndex, ref tile);        
 
         transform.position = Tile_Map.TileMap[(int)initialPosIndex.y, (int)initialPosIndex.x].Position;
+
+        transform.rotation = Quaternion.identity;
+
+        WitcherDirection = WITCHER_DIRECTION.DOWN;
     }
 
     private void Update()
