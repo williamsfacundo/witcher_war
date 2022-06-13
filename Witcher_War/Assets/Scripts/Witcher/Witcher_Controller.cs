@@ -27,9 +27,9 @@ public class Witcher_Controller : MonoBehaviour, IDestroyable
 
     public Vector2 InitialPosIndex 
     {
-        get 
+        set 
         {
-            return initialPosIndex;
+            initialPosIndex = value;
         }
     }   
 

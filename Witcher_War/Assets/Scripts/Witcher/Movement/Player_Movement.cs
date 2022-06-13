@@ -27,13 +27,11 @@ public class Player_Movement : ICanMove
 
         if (moveCooldown < cooldownTime && oldPosition != objectTile.Position)
         {
-            Debug.Log(Vector3.Lerp(oldPosition, objectTile.Position, percentageMoved));
             rb.MovePosition(Vector3.Lerp(oldPosition, objectTile.Position, percentageMoved));
         }
 
         if (movementAxis.x != 0 || movementAxis.y != 0) 
         {
-            Debug.Log("Inicio de movimiento");
             oldPosition = objectTile.Position;
             
             moveCooldown = 0f;
