@@ -20,7 +20,7 @@ public class Player_Movement : ICanMove
         percentageMoved = 0f;
     }
 
-    public void Move(ref Tile objectTile, Rigidbody rb) 
+    public void Move(ref Tile objectTile, Rigidbody rb, ref WITCHER_DIRECTION direction) 
     {
         MovementAxisInput(ref movementAxis.x, KeyCode.D, KeyCode.A);
         MovementAxisInput(ref movementAxis.y, KeyCode.S, KeyCode.W);
@@ -32,6 +32,8 @@ public class Player_Movement : ICanMove
 
         if (movementAxis.x != 0 || movementAxis.y != 0) 
         {
+            RotatePlayer(movementAxis, ref direction, rb);
+
             oldPosition = objectTile.Position;
             
             moveCooldown = 0f;
@@ -73,4 +75,65 @@ public class Player_Movement : ICanMove
             }            
         }        
     }    
+
+    void RotatePlayer(Vector2 movementAxis, ref WITCHER_DIRECTION witcherDirection, Rigidbody rb) 
+    {
+        WITCHER_DIRECTION newDirection = WITCHER_DIRECTION.LEFT;
+
+        switch ((int)movementAxis.x) 
+        {
+            case -1:
+                
+                newDirection = WITCHER_DIRECTION.LEFT;
+                break;
+            case 1:
+
+                newDirection = WITCHER_DIRECTION.RIGHT;
+                break;
+            default:
+                break;
+        }
+
+        switch ((int)movementAxis.y)
+        {
+            case -1:
+
+                newDirection = WITCHER_DIRECTION.UP;
+                break;
+            case 1:
+
+                newDirection = WITCHER_DIRECTION.DOWN;
+                break;
+            default:
+                break;
+        }
+
+        if (newDirection != witcherDirection) 
+        {
+            rb.rotation = Quaternion.identity;
+
+            witcherDirection = newDirection;
+
+            switch (witcherDirection) 
+            {
+                case WITCHER_DIRECTION.UP:
+
+                    rb.MoveRotation(Quaternion.Euler(0f, 180f, 0f));
+                    break;
+
+                case WITCHER_DIRECTION.RIGHT:
+
+                    rb.MoveRotation(Quaternion.Euler(0f, -90f, 0f));
+                    break;
+
+                case WITCHER_DIRECTION.LEFT:
+
+                    rb.MoveRotation(Quaternion.Euler(0f, 90f, 0f));
+                    break;
+
+                default:
+                    break;
+            }
+        }
+    }
 }

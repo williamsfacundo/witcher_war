@@ -93,13 +93,8 @@ public class Witcher_Controller : MonoBehaviour, IDestroyable
 
     private void FixedUpdate()
     {
-        movementMechanic.Move(ref tile, rigidBody);
-    }    
-
-    private void OnDestroy()
-    {
-        objectHit();
-    }
+        movementMechanic.Move(ref tile, rigidBody, ref witcherDirection);
+    }   
 
     void SetWitcher(WITCHER_TYPE witcherType) 
     {
