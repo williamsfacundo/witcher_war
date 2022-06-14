@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Cpu_Movement : ICanMove
+public class Cpu_Movement : IMovable
 {
     public void MoveInput() 
     {

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Player_Movement : ICanMove
+public class Player_Movement : IMovable
 {   
     private Vector2 movementAxis;
 

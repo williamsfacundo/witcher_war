@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public interface ICanMove 
+public interface IMovable 
 {
     void MoveInput();
 

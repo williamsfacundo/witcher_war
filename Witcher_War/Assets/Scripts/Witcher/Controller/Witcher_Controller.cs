@@ -47,7 +47,7 @@ public class Witcher_Controller : MonoBehaviour, IDestroyable
         }
     }   
 
-    private ICanMove movementMechanic;
+    private IMovable movementMechanic;
 
     private ICanUsePotion usePotionMechanic; 
 
