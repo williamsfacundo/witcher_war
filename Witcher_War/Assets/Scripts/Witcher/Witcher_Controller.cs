@@ -49,7 +49,7 @@ public class Witcher_Controller : MonoBehaviour, IDestroyable
 
     private ICanMove movementMechanic;
 
-    private ICanUsePotion usePotionMechanic;
+    private ICanUsePotion usePotionMechanic; 
 
     private Rigidbody rigidBody;
     
@@ -106,20 +106,22 @@ public class Witcher_Controller : MonoBehaviour, IDestroyable
             case WITCHER_TYPE.PLAYER:
 
                 movementMechanic = new Player_Movement();
-                usePotionMechanic = new Player_Instanciate_Potion(initialBombsCarried, generateNewPotionTime);
+                usePotionMechanic = new Player_Instanciate_Potion(initialBombsCarried, generateNewPotionTime);                
 
                 break;
             case WITCHER_TYPE.CPU:
 
                 movementMechanic = new Cpu_Movement();
                 usePotionMechanic = new Cpu_Instanciate_Potion();
-
+                
                 break;
         }
     }
 
-    public void objectHit() 
+    public void ObjectHit()
     {
-        Debug.Log("Player hit.");
+        tile.IsEmpty = true;
+
+        Destroy(gameObject);
     }
 }

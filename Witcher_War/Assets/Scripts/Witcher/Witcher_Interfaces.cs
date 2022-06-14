@@ -9,7 +9,7 @@ public interface ICanMove
 
 public interface IDestroyable
 {
-    void objectHit();
+    void ObjectHit();
 }
 
 public interface ICanUsePotion 

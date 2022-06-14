@@ -51,10 +51,11 @@ public class Potion_Explotion : MonoBehaviour
         {
             IDestroyable interfaceComparisonAux = other.GetComponent<IDestroyable>();
             
+            
             if (interfaceComparisonAux != null)
             {
-                interfaceComparisonAux.objectHit();                
-            }
+                interfaceComparisonAux.ObjectHit();                
+            }            
         }               
     }    
 }

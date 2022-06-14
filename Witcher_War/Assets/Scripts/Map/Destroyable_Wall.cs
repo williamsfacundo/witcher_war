@@ -3,7 +3,7 @@ using UnityEngine;
 [RequireComponent(typeof(Wall))]
 public class Destroyable_Wall : MonoBehaviour, IDestroyable
 {
-    public void objectHit() 
+    public void ObjectHit() 
     {
         Wall wall = GetComponent<Wall>();
 
