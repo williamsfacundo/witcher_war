@@ -92,14 +92,14 @@ public class Witcher_Controller : MonoBehaviour, IDestroyable
     {
         usePotionMechanic?.InstanciatePotion(potionPrefab, transform.position);
 
-        movementMechanic.MoveInput();
+        movementMechanic?.MoveInput();
 
-        movementMechanic.Timer();
+        movementMechanic?.Timer();
     }
 
     private void FixedUpdate()
     {
-        movementMechanic.Move(ref tile, rigidBody, ref witcherDirection);
+        movementMechanic?.Move(ref tile, rigidBody, ref witcherDirection);
     }   
 
     void SetWitcher(WITCHER_TYPE witcherType) 

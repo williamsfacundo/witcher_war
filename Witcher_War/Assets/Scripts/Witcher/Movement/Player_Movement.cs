@@ -28,11 +28,6 @@ public class Player_Movement : ICanMove
 
     public void Move(ref Tile objectTile, Rigidbody rb, ref WITCHER_DIRECTION direction) 
     {
-        if (movementAxis.x != 0 || movementAxis.y != 0) 
-        {
-            Debug.Log(movementAxis);
-        }              
-
         if (moveCooldown < cooldownTime && oldPosition != objectTile.Position)
         {
             rb.MovePosition(Vector3.Lerp(oldPosition, objectTile.Position, percentageMoved));
