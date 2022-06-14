@@ -13,6 +13,11 @@ public class Scenes_Management : MonoBehaviour
         SceneManager.LoadScene("Menues");
     }   
 
+    public static void ChangeToEndGameScene() 
+    {
+        SceneManager.LoadScene("EndGame");
+    }
+
     public void ExitGame() 
     {
         Application.Quit();
