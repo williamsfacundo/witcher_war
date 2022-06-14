@@ -5,7 +5,15 @@ public class Witcher_Controller : MonoBehaviour, IDestroyable
 {      
     private WITCHER_TYPE witcherType;
 
-    private WITCHER_DIRECTION witcherDirection;
+    public WITCHER_TYPE WitcherType
+    {
+        set
+        {
+            witcherType = value;
+        }
+    }
+
+    private WITCHER_DIRECTION witcherDirection;  
 
     public WITCHER_DIRECTION WitcherDirection 
     {
@@ -17,15 +25,7 @@ public class Witcher_Controller : MonoBehaviour, IDestroyable
         {
             return witcherDirection;
         }
-    }
-
-    public WITCHER_TYPE WitcherType 
-    {
-        set 
-        {
-            witcherType = value;
-        }        
-    }
+    }    
 
     private GameObject potionPrefab;
 
@@ -67,6 +67,8 @@ public class Witcher_Controller : MonoBehaviour, IDestroyable
         }
     }
 
+    const short initialBombsCarried = 2;
+
     private void Awake()
     {
         rigidBody = GetComponent<Rigidbody>();        
@@ -103,7 +105,7 @@ public class Witcher_Controller : MonoBehaviour, IDestroyable
             case WITCHER_TYPE.PLAYER:
 
                 movementMechanic = new Player_Movement();
-                usePotionMechanic = new Player_Instanciate_Potion();
+                usePotionMechanic = new Player_Instanciate_Potion(initialBombsCarried);
 
                 break;
             case WITCHER_TYPE.CPU:
@@ -117,6 +119,6 @@ public class Witcher_Controller : MonoBehaviour, IDestroyable
 
     public void objectHit() 
     {
-        //Debug.Log("Player hit.");
+        Debug.Log("Player hit.");
     }
 }
