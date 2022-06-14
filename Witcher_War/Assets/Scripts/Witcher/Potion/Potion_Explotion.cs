@@ -4,9 +4,7 @@ using UnityEngine;
 public class Potion_Explotion : MonoBehaviour
 {
     private const float explotionTime = 1.5f;
-    private float explotionTimer;
-
-    private const short maxColliders = 5;
+    private float explotionTimer;    
 
     private BoxCollider[] boxColliders;   
 
@@ -37,25 +35,31 @@ public class Potion_Explotion : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (explotionTimer <= 0f) 
-        {
-            Destroy(gameObject);
-        }
-
-        explotionTimer -= Time.deltaTime;
+        DecreaseTimer();
     }   
 
     private void OnTriggerStay(Collider other)
     {
+        Explotion(other);
+    }
+
+    void Explotion(Collider other) 
+    {
         if (explotionTimer <= 0f) 
         {
             IDestroyable interfaceComparisonAux = other.GetComponent<IDestroyable>();
-            
-            
+
             if (interfaceComparisonAux != null)
             {
-                interfaceComparisonAux.ObjectHit();                
-            }            
-        }               
-    }    
+                interfaceComparisonAux.ObjectHit();
+            }
+
+            Destroy(gameObject);
+        }        
+    }
+
+    void DecreaseTimer() 
+    {
+        explotionTimer -= Time.deltaTime;
+    }
 }
