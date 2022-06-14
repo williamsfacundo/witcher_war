@@ -12,9 +12,14 @@ public class Player_Status : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        if (player == null) 
+        PlayerDestroyed();                                                                                                   
+    }
+
+    void PlayerDestroyed() 
+    {
+        if (player == null)
         {
             Scenes_Management.ChangeToEndGameScene();
-        }                                                                                              
+        }
     }
 }
