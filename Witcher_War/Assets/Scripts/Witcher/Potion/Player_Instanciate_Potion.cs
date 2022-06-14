@@ -4,23 +4,45 @@ public class Player_Instanciate_Potion : ICanUsePotion
 {
     private const KeyCode instanciatePotionKey = KeyCode.Space;    
 
-    float maxBombs;
+    float maxPotions;
 
-    float currentBombs;
+    float amountPotions;
 
-    public Player_Instanciate_Potion(short maxBombs) 
+    float newPotionTime;
+
+    float newPotionTimer;
+
+    public Player_Instanciate_Potion(short maxBombs, float newPotionTime) 
     {       
-        this.maxBombs = maxBombs;
-        currentBombs = maxBombs;
+        this.maxPotions = maxBombs;
+        amountPotions = maxBombs;
+        this.newPotionTime = newPotionTime;
+        newPotionTimer = 0f;
     }
 
     public void InstanciatePotion(GameObject potionPrefab, Vector3 position)
     {
-        if (Input.GetKeyDown(instanciatePotionKey) && currentBombs > 0) 
+        if (Input.GetKeyDown(instanciatePotionKey) && amountPotions > 0) 
         {
             Object.Instantiate(potionPrefab, position, Quaternion.identity);
-            
-            currentBombs--;
-        }        
+
+            amountPotions--;
+        }
+
+        PotionRegeneration();
+    }
+
+    void PotionRegeneration() 
+    {
+        if (amountPotions < maxPotions) 
+        {
+            newPotionTimer += Time.deltaTime;
+        }
+
+        if (newPotionTimer >= newPotionTime) 
+        {
+            newPotionTimer = 0f;
+            amountPotions++;
+        }
     }
 }

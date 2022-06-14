@@ -68,6 +68,7 @@ public class Witcher_Controller : MonoBehaviour, IDestroyable
     }
 
     const short initialBombsCarried = 2;
+    const float generateNewPotionTime = 3f;
 
     private void Awake()
     {
@@ -105,7 +106,7 @@ public class Witcher_Controller : MonoBehaviour, IDestroyable
             case WITCHER_TYPE.PLAYER:
 
                 movementMechanic = new Player_Movement();
-                usePotionMechanic = new Player_Instanciate_Potion(initialBombsCarried);
+                usePotionMechanic = new Player_Instanciate_Potion(initialBombsCarried, generateNewPotionTime);
 
                 break;
             case WITCHER_TYPE.CPU:

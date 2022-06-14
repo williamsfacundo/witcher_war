@@ -8,9 +8,7 @@ public class Potion_Explotion : MonoBehaviour
 
     private const short maxColliders = 5;
 
-    private BoxCollider[] boxColliders;    
-
-    private IDestroyable interfaceComparisonAux;
+    private BoxCollider[] boxColliders;   
 
     private void Awake()
     {
@@ -51,7 +49,7 @@ public class Potion_Explotion : MonoBehaviour
     {
         if (explotionTimer <= 0f) 
         {
-            interfaceComparisonAux = other.GetComponent<IDestroyable>();
+            IDestroyable interfaceComparisonAux = other.GetComponent<IDestroyable>();
             
             if (interfaceComparisonAux != null)
             {
