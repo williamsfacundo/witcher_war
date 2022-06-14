@@ -17,6 +17,7 @@ public class Map_Generator : MonoBehaviour
     private const char nonDestroyableWallChar = 'X';
     private const char destroyableWallChar = 'W';
     private const char playerChar = 'P';
+    private const char enemyChar = 'E';
     private const char lineBreakCharOne = (char)13;
     private const char lineBreakCharTwo = (char)10;
 
@@ -74,6 +75,10 @@ public class Map_Generator : MonoBehaviour
 
                     NewPlayer(i);
                     break;
+                case enemyChar:
+
+                    NewEnemy(i);
+                    break;
                 default:
                     break;
             }            
@@ -103,6 +108,15 @@ public class Map_Generator : MonoBehaviour
         Destroy(gameObject.GetComponent<Destroyable_Wall>());
         gameObject.GetComponent<Renderer>().material = nonDestroyableWallMat;
         gameObject.GetComponent<Wall>().InitialPosIndex = GetTileMapIndex(index);
+    }
+
+    void NewEnemy(short index) 
+    {
+        GameObject gameObject = Instantiate(witcher);
+        Witcher_Controller witcher_Controller = gameObject.GetComponent<Witcher_Controller>();
+        witcher_Controller.WitcherType = WITCHER_TYPE.CPU;
+        witcher_Controller.PotionPrefab = potion;
+        witcher_Controller.InitialPosIndex = GetTileMapIndex(index);        
     }
 
     Vector2 GetTileMapIndex(int arrayIndex) 
