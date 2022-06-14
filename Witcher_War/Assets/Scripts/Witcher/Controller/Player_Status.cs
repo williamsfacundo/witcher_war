@@ -4,7 +4,7 @@ public class Player_Status : MonoBehaviour
 {
     GameObject player;
 
-    private void Awake() 
+    private void Start() 
     {
         player = GameObject.FindGameObjectWithTag("Player");
     }   
@@ -12,6 +12,6 @@ public class Player_Status : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-                        
+                                                                
     }
 }
