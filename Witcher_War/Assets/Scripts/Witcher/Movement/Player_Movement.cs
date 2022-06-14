@@ -20,10 +20,18 @@ public class Player_Movement : ICanMove
         percentageMoved = 0f;
     }
 
-    public void Move(ref Tile objectTile, Rigidbody rb, ref WITCHER_DIRECTION direction) 
+    public void MoveInput() 
     {
         MovementAxisInput(ref movementAxis.x, KeyCode.D, KeyCode.A);
         MovementAxisInput(ref movementAxis.y, KeyCode.S, KeyCode.W);
+    }
+
+    public void Move(ref Tile objectTile, Rigidbody rb, ref WITCHER_DIRECTION direction) 
+    {
+        if (movementAxis.x != 0 || movementAxis.y != 0) 
+        {
+            Debug.Log(movementAxis);
+        }              
 
         if (moveCooldown < cooldownTime && oldPosition != objectTile.Position)
         {
@@ -66,7 +74,7 @@ public class Player_Movement : ICanMove
         if (moveCooldown >= cooldownTime) 
         {
             if (Input.GetKeyDown(positiveAxisMovement))
-            {
+            {                
                 axis = 1f;               
             }
             else if (Input.GetKeyDown(negativeAxisMovement))

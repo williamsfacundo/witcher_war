@@ -1,7 +1,9 @@
 using UnityEngine;
 
 public interface ICanMove 
-{   
+{
+    void MoveInput();
+
     void Move(ref Tile objectTile, Rigidbody rb, ref WITCHER_DIRECTION direction);
 
     void Timer();
