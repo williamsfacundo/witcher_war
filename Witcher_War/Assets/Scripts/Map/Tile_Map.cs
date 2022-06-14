@@ -17,10 +17,17 @@ public class Tile_Map : MonoBehaviour
         }
     }
 
-    private Vector3 mapSize;
-    private Vector3 mapCenter;
+    private Vector3 mapSize;    
 
-    private Vector2 tileSize;
+    private static Vector2 tileSize;
+
+    public static Vector2 TileSize 
+    {        
+        get 
+        {
+            return tileSize;
+        }
+    }
     
     private Renderer _renderer;
 
@@ -49,7 +56,7 @@ public class Tile_Map : MonoBehaviour
     private void SetMapPositions() 
     {
         mapSize = _renderer.bounds.size;
-        mapCenter = _renderer.bounds.center;
+        Vector3 mapCenter = _renderer.bounds.center;
                
         tileSize = new Vector2(mapSize.x / maxColumns, mapSize.z / maxRows);
         
@@ -57,13 +64,13 @@ public class Tile_Map : MonoBehaviour
         {
             for (short v = 0; v < maxColumns; v++) 
             {
-                tileMap[i, v].Position = GetFirstMapPosition() + new Vector3(tileSize.x * v, 0f,-tileSize.y * i);
+                tileMap[i, v].Position = GetFirstMapPosition(mapCenter) + new Vector3(tileSize.x * v, 0f,-tileSize.y * i);
                 tileMap[i, v].Index = new Vector2(v, i);                
             }
         }       
     }
 
-    private Vector3 GetFirstMapPosition() 
+    private Vector3 GetFirstMapPosition(Vector3 mapCenter) 
     {
         Vector3 firstMapPosition = mapCenter;
 
