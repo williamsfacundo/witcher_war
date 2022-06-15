@@ -35,7 +35,7 @@ public class Tile
         }
     }
 
-    public bool IsEmpty 
+    public bool isEmpty 
     {       
         get 
         {

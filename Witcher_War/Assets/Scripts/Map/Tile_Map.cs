@@ -26,7 +26,15 @@ public static class Tile_Map
         {
             return tileSize;
         }
-    }       
+    }  
+    
+    private static Vector2 nullIndex 
+    {
+        get 
+        {
+            return new Vector2(-1, -1);
+        }
+    }
 
     public static void GenerateTileMap(Vector3 surfaceSize, Vector3 surfaceCenter)
     {        
@@ -68,13 +76,13 @@ public static class Tile_Map
     {
         if (ValidIndex(targetIndex)) 
         {
-            if (!tileMap[(int)targetIndex.y, (int)targetIndex.x].IsEmpty) 
+            if (!tileMap[(int)targetIndex.y, (int)targetIndex.x].isEmpty) 
             {
                 GameObject.Destroy(tileMap[(int)targetIndex.y, (int)targetIndex.x].TileObject);
                 tileMap[(int)targetIndex.y, (int)targetIndex.x].TileObject = null;
             }
         }
-    }
+    }    
 
     private static void InitialMapSetting() 
     {
@@ -130,7 +138,24 @@ public static class Tile_Map
             }
         }
 
-        return GetNullIndex();
+        return nullIndex;
+    }
+
+    private static Vector2 GetGameObjectIndexPlusOtherIndex(GameObject gameObject, Vector2 otherIndex)
+    {
+        Vector2 index = GetGameObjectIndex(gameObject);
+
+        if (index != nullIndex)
+        {
+            index += otherIndex;
+
+            if (!ValidIndex(index))
+            {
+                index = nullIndex;
+            }
+        }
+
+        return index;
     }
 
     private static bool IsGameObjectInTileMap(GameObject gameObject) 
@@ -153,7 +178,7 @@ public static class Tile_Map
     {
         if (ValidIndex(newIndex))
         {
-            if (tileMap[(int)newIndex.y, (int)newIndex.x].IsEmpty && gameObject != null)
+            if (tileMap[(int)newIndex.y, (int)newIndex.x].isEmpty && gameObject != null)
             {    
                 tileMap[(int)newIndex.y, (int)newIndex.x].TileObject = gameObject;               
             }
@@ -164,7 +189,7 @@ public static class Tile_Map
     {
         if (ValidIndex(newIndex))
         {
-            if (tileMap[(int)newIndex.y, (int)newIndex.x].IsEmpty)
+            if (tileMap[(int)newIndex.y, (int)newIndex.x].isEmpty)
             {
                 tileMap[(int)oldIndex.y, (int)oldIndex.x].TileObject = null;
                 tileMap[(int)newIndex.y, (int)newIndex.x].TileObject = gameObject;
@@ -176,10 +201,5 @@ public static class Tile_Map
     {
         return (tileIndex.x >= 0 && tileIndex.x <= maxColumns - 1) &&
             (tileIndex.y >= 0 && tileIndex.y <= maxRows - 1);
-    }
-
-    private static Vector2 GetNullIndex() 
-    {
-        return new Vector2(-1, -1);
-    }
+    }   
 }
