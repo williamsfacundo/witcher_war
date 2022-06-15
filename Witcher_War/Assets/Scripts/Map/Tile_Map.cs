@@ -74,34 +74,66 @@ public static class Tile_Map
 
     public static void DestroyGameObjectInTileX(Vector2 targetIndex) 
     {
-        if (ValidIndex(targetIndex)) 
+        if (mapGenerated) 
         {
-            if (!tileMap[(int)targetIndex.y, (int)targetIndex.x].isEmpty) 
+            if (ValidIndex(targetIndex))
             {
-                GameObject.Destroy(tileMap[(int)targetIndex.y, (int)targetIndex.x].TileObject);
-                tileMap[(int)targetIndex.y, (int)targetIndex.x].TileObject = null;
+                if (!tileMap[(int)targetIndex.y, (int)targetIndex.x].isEmpty)
+                {
+                    GameObject.Destroy(tileMap[(int)targetIndex.y, (int)targetIndex.x].TileObject);
+                    tileMap[(int)targetIndex.y, (int)targetIndex.x].TileObject = null;
+                }
             }
-        }
+        }        
     }
 
     public static Vector2 GetGameObjectUpIndex(GameObject gameObject) 
     {
-        return GetGameObjectIndexPlusOtherIndex(gameObject, -Vector2.up);
+        if (mapGenerated) 
+        {
+            return GetGameObjectIndexPlusOtherIndex(gameObject, -Vector2.up);
+        }
+        else 
+        {
+            return nullIndex;
+        }
+       
     }
 
     public static Vector2 GetGameObjectDownIndex(GameObject gameObject)
     {
-        return GetGameObjectIndexPlusOtherIndex(gameObject, Vector2.up);
+        if (mapGenerated) 
+        {
+            return GetGameObjectIndexPlusOtherIndex(gameObject, Vector2.up);
+        }
+        else
+        {
+            return nullIndex;
+        }        
     }
 
     public static Vector2 GetGameObjectRightIndex(GameObject gameObject)
     {
-        return GetGameObjectIndexPlusOtherIndex(gameObject, Vector2.right);
+        if (mapGenerated) 
+        {
+            return GetGameObjectIndexPlusOtherIndex(gameObject, Vector2.right);
+        }
+        else
+        {
+            return nullIndex;
+        }        
     }
 
     public static Vector2 GetGameObjectLeftIndex(GameObject gameObject)
     {
-        return GetGameObjectIndexPlusOtherIndex(gameObject, -Vector2.right);
+        if (mapGenerated) 
+        {
+            return GetGameObjectIndexPlusOtherIndex(gameObject, -Vector2.right);
+        }
+        else
+        {
+            return nullIndex;
+        }        
     }
 
     private static void InitialMapSetting() 
