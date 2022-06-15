@@ -87,7 +87,12 @@ public static class Tile_Map
     public static Vector2 GetGameObjectUpIndex(GameObject gameObject) 
     {
         return GetGameObjectIndexPlusOtherIndex(gameObject, -Vector2.up);
-    }   
+    }
+
+    public static Vector2 GetGameObjectDownIndex(GameObject gameObject)
+    {
+        return GetGameObjectIndexPlusOtherIndex(gameObject, Vector2.up);
+    }
 
     private static void InitialMapSetting() 
     {
