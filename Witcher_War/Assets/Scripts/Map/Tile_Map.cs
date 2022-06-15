@@ -10,9 +10,9 @@ public static class Tile_Map
 
     private static Vector2 tileSize;
 
-    private static Vector3 mapSize;
+    //private static Vector3 mapSize;
 
-    private static Vector3 mapCenter;
+    //private static Vector3 mapCenter;
 
     private static bool mapGenerated = false;
 
@@ -33,14 +33,16 @@ public static class Tile_Map
     }       
 
     public static void GenerateTileMap(Vector3 surfaceSize, Vector3 surfaceCenter)
-    {
-        mapSize = surfaceSize;
-        mapCenter = surfaceCenter;
-        mapGenerated = true;
+    {        
+        if(mapGenerated != true) 
+        {
+            mapGenerated = true;
+        }
+
 
         InitialMapSetting();
 
-        SetMapPositions();
+        SetMapPositions(surfaceSize, surfaceCenter);
     }
 
     public static void NewGameObjectInTile(Vector2 tileIndex, GameObject gameObject)
@@ -81,7 +83,7 @@ public static class Tile_Map
         }
     }
 
-    private static void SetMapPositions() 
+    private static void SetMapPositions(Vector3 mapSize, Vector3 mapCenter) 
     {              
         tileSize = new Vector2(mapSize.x / maxColumns, mapSize.z / maxRows);
         
@@ -89,13 +91,13 @@ public static class Tile_Map
         {
             for (short v = 0; v < maxColumns; v++) 
             {
-                tileMap[i, v].Position = GetFirstMapPosition() + new Vector3(tileSize.x * v, 0f,-tileSize.y * i);
+                tileMap[i, v].Position = GetFirstMapPosition(mapSize, mapCenter) + new Vector3(tileSize.x * v, 0f,-tileSize.y * i);
                 tileMap[i, v].Index = new Vector2(v, i);                
             }
         }       
     }
 
-    private static Vector3 GetFirstMapPosition() 
+    private static Vector3 GetFirstMapPosition(Vector3 mapSize, Vector3 mapCenter) 
     {
         Vector3 firstMapPosition = mapCenter;
 
