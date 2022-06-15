@@ -85,19 +85,19 @@ public class Tile_Map : MonoBehaviour
         return firstMapPosition;
     }
 
-    public static void SetObjectTile(Vector2 tileIndex, ref Tile objectTile)
+    public static void NewObjectInTile(Vector2 tileIndex, GameObject gameObject)
     {
         if ((tileIndex.x >= 0 && tileIndex.x <= maxColumns - 1) &&
             (tileIndex.y >= 0 && tileIndex.y <= maxRows - 1))
         {
             if (tileMap[(int)tileIndex.y, (int)tileIndex.x].IsEmpty) 
             {
-                if (objectTile != null)
+                if (gameObject != null)
                 {
                     //objectTile.IsEmpty = true;
                 }
 
-                objectTile = tileMap[(int)tileIndex.y, (int)tileIndex.x];
+                tileMap[(int)tileIndex.y, (int)tileIndex.x].TileObject = gameObject;
                 //objectTile.IsEmpty = false;
             }            
         }        

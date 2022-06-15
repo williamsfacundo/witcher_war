@@ -42,7 +42,7 @@ public class Player_Movement : IMovable
             moveCooldown = 0f;
             percentageMoved = 0f;
 
-            Tile_Map.SetObjectTile(objectTile.Index + movementAxis, ref objectTile);
+            //Tile_Map.SetObjectTile(objectTile.Index + movementAxis, ref objectTile);
 
             movementAxis.x = 0;
             movementAxis.y = 0;            
