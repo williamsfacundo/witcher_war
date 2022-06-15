@@ -99,6 +99,11 @@ public static class Tile_Map
         return GetGameObjectIndexPlusOtherIndex(gameObject, Vector2.right);
     }
 
+    public static Vector2 GetGameObjectLeftIndex(GameObject gameObject)
+    {
+        return GetGameObjectIndexPlusOtherIndex(gameObject, -Vector2.right);
+    }
+
     private static void InitialMapSetting() 
     {
         tileMap = new Tile[maxRows, maxColumns];
