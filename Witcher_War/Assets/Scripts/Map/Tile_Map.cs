@@ -101,5 +101,21 @@ public class Tile_Map : MonoBehaviour
                 //objectTile.IsEmpty = false;
             }            
         }        
-    }    
+    }
+    
+    private bool GameObjectAlreadyInTileMap(GameObject gameObject) 
+    {
+        for (short i = 0; i < maxRows; i++) 
+        {
+            for (short v = 0; v < maxColumns; v++) 
+            {
+                if (TileMap[i, v].TileObject == gameObject) 
+                {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
 }
