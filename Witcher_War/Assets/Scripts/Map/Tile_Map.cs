@@ -8,11 +8,7 @@ public static class Tile_Map
 
     private static Tile[,] tileMap;
 
-    private static Vector2 tileSize;
-
-    //private static Vector3 mapSize;
-
-    //private static Vector3 mapCenter;
+    private static Vector2 tileSize;    
 
     private static bool mapGenerated = false;
 
@@ -38,7 +34,6 @@ public static class Tile_Map
         {
             mapGenerated = true;
         }
-
 
         InitialMapSetting();
 
@@ -91,8 +86,7 @@ public static class Tile_Map
         {
             for (short v = 0; v < maxColumns; v++) 
             {
-                tileMap[i, v].Position = GetFirstMapPosition(mapSize, mapCenter) + new Vector3(tileSize.x * v, 0f,-tileSize.y * i);
-                tileMap[i, v].Index = new Vector2(v, i);                
+                tileMap[i, v].Position = GetFirstMapPosition(mapSize, mapCenter) + new Vector3(tileSize.x * v, 0f,-tileSize.y * i);                            
             }
         }       
     }
@@ -146,14 +140,19 @@ public static class Tile_Map
 
     private static void LocateGameObjectInTile(Vector2 tileIndex, GameObject gameObject) 
     {
-        if ((tileIndex.x >= 0 && tileIndex.x <= maxColumns - 1) &&
-            (tileIndex.y >= 0 && tileIndex.y <= maxRows - 1))
+        if (ValidIndex(tileIndex))
         {
             if (tileMap[(int)tileIndex.y, (int)tileIndex.x].IsEmpty)
             {    
                 tileMap[(int)tileIndex.y, (int)tileIndex.x].TileObject = gameObject;               
             }
         }
+    }
+
+    private static bool ValidIndex(Vector2 tileIndex) 
+    {
+        return (tileIndex.x >= 0 && tileIndex.x <= maxColumns - 1) &&
+            (tileIndex.y >= 0 && tileIndex.y <= maxRows - 1);
     }
 
     private static Vector2 GetNullIndex() 
