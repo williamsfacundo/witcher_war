@@ -91,8 +91,24 @@ public class Tile_Map : MonoBehaviour
         {
             LocateGameObjectInTile(tileIndex, gameObject);
         }        
-    }   
-    
+    }
+
+    private static Vector2 GetGameObjectIndex(GameObject gameObject)
+    {
+        for (short i = 0; i < maxRows; i++)
+        {
+            for (short v = 0; v < maxColumns; v++)
+            {
+                if (TileMap[i, v].TileObject == gameObject)
+                {
+                    return new Vector2(v, i);
+                }
+            }
+        }
+
+        return GetNullIndex();
+    }
+
     private static bool IsGameObjectInTileMap(GameObject gameObject) 
     {
         for (short i = 0; i < maxRows; i++) 
