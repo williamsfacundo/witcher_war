@@ -72,8 +72,12 @@ public static class Tile_Map
             {
                 if (!tileMap[(int)targetIndex.y, (int)targetIndex.x].isEmpty)
                 {
-                    GameObject.Destroy(tileMap[(int)targetIndex.y, (int)targetIndex.x].TileObject);
-                    tileMap[(int)targetIndex.y, (int)targetIndex.x].TileObject = null;
+                    IDestroyable aux = tileMap[(int)targetIndex.y, (int)targetIndex.x].TileObject.GetComponent<IDestroyable>();
+                    
+                    if (aux != null) 
+                    {                        
+                        GameObject.Destroy(tileMap[(int)targetIndex.y, (int)targetIndex.x].TileObject);
+                    }                  
                 }
             }
         }        
