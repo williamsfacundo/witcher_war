@@ -29,7 +29,7 @@ public class Tile_Map : MonoBehaviour
         }
     }
     
-    private Renderer _renderer;
+    private Renderer _renderer;    
 
     private void Awake()
     {
@@ -91,7 +91,7 @@ public class Tile_Map : MonoBehaviour
         {
             LocateGameObjectInTile(tileIndex, gameObject);
         }        
-    }    
+    }   
     
     private static bool IsGameObjectInTileMap(GameObject gameObject) 
     {
@@ -119,5 +119,10 @@ public class Tile_Map : MonoBehaviour
                 tileMap[(int)tileIndex.y, (int)tileIndex.x].TileObject = gameObject;               
             }
         }
+    }
+
+    private static Vector2 GetNullIndex() 
+    {
+        return new Vector2(-1, -1);
     }
 }
