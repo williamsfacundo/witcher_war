@@ -82,7 +82,12 @@ public static class Tile_Map
                 tileMap[(int)targetIndex.y, (int)targetIndex.x].TileObject = null;
             }
         }
-    }    
+    }
+
+    public static Vector2 GetGameObjectUpIndex(GameObject gameObject) 
+    {
+        return GetGameObjectIndexPlusOtherIndex(gameObject, -Vector2.up);
+    }   
 
     private static void InitialMapSetting() 
     {
