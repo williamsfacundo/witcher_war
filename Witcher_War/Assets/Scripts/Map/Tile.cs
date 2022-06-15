@@ -5,6 +5,7 @@ public class Tile
     Vector3 position;
     Vector2 index;
     bool isEmpty;
+    GameObject tileObject;
 
     public Tile() 
     {
@@ -34,6 +35,18 @@ public class Tile
         get 
         {
             return index;
+        }
+    }
+
+    public GameObject TileObject
+    {
+        set 
+        {
+            tileObject = value;
+        }
+        get 
+        {
+            return tileObject;
         }
     }
 
