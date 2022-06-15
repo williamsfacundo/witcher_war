@@ -30,7 +30,7 @@ public static class Tile_Map
 
     public static void GenerateTileMap(Vector3 surfaceSize, Vector3 surfaceCenter)
     {        
-        if(mapGenerated != true) 
+        if (mapGenerated != true) 
         {
             mapGenerated = true;
         }
@@ -55,13 +55,25 @@ public static class Tile_Map
     {
         if (mapGenerated) 
         {
-            Vector2 index = GetGameObjectIndex(gameObject);
+            Vector2 auxIndex = GetGameObjectIndex(gameObject);
 
-            if (IsGameObjectInTileMap(gameObject) && index != destinyIndex)
+            if (IsGameObjectInTileMap(gameObject) && auxIndex != destinyIndex)
             {
-                LocateGameObjectInTile(destinyIndex, index, gameObject);
+                LocateGameObjectInTile(destinyIndex, auxIndex, gameObject);
             }
         }        
+    }
+
+    public static void DestroyGameObjectInTileX(Vector2 targetIndex) 
+    {
+        if (ValidIndex(targetIndex)) 
+        {
+            if (!tileMap[(int)targetIndex.y, (int)targetIndex.x].IsEmpty) 
+            {
+                GameObject.Destroy(tileMap[(int)targetIndex.y, (int)targetIndex.x].TileObject);
+                tileMap[(int)targetIndex.y, (int)targetIndex.x].TileObject = null;
+            }
+        }
     }
 
     private static void InitialMapSetting() 
@@ -141,7 +153,7 @@ public static class Tile_Map
     {
         if (ValidIndex(newIndex))
         {
-            if (tileMap[(int)newIndex.y, (int)newIndex.x].IsEmpty)
+            if (tileMap[(int)newIndex.y, (int)newIndex.x].IsEmpty && gameObject != null)
             {    
                 tileMap[(int)newIndex.y, (int)newIndex.x].TileObject = gameObject;               
             }
