@@ -12,6 +12,7 @@ public class Tile
         position = Vector3.zero;
         index = Vector2.zero;
         isEmpty = true;
+        tileObject = null;
     }
 
     public Vector3 Position 
