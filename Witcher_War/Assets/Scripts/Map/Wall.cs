@@ -24,7 +24,7 @@ public class Wall : MonoBehaviour
 
     private void Start()
     {
-        //Tile_Map.SetObjectTile(initialPosIndex, ref tile);
+        Tile_Map.NewGameObjectInTile(initialPosIndex, gameObject);
 
         transform.position = Tile_Map.TileMap[(int)initialPosIndex.y, (int)initialPosIndex.x].Position;
     }    
