@@ -87,23 +87,13 @@ public class Tile_Map : MonoBehaviour
 
     public static void NewGameObjectInTile(Vector2 tileIndex, GameObject gameObject)
     {
-        if ((tileIndex.x >= 0 && tileIndex.x <= maxColumns - 1) &&
-            (tileIndex.y >= 0 && tileIndex.y <= maxRows - 1))
+        if (!GameObjectAlreadyInTileMap(gameObject)) 
         {
-            if (tileMap[(int)tileIndex.y, (int)tileIndex.x].IsEmpty) 
-            {
-                if (gameObject != null)
-                {
-                    //objectTile.IsEmpty = true;
-                }
-
-                tileMap[(int)tileIndex.y, (int)tileIndex.x].TileObject = gameObject;
-                //objectTile.IsEmpty = false;
-            }            
+            LocateGameObjectInTile(tileIndex, gameObject);
         }        
     }
     
-    private bool GameObjectAlreadyInTileMap(GameObject gameObject) 
+    private static bool GameObjectAlreadyInTileMap(GameObject gameObject) 
     {
         for (short i = 0; i < maxRows; i++) 
         {
@@ -119,7 +109,7 @@ public class Tile_Map : MonoBehaviour
         return false;
     }
 
-    private void LocateGameObjectInTile(Vector2 tileIndex, GameObject gameObject) 
+    private static void LocateGameObjectInTile(Vector2 tileIndex, GameObject gameObject) 
     {
         if ((tileIndex.x >= 0 && tileIndex.x <= maxColumns - 1) &&
             (tileIndex.y >= 0 && tileIndex.y <= maxRows - 1))
