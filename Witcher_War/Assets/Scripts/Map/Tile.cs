@@ -2,16 +2,12 @@ using UnityEngine;
 
 public class Tile
 {
-    Vector3 position;
-    Vector2 index;
-    //bool isEmpty;
+    Vector3 position;    
     GameObject tileObject;
 
     public Tile() 
     {
-        position = Vector3.zero;
-        index = Vector2.zero;
-        //isEmpty = true;
+        position = Vector3.zero;        
         tileObject = null;
     }
 
@@ -26,18 +22,6 @@ public class Tile
             return position;
         }
     }   
-
-    public Vector2 Index 
-    {
-        set 
-        {
-            index = value;
-        }
-        get 
-        {
-            return index;
-        }
-    }
 
     public GameObject TileObject
     {
