@@ -7,7 +7,7 @@ public class Destroyable_Wall : MonoBehaviour, IDestroyable
     {
         Wall wall = GetComponent<Wall>();
 
-        wall.Tile.IsEmpty = true;
+        //wall.Tile.IsEmpty = true;
         
         Destroy(gameObject);
     }

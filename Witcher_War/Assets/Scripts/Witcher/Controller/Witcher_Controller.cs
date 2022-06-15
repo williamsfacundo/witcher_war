@@ -123,7 +123,7 @@ public class Witcher_Controller : MonoBehaviour, IDestroyable
 
     public void ObjectHit()
     {
-        tile.IsEmpty = true;
+        //tile.IsEmpty = true;
 
         Destroy(gameObject);
     }

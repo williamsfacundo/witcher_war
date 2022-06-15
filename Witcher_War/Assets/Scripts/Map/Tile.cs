@@ -4,14 +4,14 @@ public class Tile
 {
     Vector3 position;
     Vector2 index;
-    bool isEmpty;
+    //bool isEmpty;
     GameObject tileObject;
 
     public Tile() 
     {
         position = Vector3.zero;
         index = Vector2.zero;
-        isEmpty = true;
+        //isEmpty = true;
         tileObject = null;
     }
 
@@ -52,14 +52,10 @@ public class Tile
     }
 
     public bool IsEmpty 
-    {
-        set 
-        {
-            isEmpty = value;
-        }
+    {       
         get 
         {
-            return isEmpty;
+            return tileObject == null;
         }
     }
 }

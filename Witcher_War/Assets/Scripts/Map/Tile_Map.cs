@@ -94,11 +94,11 @@ public class Tile_Map : MonoBehaviour
             {
                 if (objectTile != null)
                 {
-                    objectTile.IsEmpty = true;
+                    //objectTile.IsEmpty = true;
                 }
 
                 objectTile = tileMap[(int)tileIndex.y, (int)tileIndex.x];
-                objectTile.IsEmpty = false;
+                //objectTile.IsEmpty = false;
             }            
         }        
     }    
