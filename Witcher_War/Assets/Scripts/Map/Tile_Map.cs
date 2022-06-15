@@ -87,13 +87,13 @@ public class Tile_Map : MonoBehaviour
 
     public static void NewGameObjectInTile(Vector2 tileIndex, GameObject gameObject)
     {
-        if (!GameObjectAlreadyInTileMap(gameObject)) 
+        if (!IsGameObjectInTileMap(gameObject)) 
         {
             LocateGameObjectInTile(tileIndex, gameObject);
         }        
-    }
+    }    
     
-    private static bool GameObjectAlreadyInTileMap(GameObject gameObject) 
+    private static bool IsGameObjectInTileMap(GameObject gameObject) 
     {
         for (short i = 0; i < maxRows; i++) 
         {
