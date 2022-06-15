@@ -12,13 +12,13 @@ public static class Tile_Map
 
     private static bool mapGenerated = false;
 
-    public static Tile[,] TileMap 
+    /*public static Tile[,] TileMap 
     {
         get 
         {
             return tileMap;
         }
-    }    
+    }*/    
 
     public static Vector2 TileSize 
     {        
@@ -87,6 +87,39 @@ public static class Tile_Map
         }        
     }
 
+    public static Vector2 GetGameObjectIndex(GameObject gameObject)
+    {
+        for (short i = 0; i < maxRows; i++)
+        {
+            for (short v = 0; v < maxColumns; v++)
+            {
+                if (tileMap[i, v].TileObject == gameObject)
+                {
+                    return new Vector2(v, i);
+                }
+            }
+        }
+
+        return nullIndex;
+    }
+
+    public static Vector2 GetGameObjectIndexPlusOtherIndex(GameObject gameObject, Vector2 otherIndex)
+    {
+        Vector2 index = GetGameObjectIndex(gameObject);
+
+        if (index != nullIndex)
+        {
+            index += otherIndex;
+
+            if (!ValidIndex(index))
+            {
+                index = nullIndex;
+            }
+        }
+
+        return index;
+    }
+
     public static Vector2 GetGameObjectUpIndex(GameObject gameObject) 
     {
         if (mapGenerated) 
@@ -136,6 +169,11 @@ public static class Tile_Map
         }        
     }
 
+    public static Vector3 GetTileMapPosition(Vector2 targetIndex) 
+    {
+        return tileMap[(int)targetIndex.y, (int)targetIndex.x].Position;
+    }
+
     private static void InitialMapSetting() 
     {
         tileMap = new Tile[maxRows, maxColumns];
@@ -175,40 +213,7 @@ public static class Tile_Map
         firstMapPosition.z -= tileSize.y / 2f;       
 
         return firstMapPosition;
-    }    
-
-    private static Vector2 GetGameObjectIndex(GameObject gameObject)
-    {
-        for (short i = 0; i < maxRows; i++)
-        {
-            for (short v = 0; v < maxColumns; v++)
-            {
-                if (TileMap[i, v].TileObject == gameObject)
-                {
-                    return new Vector2(v, i);
-                }
-            }
-        }
-
-        return nullIndex;
-    }
-
-    private static Vector2 GetGameObjectIndexPlusOtherIndex(GameObject gameObject, Vector2 otherIndex)
-    {
-        Vector2 index = GetGameObjectIndex(gameObject);
-
-        if (index != nullIndex)
-        {
-            index += otherIndex;
-
-            if (!ValidIndex(index))
-            {
-                index = nullIndex;
-            }
-        }
-
-        return index;
-    }
+    }   
 
     private static bool IsGameObjectInTileMap(GameObject gameObject) 
     {
@@ -216,7 +221,7 @@ public static class Tile_Map
         {
             for (short v = 0; v < maxColumns; v++) 
             {
-                if (TileMap[i, v].TileObject == gameObject) 
+                if (tileMap[i, v].TileObject == gameObject) 
                 {
                     return true;
                 }

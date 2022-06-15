@@ -6,6 +6,8 @@ public class Player_Movement : IMovable
 
     private Vector3 oldPosition;
 
+    private Vector3 position;
+
     private const float cooldownTime = 0.3f;
 
     private float moveCooldown;        
@@ -26,23 +28,25 @@ public class Player_Movement : IMovable
         MovementAxisInput(ref movementAxis.y, KeyCode.S, KeyCode.W);
     }
 
-    public void Move(ref Tile objectTile, Rigidbody rb, ref WITCHER_DIRECTION direction) 
+    public void Move(GameObject gameObject, ref WITCHER_DIRECTION direction) 
     {
-        if (moveCooldown < cooldownTime && oldPosition != objectTile.Position)
+        if (moveCooldown < cooldownTime && oldPosition != position)
         {
-            rb.MovePosition(Vector3.Lerp(oldPosition, objectTile.Position, percentageMoved));
+            gameObject.transform.position = Vector3.Lerp(oldPosition, position, percentageMoved);            
         }
 
         if (movementAxis.x != 0 || movementAxis.y != 0) 
         {
-            RotatePlayer(movementAxis, ref direction, rb);
+            RotatePlayer(movementAxis, ref direction, gameObject);
 
-            oldPosition = objectTile.Position;
+            oldPosition = Tile_Map.GetTileMapPosition(Tile_Map.GetGameObjectUpIndex(gameObject));
             
             moveCooldown = 0f;
             percentageMoved = 0f;
 
-            //Tile_Map.SetObjectTile(objectTile.Index + movementAxis, ref objectTile);
+            Tile_Map.MoveGameObjectToTileX(Tile_Map.GetGameObjectIndexPlusOtherIndex(gameObject, movementAxis), gameObject);            
+
+            position = Tile_Map.GetTileMapPosition(Tile_Map.GetGameObjectUpIndex(gameObject));
 
             movementAxis.x = 0;
             movementAxis.y = 0;            
@@ -79,7 +83,7 @@ public class Player_Movement : IMovable
         }        
     }    
 
-    void RotatePlayer(Vector2 movementAxis, ref WITCHER_DIRECTION witcherDirection, Rigidbody rb) 
+    void RotatePlayer(Vector2 movementAxis, ref WITCHER_DIRECTION witcherDirection, GameObject gameObject) 
     {
         WITCHER_DIRECTION newDirection = WITCHER_DIRECTION.LEFT;
 
@@ -113,7 +117,7 @@ public class Player_Movement : IMovable
 
         if (newDirection != witcherDirection) 
         {
-            rb.rotation = Quaternion.identity;
+            gameObject.transform.rotation = Quaternion.identity;
 
             witcherDirection = newDirection;
 
@@ -121,17 +125,17 @@ public class Player_Movement : IMovable
             {
                 case WITCHER_DIRECTION.UP:
 
-                    rb.MoveRotation(Quaternion.Euler(0f, 180f, 0f));
+                    gameObject.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
                     break;
 
                 case WITCHER_DIRECTION.RIGHT:
 
-                    rb.MoveRotation(Quaternion.Euler(0f, -90f, 0f));
+                    gameObject.transform.rotation = Quaternion.Euler(0f, -90f, 0f);
                     break;
 
                 case WITCHER_DIRECTION.LEFT:
 
-                    rb.MoveRotation(Quaternion.Euler(0f, 90f, 0f));
+                    gameObject.transform.rotation = Quaternion.Euler(0f, 90f, 0f);
                     break;
 
                 default:

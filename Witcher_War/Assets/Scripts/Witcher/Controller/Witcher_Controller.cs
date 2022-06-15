@@ -49,31 +49,10 @@ public class Witcher_Controller : MonoBehaviour, IDestroyable
 
     private IMovable movementMechanic;
 
-    private ICanUsePotion usePotionMechanic; 
-
-    private Rigidbody rigidBody;
-    
-    private Tile tile;
-
-    public Tile Tile 
-    {
-        set 
-        {
-            tile = value;
-        }
-        get 
-        {
-            return Tile;
-        }
-    }
+    private ICanUsePotion usePotionMechanic;         
 
     const short initialBombsCarried = 2;
-    const float generateNewPotionTime = 3f;
-
-    private void Awake()
-    {
-        rigidBody = GetComponent<Rigidbody>();        
-    }
+    const float generateNewPotionTime = 3f;    
 
     private void Start()
     {
@@ -81,7 +60,7 @@ public class Witcher_Controller : MonoBehaviour, IDestroyable
 
         Tile_Map.NewGameObjectInTile(initialPosIndex, gameObject);        
 
-        transform.position = Tile_Map.TileMap[(int)initialPosIndex.y, (int)initialPosIndex.x].Position;
+        transform.position = Tile_Map.GetTileMapPosition(initialPosIndex);
 
         transform.rotation = Quaternion.identity;
 
@@ -99,7 +78,7 @@ public class Witcher_Controller : MonoBehaviour, IDestroyable
 
     private void FixedUpdate()
     {
-        movementMechanic?.Move(ref tile, rigidBody, ref witcherDirection);
+        movementMechanic?.Move(gameObject, ref witcherDirection);
     }   
 
     void SetWitcher(WITCHER_TYPE witcherType) 
@@ -123,8 +102,6 @@ public class Witcher_Controller : MonoBehaviour, IDestroyable
 
     public void ObjectHit()
     {
-        //tile.IsEmpty = true;
-
-        Destroy(gameObject);
+        Tile_Map.DestroyGameObjectInTileX(Tile_Map.GetGameObjectDownIndex(gameObject));
     }
 }

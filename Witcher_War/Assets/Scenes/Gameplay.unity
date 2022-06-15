@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44970846, g: 0.49977767, b: 0.5756344, a: 1}
+  m_IndirectSpecularColor: {r: 0.4497081, g: 0.49977732, b: 0.5756337, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -323,7 +323,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 750957931}
-  - component: {fileID: 750957930}
   - component: {fileID: 750957929}
   - component: {fileID: 750957932}
   m_Layer: 0
@@ -345,24 +344,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33eda239c2f9d0a46a2c2c66e1543d7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  floor: {fileID: 1061072296}
   wall: {fileID: 6197444483524468698, guid: 1121fa0bd717d834cba3399c2c193a26, type: 3}
   witcher: {fileID: 811643792500304249, guid: a213bf502c810454296ab1bed36a6e9e, type: 3}
   potion: {fileID: 4880882686470652000, guid: 7f5dafd62034b6b46aa14abedce9144c, type: 3}
   nonDestroyableWallMat: {fileID: 2100000, guid: c4ea3c53767cba44dac52201214fe626, type: 2}
   destroyableWallMat: {fileID: 2100000, guid: 9655712e4ac54e0449876c1f98d2b568, type: 2}
---- !u!114 &750957930
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 750957928}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0ad92536ae54df54ebdc81e74ce3c0ee, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  floor: {fileID: 1061072296}
 --- !u!4 &750957931
 Transform:
   m_ObjectHideFlags: 0

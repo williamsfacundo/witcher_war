@@ -4,7 +4,7 @@ public interface IMovable
 {
     void MoveInput();
 
-    void Move(ref Tile objectTile, Rigidbody rb, ref WITCHER_DIRECTION direction);
+    void Move(GameObject gameObject, ref WITCHER_DIRECTION direction);
 
     void Timer();
 }

@@ -7,7 +7,7 @@ public class Cpu_Movement : IMovable
 
     }
 
-    public void Move(ref Tile objectTile, Rigidbody rb, ref WITCHER_DIRECTION direction)
+    public void Move(GameObject gameObject, ref WITCHER_DIRECTION direction)
     {
         
     }

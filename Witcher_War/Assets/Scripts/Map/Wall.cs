@@ -1,17 +1,7 @@
 using UnityEngine;
 
 public class Wall : MonoBehaviour
-{
-    private Tile tile;
-
-    public Tile Tile 
-    {
-        get 
-        {
-            return tile;
-        }
-    }
-    
+{    
     private Vector2 initialPosIndex;
 
     public Vector2 InitialPosIndex
@@ -26,6 +16,6 @@ public class Wall : MonoBehaviour
     {
         Tile_Map.NewGameObjectInTile(initialPosIndex, gameObject);
 
-        transform.position = Tile_Map.TileMap[(int)initialPosIndex.y, (int)initialPosIndex.x].Position;
+        transform.position = Tile_Map.GetTileMapPosition(initialPosIndex);        
     }    
 }

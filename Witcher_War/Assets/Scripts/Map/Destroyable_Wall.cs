@@ -5,10 +5,6 @@ public class Destroyable_Wall : MonoBehaviour, IDestroyable
 {
     public void ObjectHit() 
     {
-        Wall wall = GetComponent<Wall>();
-
-        //wall.Tile.IsEmpty = true;
-        
-        Destroy(gameObject);
+        Tile_Map.DestroyGameObjectInTileX(Tile_Map.GetGameObjectDownIndex(gameObject));
     }
 }
