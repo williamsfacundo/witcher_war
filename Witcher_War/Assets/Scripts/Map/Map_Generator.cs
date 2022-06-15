@@ -2,7 +2,9 @@ using UnityEngine;
 using System.IO;
 
 public class Map_Generator : MonoBehaviour
-{    
+{
+    [SerializeField] private GameObject floor;
+
     [SerializeField] private GameObject wall;    
     [SerializeField] private GameObject witcher;
     [SerializeField] private GameObject potion;
@@ -14,6 +16,8 @@ public class Map_Generator : MonoBehaviour
 
     [Range(1, maxLevel)] private int level = 1;
 
+    new Renderer renderer;
+
     private const char nonDestroyableWallChar = 'X';
     private const char destroyableWallChar = 'W';
     private const char playerChar = 'P';
@@ -23,6 +27,12 @@ public class Map_Generator : MonoBehaviour
 
     private void Awake()
     {
+        renderer = floor?.GetComponent<Renderer>();        
+
+        Tile_Map.GenerateTileMap(renderer.bounds.size, renderer.bounds.center);
+
+        renderer = null;
+
         char[] map = GetMapArrayChar();
 
         InstanciateObjects(map);
