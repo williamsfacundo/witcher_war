@@ -1,13 +1,20 @@
 using UnityEngine;
 
-public class Tile_Map : MonoBehaviour
+public static class Tile_Map
 {
-    [SerializeField] private GameObject floor;    
-
     public const int maxRows = 30;
+
     public const int maxColumns = 30;
 
     private static Tile[,] tileMap;
+
+    private static Vector2 tileSize;
+
+    private static Vector3 mapSize;
+
+    private static Vector3 mapCenter;
+
+    private static bool mapGenerated = false;
 
     public static Tile[,] TileMap 
     {
@@ -15,11 +22,7 @@ public class Tile_Map : MonoBehaviour
         {
             return tileMap;
         }
-    }
-
-    private Vector3 mapSize;    
-
-    private static Vector2 tileSize;
+    }    
 
     public static Vector2 TileSize 
     {        
@@ -27,20 +30,45 @@ public class Tile_Map : MonoBehaviour
         {
             return tileSize;
         }
-    }
-    
-    private Renderer _renderer;    
+    }       
 
-    private void Awake()
+    public static void GenerateTileMap(Vector3 surfaceSize, Vector3 surfaceCenter)
     {
-        _renderer = floor.GetComponent<Renderer>();
+        mapSize = surfaceSize;
+        mapCenter = surfaceCenter;
+        mapGenerated = true;
 
         InitialMapSetting();
 
         SetMapPositions();
-    }    
+    }
 
-    private void InitialMapSetting() 
+    public static void NewGameObjectInTile(Vector2 tileIndex, GameObject gameObject)
+    {
+        if (mapGenerated) 
+        {
+            if (!IsGameObjectInTileMap(gameObject))
+            {
+                LocateGameObjectInTile(tileIndex, gameObject);
+            }
+        }        
+    }
+
+    public static void MoveGameObjectToTileX(Vector2 destinyIndex, GameObject gameObject)
+    {
+        if (mapGenerated) 
+        {
+            if (IsGameObjectInTileMap(gameObject) && tileMap[(int)destinyIndex.y, (int)destinyIndex.x].IsEmpty)
+            {
+                if (GetGameObjectIndex(gameObject) != destinyIndex)
+                {
+
+                }
+            }
+        }        
+    }
+
+    private static void InitialMapSetting() 
     {
         tileMap = new Tile[maxRows, maxColumns];
 
@@ -53,24 +81,21 @@ public class Tile_Map : MonoBehaviour
         }
     }
 
-    private void SetMapPositions() 
-    {
-        mapSize = _renderer.bounds.size;
-        Vector3 mapCenter = _renderer.bounds.center;
-               
+    private static void SetMapPositions() 
+    {              
         tileSize = new Vector2(mapSize.x / maxColumns, mapSize.z / maxRows);
         
         for (short i = 0; i < maxRows; i++) 
         {
             for (short v = 0; v < maxColumns; v++) 
             {
-                tileMap[i, v].Position = GetFirstMapPosition(mapCenter) + new Vector3(tileSize.x * v, 0f,-tileSize.y * i);
+                tileMap[i, v].Position = GetFirstMapPosition() + new Vector3(tileSize.x * v, 0f,-tileSize.y * i);
                 tileMap[i, v].Index = new Vector2(v, i);                
             }
         }       
     }
 
-    private Vector3 GetFirstMapPosition(Vector3 mapCenter) 
+    private static Vector3 GetFirstMapPosition() 
     {
         Vector3 firstMapPosition = mapCenter;
 
@@ -83,15 +108,7 @@ public class Tile_Map : MonoBehaviour
         firstMapPosition.z -= tileSize.y / 2f;       
 
         return firstMapPosition;
-    }
-
-    public static void NewGameObjectInTile(Vector2 tileIndex, GameObject gameObject)
-    {
-        if (!IsGameObjectInTileMap(gameObject)) 
-        {
-            LocateGameObjectInTile(tileIndex, gameObject);
-        }        
-    }
+    }    
 
     private static Vector2 GetGameObjectIndex(GameObject gameObject)
     {
