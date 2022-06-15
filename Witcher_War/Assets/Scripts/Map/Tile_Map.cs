@@ -85,7 +85,7 @@ public class Tile_Map : MonoBehaviour
         return firstMapPosition;
     }
 
-    public static void NewObjectInTile(Vector2 tileIndex, GameObject gameObject)
+    public static void NewGameObjectInTile(Vector2 tileIndex, GameObject gameObject)
     {
         if ((tileIndex.x >= 0 && tileIndex.x <= maxColumns - 1) &&
             (tileIndex.y >= 0 && tileIndex.y <= maxRows - 1))
@@ -117,5 +117,17 @@ public class Tile_Map : MonoBehaviour
         }
 
         return false;
+    }
+
+    private void LocateGameObjectInTile(Vector2 tileIndex, GameObject gameObject) 
+    {
+        if ((tileIndex.x >= 0 && tileIndex.x <= maxColumns - 1) &&
+            (tileIndex.y >= 0 && tileIndex.y <= maxRows - 1))
+        {
+            if (tileMap[(int)tileIndex.y, (int)tileIndex.x].IsEmpty)
+            {    
+                tileMap[(int)tileIndex.y, (int)tileIndex.x].TileObject = gameObject;               
+            }
+        }
     }
 }
