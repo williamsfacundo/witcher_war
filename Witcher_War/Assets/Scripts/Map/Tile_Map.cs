@@ -10,15 +10,7 @@ public static class Tile_Map
 
     private static Vector2 tileSize;    
 
-    private static bool mapGenerated = false;
-
-    /*public static Tile[,] TileMap 
-    {
-        get 
-        {
-            return tileMap;
-        }
-    }*/    
+    private static bool mapGenerated = false;        
 
     public static Vector2 TileSize 
     {        

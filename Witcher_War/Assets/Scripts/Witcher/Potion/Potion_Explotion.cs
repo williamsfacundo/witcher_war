@@ -4,58 +4,35 @@ using UnityEngine;
 public class Potion_Explotion : MonoBehaviour
 {
     private const float explotionTime = 1.5f;
-    private float explotionTimer;    
-
-    private BoxCollider[] boxColliders;   
-
-    private void Awake()
-    {
-        boxColliders = GetComponents<BoxCollider>();
-    }
+    private float explotionTimer;   
 
     // Start is called before the first frame update
     void Start()
     {
-        explotionTimer = explotionTime;
-
-        SetColliders();        
-    }
-
-    void SetColliders() 
-    {
-        boxColliders[0].isTrigger = true;
-
-        boxColliders[0].size = new Vector3(Tile_Map.TileSize.y * 2f, 1f, 1f);
-
-        boxColliders[1].isTrigger = true;
-
-        boxColliders[1].size = new Vector3(1f, 1f, Tile_Map.TileSize.y * 2f);        
-    }
+        explotionTimer = explotionTime;                
+    }    
 
     // Update is called once per frame
     void Update()
     {
-        DecreaseTimer();
-    }   
+        Explotion();
 
-    private void OnTriggerStay(Collider other)
-    {
-        Explotion(other);
+        DecreaseTimer();       
     }
 
-    void Explotion(Collider other) 
+    void Explotion() 
     {
         if (explotionTimer <= 0f) 
         {
-            IDestroyable interfaceComparisonAux = other.GetComponent<IDestroyable>();
-
-            if (interfaceComparisonAux != null)
-            {
-                interfaceComparisonAux.ObjectHit();
-            }
+            DestroyAdjacentObjects();
 
             Destroy(gameObject);
         }        
+    }
+
+    void DestroyAdjacentObjects() 
+    {
+
     }
 
     void DecreaseTimer() 
