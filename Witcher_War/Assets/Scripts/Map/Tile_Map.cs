@@ -55,12 +55,11 @@ public static class Tile_Map
     {
         if (mapGenerated) 
         {
-            if (IsGameObjectInTileMap(gameObject) && tileMap[(int)destinyIndex.y, (int)destinyIndex.x].IsEmpty)
-            {
-                if (GetGameObjectIndex(gameObject) != destinyIndex)
-                {
+            Vector2 index = GetGameObjectIndex(gameObject);
 
-                }
+            if (IsGameObjectInTileMap(gameObject) && index != destinyIndex)
+            {
+                LocateGameObjectInTile(destinyIndex, index, gameObject);
             }
         }        
     }
@@ -138,13 +137,25 @@ public static class Tile_Map
         return false;
     }
 
-    private static void LocateGameObjectInTile(Vector2 tileIndex, GameObject gameObject) 
+    private static void LocateGameObjectInTile(Vector2 newIndex, GameObject gameObject) 
     {
-        if (ValidIndex(tileIndex))
+        if (ValidIndex(newIndex))
         {
-            if (tileMap[(int)tileIndex.y, (int)tileIndex.x].IsEmpty)
+            if (tileMap[(int)newIndex.y, (int)newIndex.x].IsEmpty)
             {    
-                tileMap[(int)tileIndex.y, (int)tileIndex.x].TileObject = gameObject;               
+                tileMap[(int)newIndex.y, (int)newIndex.x].TileObject = gameObject;               
+            }
+        }
+    }
+
+    private static void LocateGameObjectInTile(Vector2 newIndex, Vector2 oldIndex,GameObject gameObject)
+    {
+        if (ValidIndex(newIndex))
+        {
+            if (tileMap[(int)newIndex.y, (int)newIndex.x].IsEmpty)
+            {
+                tileMap[(int)oldIndex.y, (int)oldIndex.x].TileObject = null;
+                tileMap[(int)newIndex.y, (int)newIndex.x].TileObject = gameObject;
             }
         }
     }
