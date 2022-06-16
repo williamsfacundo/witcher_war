@@ -170,6 +170,11 @@ public static class Tile_Map
         return tileMap[(int)targetIndex.y, (int)targetIndex.x].Position;
     }
 
+    public static bool IsTileEmpty(Vector2 targetIndex) 
+    {
+        return tileMap[(int)targetIndex.y, (int)targetIndex.x].isEmpty;
+    }
+
     private static void InitialMapSetting() 
     {
         tileMap = new Tile[maxRows, maxColumns];
