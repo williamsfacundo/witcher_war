@@ -91,7 +91,7 @@ public static class Tile_Map
             {
                 if (tileMap[i, v].TileObject == gameObject)
                 {
-                    return new Vector2(v, i);
+                    return new Vector2((float)v, (float)i);
                 }
             }
         }
@@ -178,6 +178,22 @@ public static class Tile_Map
         }
 
         return false;
+    }
+
+    public static Vector2 FindIndexBasedOnPosition(Vector3 position) 
+    {
+        for (short i = 0; i < maxRows; i++)
+        {
+            for (short v = 0; v < maxColumns; v++)
+            {
+                if (tileMap[i, v].Position == position) 
+                {
+                    return new Vector2((float)v, (float)i);
+                }
+            }
+        }
+
+        return nullIndex;
     }
 
     private static void InitialMapSetting() 
