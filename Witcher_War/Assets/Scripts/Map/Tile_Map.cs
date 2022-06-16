@@ -172,7 +172,12 @@ public static class Tile_Map
 
     public static bool IsTileEmpty(Vector2 targetIndex) 
     {
-        return tileMap[(int)targetIndex.y, (int)targetIndex.x].isEmpty;
+        if (ValidIndex(targetIndex)) 
+        {
+            return tileMap[(int)targetIndex.y, (int)targetIndex.x].isEmpty;
+        }
+
+        return false;
     }
 
     private static void InitialMapSetting() 

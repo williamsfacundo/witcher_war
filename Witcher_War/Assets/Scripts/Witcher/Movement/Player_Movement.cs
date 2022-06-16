@@ -14,12 +14,15 @@ public class Player_Movement : IMovable
 
     private float percentageMoved;
 
+    private Vector2 nextTileIndex;
+
     public Player_Movement() 
     {
         movementAxis = Vector2.zero;
-        oldPosition = Vector3.zero;
+        oldPosition = Vector2.zero;
         movementTimer = displacementTime;        
         percentageMoved = 0f;
+        nextTileIndex = Vector2.zero;        
     }
 
     public void MoveInput() 
@@ -28,77 +31,49 @@ public class Player_Movement : IMovable
         
         if (movementAxis.x == 0) 
         {
-            movementAxis.y = Input.GetAxisRaw("Vertical");                       
+            movementAxis.y = Input.GetAxisRaw("Vertical");
+
+            movementAxis.y *= -1;
         }                
-    }
+    }    
 
-    public void Move(GameObject gameObject, ref WITCHER_DIRECTION direction) 
-    {
-        if (movementTimer < displacementTime && oldPosition != newPosition)
-        {
-            gameObject.transform.position = Vector3.Lerp(oldPosition, newPosition, percentageMoved);            
-        }
-
-        if (movementAxis.x != 0 || movementAxis.y != 0) 
-        {
-            RotatePlayer(movementAxis, ref direction, gameObject);
-
-            oldPosition = Tile_Map.GetTileMapPosition(Tile_Map.GetGameObjectUpIndex(gameObject));
-            
-            movementTimer = 0f;
-            percentageMoved = 0f;
-
-            Tile_Map.MoveGameObjectToTileX(Tile_Map.GetGameObjectIndexPlusOtherIndex(gameObject, movementAxis), gameObject);            
-
-            newPosition = Tile_Map.GetTileMapPosition(Tile_Map.GetGameObjectUpIndex(gameObject));
-
-            movementAxis.x = 0;
-            movementAxis.y = 0;            
-        }        
-    }
-
-    public void MoveB(GameObject gameObject, ref WITCHER_DIRECTION direction)
+    public void Move(GameObject gameObject, ref WITCHER_DIRECTION direction)
     {
         if (movementAxis != Vector2.zero && !IsObjectMoving()) 
         {
-            
+            nextTileIndex = Tile_Map.GetGameObjectIndexPlusOtherIndex(gameObject, movementAxis);
+
+            if (Tile_Map.IsTileEmpty(nextTileIndex)) 
+            {
+                RotatePlayer(movementAxis, ref direction, gameObject);
+
+                movementTimer = 0f;
+
+                oldPosition = Tile_Map.GetTileMapPosition(Tile_Map.GetGameObjectIndex(gameObject));
+                newPosition = Tile_Map.GetTileMapPosition(nextTileIndex);
+
+                Tile_Map.MoveGameObjectToTileX(nextTileIndex, gameObject);
+            }
         }
 
-        if (movementTimer < displacementTime && oldPosition != newPosition)
+        if (IsObjectMoving()) 
         {
+            percentageMoved = movementTimer / displacementTime;
+
             gameObject.transform.position = Vector3.Lerp(oldPosition, newPosition, percentageMoved);
-        }
-
-        if (movementAxis.x != 0 || movementAxis.y != 0)
-        {
-            RotatePlayer(movementAxis, ref direction, gameObject);
-
-            oldPosition = Tile_Map.GetTileMapPosition(Tile_Map.GetGameObjectUpIndex(gameObject));
-
-            movementTimer = 0f;
-            percentageMoved = 0f;
-
-            Tile_Map.MoveGameObjectToTileX(Tile_Map.GetGameObjectIndexPlusOtherIndex(gameObject, movementAxis), gameObject);
-
-            newPosition = Tile_Map.GetTileMapPosition(Tile_Map.GetGameObjectUpIndex(gameObject));
-
-            movementAxis.x = 0;
-            movementAxis.y = 0;
-        }
+        }       
     }   
 
     public void Timer() 
     {
-        if (movementTimer <= displacementTime) 
+        if (movementTimer < displacementTime) 
         {
             movementTimer += Time.deltaTime;
 
             if (movementTimer > displacementTime)
             {
                 movementTimer = displacementTime;
-            }
-
-            percentageMoved = movementTimer / displacementTime;
+            }            
         }        
     }   
     
