@@ -63,7 +63,7 @@ public class Witcher_Controller : MonoBehaviour, IDestroyable
 
         transform.rotation = Quaternion.identity;
 
-        WitcherDirection = WITCHER_DIRECTION.DOWN;
+        WitcherDirection = WITCHER_DIRECTION.DOWN;        
     }
 
     private void Update()

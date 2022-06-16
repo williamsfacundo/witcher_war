@@ -24,8 +24,12 @@ public class Player_Movement : IMovable
 
     public void MoveInput() 
     {
-        MovementAxisInput(ref movementAxis.x, KeyCode.D, KeyCode.A);
-        MovementAxisInput(ref movementAxis.y, KeyCode.S, KeyCode.W);
+        movementAxis.x = Input.GetAxisRaw("Horizontal");
+        
+        if (movementAxis.x == 0) 
+        {
+            movementAxis.y = Input.GetAxisRaw("Vertical");                       
+        }                
     }
 
     public void Move(GameObject gameObject, ref WITCHER_DIRECTION direction) 
@@ -51,7 +55,7 @@ public class Player_Movement : IMovable
             movementAxis.x = 0;
             movementAxis.y = 0;            
         }        
-    }
+    }   
 
     public void Timer() 
     {
@@ -66,22 +70,7 @@ public class Player_Movement : IMovable
 
             percentageMoved = moveCooldown / cooldownTime;
         }        
-    }
-
-    void MovementAxisInput(ref float axis, KeyCode positiveAxisMovement, KeyCode negativeAxisMovement) 
-    {
-        if (moveCooldown >= cooldownTime) 
-        {
-            if (Input.GetKeyDown(positiveAxisMovement))
-            {                
-                axis = 1f;               
-            }
-            else if (Input.GetKeyDown(negativeAxisMovement))
-            {
-                axis = -1f;
-            }            
-        }        
-    }    
+    }       
 
     void RotatePlayer(Vector2 movementAxis, ref WITCHER_DIRECTION witcherDirection, GameObject gameObject) 
     {
