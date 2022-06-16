@@ -43,10 +43,8 @@ public class Player_Movement : IMovable
         {
             nextTileIndex = Tile_Map.GetGameObjectIndexPlusOtherIndex(gameObject, movementAxis);
 
-            if (Tile_Map.IsTileEmpty(nextTileIndex)) 
+            if (Tile_Map.IsTileEmpty(nextTileIndex))
             {
-                RotatePlayer(movementAxis, ref direction, gameObject);
-
                 movementTimer = 0f;
 
                 oldPosition = Tile_Map.GetTileMapPosition(Tile_Map.GetGameObjectIndex(gameObject));
@@ -54,7 +52,9 @@ public class Player_Movement : IMovable
 
                 Tile_Map.MoveGameObjectToTileX(nextTileIndex, gameObject);
             }
-        }
+
+            RotatePlayer(movementAxis, ref direction, gameObject);
+        }        
 
         if (IsObjectMoving()) 
         {
@@ -100,19 +100,22 @@ public class Player_Movement : IMovable
                 break;
         }
 
-        switch ((int)movementAxis.y)
+        if (movementAxis.x == 0) 
         {
-            case -1:
+            switch ((int)movementAxis.y)
+            {
+                case -1:
 
-                newDirection = WITCHER_DIRECTION.UP;
-                break;
-            case 1:
+                    newDirection = WITCHER_DIRECTION.UP;
+                    break;
+                case 1:
 
-                newDirection = WITCHER_DIRECTION.DOWN;
-                break;
-            default:
-                break;
-        }
+                    newDirection = WITCHER_DIRECTION.DOWN;
+                    break;
+                default:
+                    break;
+            }
+        }        
 
         if (newDirection != witcherDirection) 
         {
