@@ -8,29 +8,33 @@ public static class Tile_Map
 
     private static Tile[,] tileMap;
 
-    private static Vector2 tileSize;    
+    private static Vector2 tileSize;
 
-    private static bool mapGenerated = false;        
+    private static bool mapGenerated = false;
 
-    public static Vector2 TileSize 
-    {        
-        get 
+    private static bool doorCreated = false;
+
+    //private static short destroyableStaticObjectsCount = 0;
+
+    public static Vector2 TileSize
+    {
+        get
         {
             return tileSize;
         }
-    }  
-    
-    private static Vector2 nullIndex 
+    }
+
+    private static Vector2 nullIndex
     {
-        get 
+        get
         {
             return new Vector2(-1, -1);
         }
     }
 
     public static void GenerateTileMap(Vector3 surfaceSize, Vector3 surfaceCenter)
-    {        
-        if (mapGenerated != true) 
+    {
+        if (mapGenerated != true)
         {
             mapGenerated = true;
         }
@@ -42,18 +46,18 @@ public static class Tile_Map
 
     public static void NewGameObjectInTile(Vector2 tileIndex, GameObject gameObject)
     {
-        if (mapGenerated) 
+        if (mapGenerated)
         {
             if (!IsGameObjectInTileMap(gameObject))
             {
                 LocateGameObjectInTile(tileIndex, gameObject);
             }
-        }        
+        }
     }
 
     public static void MoveGameObjectToTileX(Vector2 destinyIndex, GameObject gameObject)
     {
-        if (mapGenerated) 
+        if (mapGenerated)
         {
             Vector2 auxIndex = GetGameObjectIndex(gameObject);
 
@@ -61,7 +65,7 @@ public static class Tile_Map
             {
                 LocateGameObjectInTile(destinyIndex, auxIndex, gameObject);
             }
-        }        
+        }
     }
 
     public static void ReplaceGameObjectForOtherInTileX(Vector2 targetIndex, GameObject newGameObject)
@@ -75,18 +79,18 @@ public static class Tile_Map
 
             NewGameObjectInTile(targetIndex, newGameObject);
         }
-    }
+    }  
 
-    public static void DestroyDestroyableGameObjectInTileX(Vector2 targetIndex) 
+    public static void DestroyDestroyableGameObjectInTileX(Vector2 targetIndex)
     {
-        if (mapGenerated && IsValidIndex(targetIndex)) 
+        if (mapGenerated && IsValidIndex(targetIndex))
         {
             if (!IsTileEmpty(targetIndex))
             {
                 GameObject destroyedGameObject = tileMap[(int)targetIndex.y, (int)targetIndex.x].TileObject;
-                
+
                 IDestroyable aux = destroyedGameObject.GetComponent<IDestroyable>();
-                
+
                 if (aux != null)
                 {
                     aux.ObjectAboutToBeDestroyed();
@@ -94,12 +98,12 @@ public static class Tile_Map
                     GameObject.Destroy(destroyedGameObject);
                 }
             }
-        }        
-    }    
+        }
+    }
 
-    public static void DestroyAdjacentObjectsOfATile(Vector2 targetIndex) 
+    public static void DestroyAdjacentObjectsOfATile(Vector2 targetIndex)
     {
-        if (mapGenerated && IsValidIndex(targetIndex)) 
+        if (mapGenerated && IsValidIndex(targetIndex))
         {
             Vector2 upIndex = targetIndex - new Vector2(0f, 1f);
             Vector2 downIndex = targetIndex - new Vector2(0f, 1f);
@@ -110,7 +114,7 @@ public static class Tile_Map
             DestroyDestroyableGameObjectInTileX(downIndex);
             DestroyDestroyableGameObjectInTileX(rightIndex);
             DestroyDestroyableGameObjectInTileX(leftIndex);
-        }        
+        }
     }
 
     public static Vector2 GetGameObjectIndex(GameObject gameObject)
@@ -144,22 +148,41 @@ public static class Tile_Map
         }
 
         return index;
-    }    
+    }
 
-    public static Vector3 GetTileMapPosition(Vector2 targetIndex) 
+    public static Vector3 GetTileMapPosition(Vector2 targetIndex)
     {
         return tileMap[(int)targetIndex.y, (int)targetIndex.x].Position;
     }
 
-    public static bool IsTileEmpty(Vector2 targetIndex) 
+    public static bool IsTileEmpty(Vector2 targetIndex)
     {
-        if (IsValidIndex(targetIndex)) 
+        if (IsValidIndex(targetIndex))
         {
             return tileMap[(int)targetIndex.y, (int)targetIndex.x].isEmpty;
         }
 
         return false;
-    }    
+    }
+
+    /*public static void TryToGenerateDoor()
+    {
+        if (!doorCreated)
+        {
+            if (destroyableStaticObjectsCount <= 1)
+            {
+
+            }
+            else 
+            {
+                                                
+            }
+
+            //Si es el ultimo objeto generar puerta
+            //Si no es el ultimo objeto intentar generarla
+            //El lugar donde se generara la puerta no puede ser una esquina
+        }
+    }*/    
 
     private static void InitialMapSetting() 
     {
@@ -256,5 +279,12 @@ public static class Tile_Map
                 GameObject.Destroy(tileMap[(int)targetIndex.y, (int)targetIndex.x].TileObject);
             }
         }
+    }
+
+    private static bool IsGameObjectDestroyableAndNotAWitcher(GameObject gameObject)
+    {
+        IDestroyable aux = gameObject.GetComponent<IDestroyable>();
+
+        return aux != null && gameObject.tag != "Witcher";
     }
 }

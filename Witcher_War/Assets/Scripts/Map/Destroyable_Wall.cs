@@ -5,6 +5,6 @@ public class Destroyable_Wall : MonoBehaviour, IDestroyable
 {
     public void ObjectAboutToBeDestroyed() 
     {
-        //Tile_Map.DestroyGameObjectInTileX(Tile_Map.GetGameObjectDownIndex(gameObject));
+        //Tile_Map.TryToGenerateDoor();
     }
 }
