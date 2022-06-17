@@ -14,7 +14,7 @@ public static class Tile_Map
 
     private static bool doorCreated = false;
 
-    //private static short destroyableStaticObjectsCount = 0;
+    private static short destroyableStaticObjectsCount = 0;
 
     public static Vector2 TileSize
     {
