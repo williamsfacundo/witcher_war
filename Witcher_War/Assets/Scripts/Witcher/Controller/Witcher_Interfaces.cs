@@ -13,7 +13,7 @@ public interface IMovable
 
 public interface IDestroyable
 {
-    void ObjectHit();
+    void ObjectAboutToBeDestroyed();
 }
 
 public interface ICanUsePotion 

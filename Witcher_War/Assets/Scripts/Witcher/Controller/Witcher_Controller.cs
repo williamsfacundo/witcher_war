@@ -102,7 +102,7 @@ public class Witcher_Controller : MonoBehaviour, IDestroyable
         }
     }
 
-    public void ObjectHit()
+    public void ObjectAboutToBeDestroyed()
     {
         //Tile_Map.DestroyGameObjectInTileX(Tile_Map.GetGameObjectDownIndex(gameObject));
     }

@@ -64,21 +64,38 @@ public static class Tile_Map
         }        
     }
 
-    public static void DestroyGameObjectInTileX(Vector2 targetIndex) 
+    public static void ReplaceGameObjectForOtherInTileX(Vector2 targetIndex, GameObject newGameObject)
+    {
+        if (mapGenerated && IsValidIndex(targetIndex))
+        {
+            if (!IsTileEmpty(targetIndex))
+            {
+                DestroyGameObjectInTileX(targetIndex);
+            }
+
+            NewGameObjectInTile(targetIndex, newGameObject);
+        }
+    }
+
+    public static void DestroyDestroyableGameObjectInTileX(Vector2 targetIndex) 
     {
         if (mapGenerated && IsValidIndex(targetIndex)) 
         {
-            if (!tileMap[(int)targetIndex.y, (int)targetIndex.x].isEmpty)
+            if (!IsTileEmpty(targetIndex))
             {
-                IDestroyable aux = tileMap[(int)targetIndex.y, (int)targetIndex.x].TileObject.GetComponent<IDestroyable>();                
-
+                GameObject destroyedGameObject = tileMap[(int)targetIndex.y, (int)targetIndex.x].TileObject;
+                
+                IDestroyable aux = destroyedGameObject.GetComponent<IDestroyable>();
+                
                 if (aux != null)
                 {
-                    GameObject.Destroy(tileMap[(int)targetIndex.y, (int)targetIndex.x].TileObject);
+                    aux.ObjectAboutToBeDestroyed();
+
+                    GameObject.Destroy(destroyedGameObject);
                 }
             }
         }        
-    }
+    }    
 
     public static void DestroyAdjacentObjectsOfATile(Vector2 targetIndex) 
     {
@@ -89,10 +106,10 @@ public static class Tile_Map
             Vector2 rightIndex = targetIndex - new Vector2(1f, 0f);
             Vector2 leftIndex = targetIndex - new Vector2(-1f, 0f);
 
-            DestroyGameObjectInTileX(upIndex);
-            DestroyGameObjectInTileX(downIndex);
-            DestroyGameObjectInTileX(rightIndex);
-            DestroyGameObjectInTileX(leftIndex);
+            DestroyDestroyableGameObjectInTileX(upIndex);
+            DestroyDestroyableGameObjectInTileX(downIndex);
+            DestroyDestroyableGameObjectInTileX(rightIndex);
+            DestroyDestroyableGameObjectInTileX(leftIndex);
         }        
     }
 
@@ -228,5 +245,16 @@ public static class Tile_Map
     {
         return (tileIndex.x >= 0 && tileIndex.x <= maxColumns - 1) &&
             (tileIndex.y >= 0 && tileIndex.y <= maxRows - 1);
-    }   
+    }
+
+    private static void DestroyGameObjectInTileX(Vector2 targetIndex)
+    {
+        if (IsValidIndex(targetIndex))
+        {
+            if (!IsTileEmpty(targetIndex))
+            {
+                GameObject.Destroy(tileMap[(int)targetIndex.y, (int)targetIndex.x].TileObject);
+            }
+        }
+    }
 }

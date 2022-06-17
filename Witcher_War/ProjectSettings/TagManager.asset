@@ -7,7 +7,7 @@ TagManager:
   - Floor
   - Wall
   - Potion
-  - Destroyable Wall
+  - Witcher
   layers:
   - Default
   - TransparentFX
