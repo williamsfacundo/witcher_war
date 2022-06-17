@@ -66,20 +66,33 @@ public static class Tile_Map
 
     public static void DestroyGameObjectInTileX(Vector2 targetIndex) 
     {
-        if (mapGenerated) 
+        if (mapGenerated && IsValidIndex(targetIndex)) 
         {
-            if (ValidIndex(targetIndex))
+            if (!tileMap[(int)targetIndex.y, (int)targetIndex.x].isEmpty)
             {
-                if (!tileMap[(int)targetIndex.y, (int)targetIndex.x].isEmpty)
+                IDestroyable aux = tileMap[(int)targetIndex.y, (int)targetIndex.x].TileObject.GetComponent<IDestroyable>();                
+
+                if (aux != null)
                 {
-                    IDestroyable aux = tileMap[(int)targetIndex.y, (int)targetIndex.x].TileObject.GetComponent<IDestroyable>();
-                    
-                    if (aux != null) 
-                    {                        
-                        GameObject.Destroy(tileMap[(int)targetIndex.y, (int)targetIndex.x].TileObject);
-                    }                  
+                    GameObject.Destroy(tileMap[(int)targetIndex.y, (int)targetIndex.x].TileObject);
                 }
             }
+        }        
+    }
+
+    public static void DestroyAdjacentObjectsOfATile(Vector2 targetIndex) 
+    {
+        if (mapGenerated && IsValidIndex(targetIndex)) 
+        {
+            Vector2 upIndex = targetIndex - new Vector2(0f, 1f);
+            Vector2 downIndex = targetIndex - new Vector2(0f, 1f);
+            Vector2 rightIndex = targetIndex - new Vector2(1f, 0f);
+            Vector2 leftIndex = targetIndex - new Vector2(-1f, 0f);
+
+            DestroyGameObjectInTileX(upIndex);
+            DestroyGameObjectInTileX(downIndex);
+            DestroyGameObjectInTileX(rightIndex);
+            DestroyGameObjectInTileX(leftIndex);
         }        
     }
 
@@ -107,63 +120,14 @@ public static class Tile_Map
         {
             index += otherIndex;
 
-            if (!ValidIndex(index))
+            if (!IsValidIndex(index))
             {
                 index = nullIndex;
             }
         }
 
         return index;
-    }
-
-    public static Vector2 GetGameObjectUpIndex(GameObject gameObject) 
-    {
-        if (mapGenerated) 
-        {
-            return GetGameObjectIndexPlusOtherIndex(gameObject, -Vector2.up);
-        }
-        else 
-        {
-            return nullIndex;
-        }
-       
-    }
-
-    public static Vector2 GetGameObjectDownIndex(GameObject gameObject)
-    {
-        if (mapGenerated) 
-        {
-            return GetGameObjectIndexPlusOtherIndex(gameObject, Vector2.up);
-        }
-        else
-        {
-            return nullIndex;
-        }        
-    }
-
-    public static Vector2 GetGameObjectRightIndex(GameObject gameObject)
-    {
-        if (mapGenerated) 
-        {
-            return GetGameObjectIndexPlusOtherIndex(gameObject, Vector2.right);
-        }
-        else
-        {
-            return nullIndex;
-        }        
-    }
-
-    public static Vector2 GetGameObjectLeftIndex(GameObject gameObject)
-    {
-        if (mapGenerated) 
-        {
-            return GetGameObjectIndexPlusOtherIndex(gameObject, -Vector2.right);
-        }
-        else
-        {
-            return nullIndex;
-        }        
-    }
+    }    
 
     public static Vector3 GetTileMapPosition(Vector2 targetIndex) 
     {
@@ -172,29 +136,13 @@ public static class Tile_Map
 
     public static bool IsTileEmpty(Vector2 targetIndex) 
     {
-        if (ValidIndex(targetIndex)) 
+        if (IsValidIndex(targetIndex)) 
         {
             return tileMap[(int)targetIndex.y, (int)targetIndex.x].isEmpty;
         }
 
         return false;
-    }
-
-    public static Vector2 FindIndexBasedOnPosition(Vector3 position) 
-    {
-        for (short i = 0; i < maxRows; i++)
-        {
-            for (short v = 0; v < maxColumns; v++)
-            {
-                if (tileMap[i, v].Position == position) 
-                {
-                    return new Vector2((float)v, (float)i);
-                }
-            }
-        }
-
-        return nullIndex;
-    }
+    }    
 
     private static void InitialMapSetting() 
     {
@@ -255,7 +203,7 @@ public static class Tile_Map
 
     private static void LocateGameObjectInTile(Vector2 newIndex, GameObject gameObject) 
     {
-        if (ValidIndex(newIndex))
+        if (IsValidIndex(newIndex))
         {
             if (tileMap[(int)newIndex.y, (int)newIndex.x].isEmpty && gameObject != null)
             {    
@@ -266,7 +214,7 @@ public static class Tile_Map
 
     private static void LocateGameObjectInTile(Vector2 newIndex, Vector2 oldIndex,GameObject gameObject)
     {
-        if (ValidIndex(newIndex))
+        if (IsValidIndex(newIndex))
         {
             if (tileMap[(int)newIndex.y, (int)newIndex.x].isEmpty)
             {
@@ -276,7 +224,7 @@ public static class Tile_Map
         }
     }
 
-    private static bool ValidIndex(Vector2 tileIndex) 
+    private static bool IsValidIndex(Vector2 tileIndex) 
     {
         return (tileIndex.x >= 0 && tileIndex.x <= maxColumns - 1) &&
             (tileIndex.y >= 0 && tileIndex.y <= maxRows - 1);

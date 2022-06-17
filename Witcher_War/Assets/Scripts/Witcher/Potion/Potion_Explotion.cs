@@ -1,15 +1,18 @@
 using UnityEngine;
 
-[RequireComponent(typeof(BoxCollider[]))]
 public class Potion_Explotion : MonoBehaviour
 {
     private const float explotionTime = 1.5f;
-    private float explotionTimer;   
+    private float explotionTimer;
+
+    Vector2 explosionIndex;
 
     // Start is called before the first frame update
     void Start()
     {
-        explotionTimer = explotionTime;                
+        explotionTimer = explotionTime;
+
+        explosionIndex = Tile_Map.GetGameObjectIndex(GameObject.FindGameObjectWithTag("Player"));
     }    
 
     // Update is called once per frame
@@ -32,7 +35,7 @@ public class Potion_Explotion : MonoBehaviour
 
     void DestroyAdjacentObjects() 
     {
-
+        Tile_Map.DestroyAdjacentObjectsOfATile(explosionIndex);
     }
 
     void DecreaseTimer() 

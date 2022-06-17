@@ -16,4 +16,9 @@ public class Cpu_Movement : IMovable
     {
 
     }
+
+    public bool IsObjectMoving() 
+    {
+        return false;
+    }
 }

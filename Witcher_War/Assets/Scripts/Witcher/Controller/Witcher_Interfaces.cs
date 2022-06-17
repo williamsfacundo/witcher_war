@@ -7,6 +7,8 @@ public interface IMovable
     void Move(GameObject gameObject, ref WITCHER_DIRECTION direction);
 
     void Timer();
+
+    bool IsObjectMoving();
 }
 
 public interface IDestroyable

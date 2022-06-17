@@ -77,7 +77,7 @@ public class Player_Movement : IMovable
         }        
     }   
     
-    private bool IsObjectMoving() 
+    public bool IsObjectMoving()
     {
         return movementTimer < displacementTime;
     }

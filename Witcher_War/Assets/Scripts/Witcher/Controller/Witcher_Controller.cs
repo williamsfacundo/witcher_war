@@ -68,7 +68,10 @@ public class Witcher_Controller : MonoBehaviour, IDestroyable
 
     private void Update()
     {
-        usePotionMechanic?.InstanciatePotion(potionPrefab, transform.position);
+        if (!movementMechanic.IsObjectMoving()) 
+        {
+            usePotionMechanic?.InstanciatePotion(potionPrefab, transform.position);
+        }        
 
         movementMechanic?.MoveInput();
 
@@ -101,6 +104,6 @@ public class Witcher_Controller : MonoBehaviour, IDestroyable
 
     public void ObjectHit()
     {
-        Tile_Map.DestroyGameObjectInTileX(Tile_Map.GetGameObjectDownIndex(gameObject));
+        //Tile_Map.DestroyGameObjectInTileX(Tile_Map.GetGameObjectDownIndex(gameObject));
     }
 }
