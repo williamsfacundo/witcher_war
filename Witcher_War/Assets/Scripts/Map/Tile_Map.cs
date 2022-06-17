@@ -6,6 +6,8 @@ public static class Tile_Map
 
     public const int maxColumns = 30;
 
+    private const short maxBorders = 4;
+
     private static Tile[,] tileMap;
 
     private static Vector2 tileSize;
@@ -14,7 +16,7 @@ public static class Tile_Map
 
     private static bool doorCreated = false;
 
-    private static short destroyableStaticObjectsCount = 0;
+    private static short destroyableStaticObjectsCount;
 
     public static Vector2 TileSize
     {
@@ -38,6 +40,8 @@ public static class Tile_Map
         {
             mapGenerated = true;
         }
+
+        destroyableStaticObjectsCount = 0;
 
         InitialMapSetting();
 
@@ -93,6 +97,11 @@ public static class Tile_Map
 
                 if (aux != null)
                 {
+                    if(destroyedGameObject.tag != "Witcher") 
+                    {
+                        destroyableStaticObjectsCount--;
+                    }
+
                     aux.ObjectAboutToBeDestroyed();
 
                     GameObject.Destroy(destroyedGameObject);
@@ -163,26 +172,7 @@ public static class Tile_Map
         }
 
         return false;
-    }
-
-    /*public static void TryToGenerateDoor()
-    {
-        if (!doorCreated)
-        {
-            if (destroyableStaticObjectsCount <= 1)
-            {
-
-            }
-            else 
-            {
-                                                
-            }
-
-            //Si es el ultimo objeto generar puerta
-            //Si no es el ultimo objeto intentar generarla
-            //El lugar donde se generara la puerta no puede ser una esquina
-        }
-    }*/    
+    }      
 
     private static void InitialMapSetting() 
     {
@@ -247,7 +237,12 @@ public static class Tile_Map
         {
             if (tileMap[(int)newIndex.y, (int)newIndex.x].isEmpty && gameObject != null)
             {    
-                tileMap[(int)newIndex.y, (int)newIndex.x].TileObject = gameObject;               
+                tileMap[(int)newIndex.y, (int)newIndex.x].TileObject = gameObject;
+
+                if (IsGameObjectDestroyableAndNotAWitcher(gameObject))
+                {
+                    destroyableStaticObjectsCount++;
+                }
             }
         }
     }
@@ -276,6 +271,11 @@ public static class Tile_Map
         {
             if (!IsTileEmpty(targetIndex))
             {
+                if (IsGameObjectDestroyableAndNotAWitcher(tileMap[(int)targetIndex.y, (int)targetIndex.x].TileObject)) 
+                {
+                    destroyableStaticObjectsCount--;
+                }
+
                 GameObject.Destroy(tileMap[(int)targetIndex.y, (int)targetIndex.x].TileObject);
             }
         }
@@ -286,5 +286,43 @@ public static class Tile_Map
         IDestroyable aux = gameObject.GetComponent<IDestroyable>();
 
         return aux != null && gameObject.tag != "Witcher";
+    }
+
+    public static void TryToGenerateDoor() //https://answers.unity.com/questions/551934/instantiating-using-a-string-for-prefab-name.html
+    {
+        if (!doorCreated)
+        {
+            if (destroyableStaticObjectsCount <= 1)
+            {                
+                //Instanciar puerta
+            }
+            else
+            {
+
+            }
+
+            //Si es el ultimo objeto generar puerta
+            //Si no es el ultimo objeto intentar generarla
+            //El lugar donde se generara la puerta no puede ser una esquina
+        }
+    }
+
+    private static Vector2 GetRandomBorderIndex() 
+    {
+        short side = (short)Random.Range(1f, maxBorders);        
+
+        switch (side) 
+        {
+            case 1:               
+                return new Vector2(Random.Range(1f, maxColumns - 2), 0f);                
+            case 2:
+                return new Vector2(0f, Random.Range(1f, maxRows - 2));                 
+            case 3:                
+                return new Vector2(Random.Range(1f, maxColumns - 2), maxRows - 1);
+            case 4:                
+                return new Vector2(maxColumns - 1, Random.Range(1f, maxRows - 2));
+            default:                
+                return new Vector2(Random.Range(1f, maxColumns - 2), 0f);
+        }
     }
 }
