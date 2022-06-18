@@ -4,9 +4,7 @@ public static class Tile_Map
 {
     public const int maxRows = 7;
 
-    public const int maxColumns = 7;
-
-    private const short maxBorders = 4;
+    public const int maxColumns = 7;    
 
     private static Tile[,] tileMap;
 
@@ -21,6 +19,14 @@ public static class Tile_Map
         get
         {
             return tileSize;
+        }
+    }
+
+    public static short DestroyableStaticObjectsCount 
+    {
+        get 
+        {
+            return destroyableStaticObjectsCount;
         }
     }
 
