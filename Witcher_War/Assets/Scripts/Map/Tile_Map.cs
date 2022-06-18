@@ -74,20 +74,7 @@ public static class Tile_Map
                 LocateGameObjectInTile(destinyIndex, auxIndex, gameObject);
             }
         }
-    }
-
-    public static void ReplaceGameObjectForOtherInTileX(Vector2 targetIndex, GameObject newGameObject)
-    {
-        if (mapGenerated && IsValidIndex(targetIndex))
-        {
-            if (!IsTileEmpty(targetIndex))
-            {
-                DestroyGameObjectInTileX(targetIndex);
-            }
-
-            NewGameObjectInTile(targetIndex, newGameObject);
-        }
-    }  
+    }      
 
     public static void DestroyDestroyableGameObjectInTileX(Vector2 targetIndex)
     {
