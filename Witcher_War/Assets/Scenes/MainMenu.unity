@@ -274,7 +274,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1510018436}
         m_TargetAssemblyTypeName: Scenes_Management, Assembly-CSharp
-        m_MethodName: ChangeToCreditsScene
+        m_MethodName: ChangeToOptionsScene
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

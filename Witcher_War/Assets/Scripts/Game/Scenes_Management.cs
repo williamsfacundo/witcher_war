@@ -23,6 +23,11 @@ public class Scenes_Management : MonoBehaviour
         SceneManager.LoadScene("EndGame");
     }
 
+    public static void ChangeToOptionsScene() 
+    {
+        SceneManager.LoadScene("Options");
+    }
+
     public void ExitGame() 
     {
         Application.Quit();
