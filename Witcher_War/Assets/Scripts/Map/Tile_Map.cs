@@ -104,6 +104,7 @@ public static class Tile_Map
                     if(destroyedGameObject.tag != "Witcher") 
                     {
                         destroyableStaticObjectsCount--;
+                        Debug.Log(destroyableStaticObjectsCount);
                     }
 
                     aux.ObjectAboutToBeDestroyed();
@@ -242,6 +243,7 @@ public static class Tile_Map
                 if (IsGameObjectDestroyableAndNotAWitcher(gameObject))
                 {
                     destroyableStaticObjectsCount++;
+                    Debug.Log(destroyableStaticObjectsCount);
                 }
             }
         }
@@ -274,6 +276,7 @@ public static class Tile_Map
                 if (IsGameObjectDestroyableAndNotAWitcher(tileMap[(int)targetIndex.y, (int)targetIndex.x].TileObject)) 
                 {
                     destroyableStaticObjectsCount--;
+                    Debug.Log(destroyableStaticObjectsCount);
                 }
 
                 GameObject.Destroy(tileMap[(int)targetIndex.y, (int)targetIndex.x].TileObject);

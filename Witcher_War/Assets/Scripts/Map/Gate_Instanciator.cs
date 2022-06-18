@@ -1,17 +1,44 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Gate_Instanciator : MonoBehaviour
 {
-    bool gateInstanciated = false;
+    [SerializeField] [Range(1, 100)] private short probabilityToSpawnGate = 10;
 
-    // Update is called once per frame
-    void Update()
+    bool gateInstanciated = false;   
+
+    private void OnEnable()
+    {        
+        Destroyable_Wall.objectAboutToBeDestroyed += InstanciateGateMechanic;
+    }
+
+    private void OnDisable()
     {
-        if (Tile_Map.DestroyableStaticObjectsCount <= 0f && !gateInstanciated) 
+        Destroyable_Wall.objectAboutToBeDestroyed -= InstanciateGateMechanic;
+    }    
+
+    private void InstanciateGateMechanic() 
+    {
+        if (!gateInstanciated) 
         {
-            gateInstanciated = true;            
-        }
+            if (Tile_Map.DestroyableStaticObjectsCount - 1 > 0f)
+            {
+                float random = Random.Range(1f, 100f);
+
+                if ((short)random <= probabilityToSpawnGate)
+                {
+                    InstanciateGate();
+                }
+            }
+            else
+            {
+                InstanciateGate();
+            }
+        }        
+    }    
+
+    private void InstanciateGate() 
+    {
+        gateInstanciated = true;
+        Debug.Log("Gate Instanciated");
     }
 }

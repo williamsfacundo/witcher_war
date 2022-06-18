@@ -3,8 +3,12 @@ using UnityEngine;
 [RequireComponent(typeof(Wall))]
 public class Destroyable_Wall : MonoBehaviour, IDestroyable
 {
-    public void ObjectAboutToBeDestroyed() 
+    public delegate void StaticObjectAboutToBeDestroyed();
+
+    public static StaticObjectAboutToBeDestroyed objectAboutToBeDestroyed;
+
+    public void ObjectAboutToBeDestroyed()  
     {
-        //Tile_Map.TryToGenerateDoor();
+        objectAboutToBeDestroyed();
     }
 }
