@@ -8,9 +8,9 @@ public class Scenes_Management : MonoBehaviour
         SceneManager.LoadScene("Gameplay");
     }
 
-    public static void ChangeToMenuesScene() 
+    public static void ChangeToMainMenuScene() 
     {
-        SceneManager.LoadScene("Menues");
+        SceneManager.LoadScene("MainMenu");
     }   
 
     public static void ChangeToEndGameScene() 
