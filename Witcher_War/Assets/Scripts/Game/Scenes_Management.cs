@@ -15,7 +15,7 @@ public class Scenes_Management : MonoBehaviour
     
     public static void ChangeToCreditsScene() 
     {
-        SceneManager.LoadScene("CreditsScene");
+        SceneManager.LoadScene("Credits");
     }
 
     public static void ChangeToEndGameScene() 
