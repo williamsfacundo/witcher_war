@@ -252,24 +252,7 @@ public static class Tile_Map
     {
         return (tileIndex.x >= 0 && tileIndex.x <= maxColumns - 1) &&
             (tileIndex.y >= 0 && tileIndex.y <= maxRows - 1);
-    }
-
-    private static void DestroyGameObjectInTileX(Vector2 targetIndex)
-    {
-        if (IsValidIndex(targetIndex))
-        {
-            if (!IsTileEmpty(targetIndex))
-            {
-                if (IsGameObjectDestroyableAndNotAWitcher(tileMap[(int)targetIndex.y, (int)targetIndex.x].TileObject)) 
-                {
-                    destroyableStaticObjectsCount--;
-                    Debug.Log(destroyableStaticObjectsCount);
-                }
-
-                GameObject.Destroy(tileMap[(int)targetIndex.y, (int)targetIndex.x].TileObject);
-            }
-        }
-    }
+    }    
 
     private static bool IsGameObjectDestroyableAndNotAWitcher(GameObject gameObject)
     {
