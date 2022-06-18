@@ -113,7 +113,7 @@ public static class Tile_Map
         if (mapGenerated && IsValidIndex(targetIndex))
         {
             Vector2 upIndex = targetIndex - new Vector2(0f, 1f);
-            Vector2 downIndex = targetIndex - new Vector2(0f, 1f);
+            Vector2 downIndex = targetIndex + new Vector2(0f, 1f);
             Vector2 rightIndex = targetIndex - new Vector2(1f, 0f);
             Vector2 leftIndex = targetIndex - new Vector2(-1f, 0f);
 
@@ -284,5 +284,5 @@ public static class Tile_Map
         IDestroyable aux = gameObject.GetComponent<IDestroyable>();
 
         return aux != null && gameObject.tag != "Witcher";
-    }     
+    }   
 }
