@@ -29,12 +29,17 @@ public class Player_Movement : IMovable
     {
         movementAxis.x = Input.GetAxisRaw("Horizontal");
         
-        if (movementAxis.x == 0) 
-        {
-            movementAxis.y = Input.GetAxisRaw("Vertical");
+        movementAxis.y = Input.GetAxisRaw("Vertical");
 
+        if (movementAxis.y != 0f)
+        {
             movementAxis.y *= -1;
-        }                
+        }
+
+        if (movementAxis.x != 0f && movementAxis.y != 0f) 
+        {
+            movementAxis.y = 0f;
+        }       
     }    
 
     public void Move(GameObject gameObject, ref WITCHER_DIRECTION direction)
