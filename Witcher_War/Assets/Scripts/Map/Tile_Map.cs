@@ -2,9 +2,9 @@ using UnityEngine;
 
 public static class Tile_Map
 {
-    public const int maxRows = 30;
+    public const int maxRows = 7;
 
-    public const int maxColumns = 30;
+    public const int maxColumns = 7;
 
     private const short maxBorders = 4;
 
