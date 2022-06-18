@@ -462,7 +462,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2499160631281666004, guid: 71ac9e801ca1fb34090efb211d3f89b8, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2499160631281666004, guid: 71ac9e801ca1fb34090efb211d3f89b8, type: 3}
       propertyPath: m_AnchorMax.x
@@ -634,8 +634,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
-  - {fileID: 41812496}
   - {fileID: 1959776923}
+  - {fileID: 41812496}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -680,7 +680,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.30206308, g: 0.20728016, b: 0.3207547, a: 0}
+  m_BackGroundColor: {r: 0.21960784, g: 0.16862746, b: 0.29411766, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
