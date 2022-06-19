@@ -44,8 +44,12 @@ public class Gate_Instanciator : MonoBehaviour
     {
         gateInstanciated = true;
 
+        Vector2 gateIndex = Tile_Map.GetRandomEmptyIndex();
+
         gate = (GameObject)Instantiate(Resources.Load(gateResourceName));
 
-        gate.transform.position = Tile_Map.GetTileMapPosition(Tile_Map.GetRandomEmptyIndex());
+        gate.transform.position = Tile_Map.GetTileMapPosition(gateIndex);
+
+        Tile_Map.SetGateTile(gate, gateIndex);
     }
 }
