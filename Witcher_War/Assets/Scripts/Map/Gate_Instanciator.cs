@@ -4,7 +4,11 @@ public class Gate_Instanciator : MonoBehaviour
 {
     [SerializeField] [Range(0, 100)] private short probabilityToSpawnGate = 10;
 
-    bool gateInstanciated = false;   
+    private const string gateResourceName = "Gate";
+
+    bool gateInstanciated = false;
+
+    GameObject gate;
 
     private void OnEnable()
     {        
@@ -40,6 +44,8 @@ public class Gate_Instanciator : MonoBehaviour
     {
         gateInstanciated = true;
 
-        
+        gate = (GameObject)Instantiate(Resources.Load(gateResourceName));
+
+        gate.transform.position = Tile_Map.GetTileMapPosition(Tile_Map.GetRandomEmptyIndex());
     }
 }
