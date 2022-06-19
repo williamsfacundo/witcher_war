@@ -8,6 +8,8 @@ public static class Tile_Map
 
     private static Tile[,] tileMap;
 
+    private static Vector2 gateTile;
+
     private static Vector2 tileSize;
 
     private static bool mapGenerated = false;
@@ -30,6 +32,14 @@ public static class Tile_Map
         }
     }
 
+    public static Vector2 GateTile 
+    {
+        get 
+        {
+            return gateTile;
+        }
+    }
+
     private static Vector2 nullIndex
     {
         get
@@ -44,6 +54,8 @@ public static class Tile_Map
         {
             mapGenerated = true;
         }
+
+        gateTile = nullIndex;
 
         destroyableStaticObjectsCount = 0;
 
@@ -219,6 +231,14 @@ public static class Tile_Map
         }
 
         return index;
+    }
+
+    public static void SetGateTile(GameObject gate, Vector2 index) 
+    {
+        if (gate.tag == "Gate") 
+        {
+            gateTile = index;
+        }
     }
 
     private static void InitialMapSetting() 
