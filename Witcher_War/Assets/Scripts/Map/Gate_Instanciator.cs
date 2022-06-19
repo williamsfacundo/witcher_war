@@ -39,6 +39,7 @@ public class Gate_Instanciator : MonoBehaviour
     private void InstanciateGate() 
     {
         gateInstanciated = true;
-        Debug.Log("Gate Instanciated");
+
+        
     }
 }
