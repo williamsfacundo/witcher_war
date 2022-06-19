@@ -47,7 +47,6 @@ public class Map_Generator : MonoBehaviour
         if (!calculatedStaticObjects) 
         {
             Tile_Map.CalculateDestroyableStaticObjectsCount();
-            Debug.Log(Tile_Map.DestroyableStaticObjectsCount);
 
             calculatedStaticObjects = true;
         }        

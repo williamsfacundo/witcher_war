@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Gate_Instanciator : MonoBehaviour
 {
-    [SerializeField] [Range(1, 100)] private short probabilityToSpawnGate = 10;
+    [SerializeField] [Range(0, 100)] private short probabilityToSpawnGate = 10;
 
     bool gateInstanciated = false;   
 
@@ -20,7 +20,7 @@ public class Gate_Instanciator : MonoBehaviour
     {
         if (!gateInstanciated) 
         {
-            if (Tile_Map.DestroyableStaticObjectsCount - 1 > 0f)
+            if (Tile_Map.DestroyableStaticObjectsCount - 1 >= 0f)
             {
                 float random = Random.Range(1f, 100f);
 
