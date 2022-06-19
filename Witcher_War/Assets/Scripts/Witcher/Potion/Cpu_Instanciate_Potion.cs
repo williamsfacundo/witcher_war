@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Cpu_Instanciate_Potion : ICanUsePotion
@@ -8,4 +6,9 @@ public class Cpu_Instanciate_Potion : ICanUsePotion
     {
 
     }
+
+    /*public bool NewPotionInstanciated() 
+    {
+
+    }*/
 }

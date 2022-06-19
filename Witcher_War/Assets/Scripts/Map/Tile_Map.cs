@@ -40,7 +40,7 @@ public static class Tile_Map
         }
     }
 
-    private static Vector2 nullIndex
+    public static Vector2 nullIndex
     {
         get
         {
