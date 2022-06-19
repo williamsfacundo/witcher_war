@@ -180,6 +180,47 @@ public static class Tile_Map
         }
     }
 
+    public static Vector2 GetRandomEmptyIndex() 
+    {
+        Vector2 index = Vector2.zero;
+        short aux = 0;
+        short maxIterations = 500;
+        short iterations = 0;
+
+        do
+        {
+            iterations++;
+
+            aux = (short)Random.Range(0f, maxColumns - 1);
+
+            index.x = (float)aux;
+
+            aux = (short)Random.Range(0f, maxRows - 1);
+
+            index.y = (float)aux;
+
+        } while (!IsTileEmpty(index) && iterations < maxIterations);
+
+        if (iterations >= maxIterations) 
+        {
+            for (short i = 0; i < maxRows; i++) 
+            {
+                for (short v = 0; v < maxColumns; v++) 
+                {
+                    index.x = (float)v;
+                    index.y = (float)i;
+
+                    if (IsTileEmpty(index)) 
+                    {
+                        return index;
+                    }
+                }
+            }
+        }
+
+        return index;
+    }
+
     private static void InitialMapSetting() 
     {
         tileMap = new Tile[maxRows, maxColumns];
