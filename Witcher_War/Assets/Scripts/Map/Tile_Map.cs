@@ -90,8 +90,7 @@ public static class Tile_Map
                 {
                     if(destroyedGameObject.tag != "Witcher") 
                     {
-                        destroyableStaticObjectsCount--;
-                        Debug.Log(destroyableStaticObjectsCount);
+                        destroyableStaticObjectsCount--;                        
                     }
 
                     aux.ObjectAboutToBeDestroyed();
@@ -160,7 +159,26 @@ public static class Tile_Map
         }
 
         return false;
-    }      
+    }
+
+    public static void CalculateDestroyableStaticObjectsCount()
+    {
+        destroyableStaticObjectsCount = 0;
+
+        for (short i = 0; i < maxRows; i++)
+        {
+            for (short v = 0; v < maxColumns; v++)
+            {
+                if (!tileMap[i, v].isEmpty)
+                {
+                    if (IsGameObjectDestroyableAndNotAWitcher(tileMap[i, v].TileObject))
+                    {
+                        destroyableStaticObjectsCount++;
+                    }
+                }
+            }
+        }
+    }
 
     private static void InitialMapSetting() 
     {
@@ -225,13 +243,7 @@ public static class Tile_Map
         {
             if (tileMap[(int)newIndex.y, (int)newIndex.x].isEmpty && gameObject != null)
             {    
-                tileMap[(int)newIndex.y, (int)newIndex.x].TileObject = gameObject;
-
-                if (IsGameObjectDestroyableAndNotAWitcher(gameObject))
-                {
-                    destroyableStaticObjectsCount++;
-                    Debug.Log(destroyableStaticObjectsCount);
-                }
+                tileMap[(int)newIndex.y, (int)newIndex.x].TileObject = gameObject;                
             }
         }
     }
@@ -256,8 +268,9 @@ public static class Tile_Map
 
     private static bool IsGameObjectDestroyableAndNotAWitcher(GameObject gameObject)
     {
-        IDestroyable aux = gameObject.GetComponent<IDestroyable>();
+        IDestroyable auxDestroyable = gameObject.GetComponent<IDestroyable>();
+        Witcher_Controller auxWitcherController = gameObject.GetComponent<Witcher_Controller>();
 
-        return aux != null && gameObject.tag != "Witcher";
-    }   
+        return auxDestroyable != null && auxWitcherController == null;
+    }    
 }

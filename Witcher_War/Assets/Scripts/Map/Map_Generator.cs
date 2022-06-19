@@ -1,5 +1,5 @@
-using UnityEngine;
 using System.IO;
+using UnityEngine;
 
 public class Map_Generator : MonoBehaviour
 {
@@ -18,6 +18,8 @@ public class Map_Generator : MonoBehaviour
 
     new Renderer renderer;
 
+    private bool calculatedStaticObjects;
+
     private const char nonDestroyableWallChar = 'X';
     private const char destroyableWallChar = 'W';
     private const char playerChar = 'P';
@@ -27,6 +29,8 @@ public class Map_Generator : MonoBehaviour
 
     private void Awake()
     {
+        calculatedStaticObjects = false;
+
         renderer = floor?.GetComponent<Renderer>();        
 
         Tile_Map.GenerateTileMap(renderer.bounds.size, renderer.bounds.center);
@@ -35,8 +39,19 @@ public class Map_Generator : MonoBehaviour
 
         char[] map = GetMapArrayChar();
 
-        InstanciateObjects(map);
-    }    
+        InstanciateObjects(map);       
+    }
+
+    private void Update()
+    {
+        if (!calculatedStaticObjects) 
+        {
+            Tile_Map.CalculateDestroyableStaticObjectsCount();
+            Debug.Log(Tile_Map.DestroyableStaticObjectsCount);
+
+            calculatedStaticObjects = true;
+        }        
+    }
 
     private char[] GetMapArrayChar() 
     {
@@ -109,15 +124,15 @@ public class Map_Generator : MonoBehaviour
     {
         GameObject gameObject = Instantiate(wall);
         gameObject.GetComponent<Renderer>().material = destroyableWallMat;
-        gameObject.GetComponent<Wall>().InitialPosIndex = GetTileMapIndex(index);
+        gameObject.GetComponent<Wall>().InitialPosIndex = GetTileMapIndex(index);        
     }
 
     void NewNonDestroyableWall(short index) 
     {
-        GameObject gameObject = Instantiate(wall);
-        Destroy(gameObject.GetComponent<Destroyable_Wall>());
-        gameObject.GetComponent<Renderer>().material = nonDestroyableWallMat;
-        gameObject.GetComponent<Wall>().InitialPosIndex = GetTileMapIndex(index);
+        GameObject nonDestroyableWall = Instantiate(wall);        
+        Destroy(nonDestroyableWall.GetComponent<Destroyable_Wall>());        
+        nonDestroyableWall.GetComponent<Renderer>().material = nonDestroyableWallMat;
+        nonDestroyableWall.GetComponent<Wall>().InitialPosIndex = GetTileMapIndex(index);        
     }
 
     void NewEnemy(short index) 
