@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class Cpu_Movement : IMovable
 {
-    const float minInputTime = 1.5f;
-    const float maxInputTime = 4.5f;
+    const float minInputTime = 2.5f;
+    const float maxInputTime = 7.5f;
 
     private const float displacementTime = 0.3f;
 
