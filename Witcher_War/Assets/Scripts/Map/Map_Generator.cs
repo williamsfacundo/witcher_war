@@ -3,14 +3,15 @@ using UnityEngine;
 
 public class Map_Generator : MonoBehaviour
 {
-    [SerializeField] private GameObject floor;
-
-    [SerializeField] private GameObject wall;    
-    [SerializeField] private GameObject witcher;
-    [SerializeField] private GameObject potion;
-
     [SerializeField] private Material nonDestroyableWallMat;
-    [SerializeField] private Material destroyableWallMat;    
+    [SerializeField] private Material destroyableWallMat;
+
+    private const string floorResourceName = "Floor";
+    private const string wallResourceName = "Wall";
+    private const string witcherResourceName = "Witcher";
+    private const string potionResourceName = "Potion";
+
+    private GameObject floorPrefab;       
 
     const short maxLevel = 3;
 
@@ -29,9 +30,11 @@ public class Map_Generator : MonoBehaviour
 
     private void Awake()
     {
+        floorPrefab = (GameObject)Instantiate(Resources.Load(floorResourceName));        
+        
         calculatedStaticObjects = false;
 
-        renderer = floor?.GetComponent<Renderer>();        
+        renderer = floorPrefab?.GetComponent<Renderer>();        
 
         Tile_Map.GenerateTileMap(renderer.bounds.size, renderer.bounds.center);
 
@@ -111,24 +114,24 @@ public class Map_Generator : MonoBehaviour
 
     void NewPlayer(short index) 
     {
-        GameObject gameObject = Instantiate(witcher);
+        GameObject gameObject = (GameObject)Instantiate(Resources.Load(witcherResourceName));
         Witcher_Controller witcher_Controller = gameObject.GetComponent<Witcher_Controller>();
         witcher_Controller.WitcherType = WITCHER_TYPE.PLAYER;
-        witcher_Controller.PotionPrefab = potion;
+        witcher_Controller.PotionPrefab = (GameObject)Resources.Load(potionResourceName);
         witcher_Controller.InitialPosIndex = GetTileMapIndex(index);
         gameObject.transform.tag = "Player";
     }
 
     void NewDestroyableWall(short index) 
     {
-        GameObject gameObject = Instantiate(wall);
+        GameObject gameObject = (GameObject)Instantiate(Resources.Load(wallResourceName));
         gameObject.GetComponent<Renderer>().material = destroyableWallMat;
         gameObject.GetComponent<Wall>().InitialPosIndex = GetTileMapIndex(index);        
     }
 
     void NewNonDestroyableWall(short index) 
     {
-        GameObject nonDestroyableWall = Instantiate(wall);        
+        GameObject nonDestroyableWall = (GameObject)Instantiate(Resources.Load(wallResourceName));
         Destroy(nonDestroyableWall.GetComponent<Destroyable_Wall>());        
         nonDestroyableWall.GetComponent<Renderer>().material = nonDestroyableWallMat;
         nonDestroyableWall.GetComponent<Wall>().InitialPosIndex = GetTileMapIndex(index);        
@@ -136,10 +139,10 @@ public class Map_Generator : MonoBehaviour
 
     void NewEnemy(short index) 
     {
-        GameObject gameObject = Instantiate(witcher);
+        GameObject gameObject = (GameObject)Instantiate(Resources.Load(witcherResourceName));
         Witcher_Controller witcher_Controller = gameObject.GetComponent<Witcher_Controller>();
         witcher_Controller.WitcherType = WITCHER_TYPE.CPU;
-        witcher_Controller.PotionPrefab = potion;
+        witcher_Controller.PotionPrefab = (GameObject)Resources.Load(potionResourceName);
         witcher_Controller.InitialPosIndex = GetTileMapIndex(index);        
     }
 
