@@ -1,10 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Player_Is_In_Gate : MonoBehaviour
 {
-    GameObject player;
+    GameObject player;    
 
     private void Start()
     {
@@ -16,9 +14,12 @@ public class Player_Is_In_Gate : MonoBehaviour
     {
         if (player != null) 
         {
-            if (player.transform.position == transform.position && Tile_Map.DestroyableStaticObjectsCount <= 0) 
+            if (Tile_Map.GetGameObjectIndex(player) == Tile_Map.GateTile && Tile_Map.DestroyableStaticObjectsCount <= 0) 
             {
-                //Next Level
+                if (Vector3.Distance(transform.position, player.transform.position) < (Tile_Map.TileSize.x) / 10f) 
+                {
+                    Debug.Log("NEXT LEVEL");
+                }                
             }
         }        
     }
