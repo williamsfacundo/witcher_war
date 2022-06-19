@@ -11,7 +11,7 @@ public class Cpu_Movement : IMovable
     private GameObject cpu;
 
     private bool moveHorizontal;
-    private bool calculateNewPosition;
+    private bool calculateNewPosition;    
 
     private Vector2 playerIndex;
     private Vector2 enemyIndex;    
@@ -23,7 +23,7 @@ public class Cpu_Movement : IMovable
 
     private float inputTimer;
     private float movementTimer;
-    private float percentageMoved;
+    private float percentageMoved;    
 
     public Cpu_Movement(GameObject cpuGameObject) 
     {
@@ -35,7 +35,7 @@ public class Cpu_Movement : IMovable
 
         moveHorizontal = true;
 
-        calculateNewPosition = false;
+        calculateNewPosition = false;        
 
         enemyIndex = Tile_Map.nullIndex;
 
@@ -48,13 +48,13 @@ public class Cpu_Movement : IMovable
         percentageMoved = 0f;
 
         newPos = Vector2.zero;
-        oldPos = Vector2.zero;
-    }    
+        oldPos = Vector2.zero;        
+    }   
 
     public void MoveInput() 
     {
-        if (inputTimer <= 0f) 
-        {            
+        if (inputTimer <= 0f)
+        {
             RandomMoveTimer();
             calculateNewPosition = true;
         }
@@ -62,12 +62,12 @@ public class Cpu_Movement : IMovable
 
     public void Move(GameObject gameObject, ref WITCHER_DIRECTION direction)
     {
-        if (calculateNewPosition) 
+        if (calculateNewPosition)
         {
             movementDirection = GetDirectionToMoveTowardsPlayer();
             nextTileIndex = Tile_Map.GetGameObjectIndexPlusOtherIndex(gameObject, movementDirection);
 
-            if (Tile_Map.IsTileEmpty(nextTileIndex)) 
+            if (Tile_Map.IsTileEmpty(nextTileIndex))
             {
                 movementTimer = 0f;
 
@@ -87,14 +87,14 @@ public class Cpu_Movement : IMovable
 
             gameObject.transform.position = Vector3.Lerp(oldPos, newPos, percentageMoved);
         }
-    }
+    }    
 
     public void Timer() 
     {
-        if (!IsObjectMoving()) 
+        if (!IsObjectMoving())
         {
-            inputTimer -= Time.deltaTime;            
-        }        
+            inputTimer -= Time.deltaTime;
+        }
 
         if (movementTimer < displacementTime)
         {
@@ -103,7 +103,7 @@ public class Cpu_Movement : IMovable
             if (movementTimer > displacementTime)
             {
                 movementTimer = displacementTime;
-            }            
+            }
         }
     }
 
@@ -115,7 +115,8 @@ public class Cpu_Movement : IMovable
     private void RandomMoveTimer()
     {
         inputTimer = Random.Range(minInputTime, maxInputTime);
-    }
+    }    
+
     private Vector2 GetDirectionToMoveTowardsPlayer() 
     {
         playerIndex = Tile_Map.GetGameObjectIndex(player);
