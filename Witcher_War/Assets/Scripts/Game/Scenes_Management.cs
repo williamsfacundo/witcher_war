@@ -33,6 +33,11 @@ public class Scenes_Management : MonoBehaviour
         SceneManager.LoadScene("Tutorial");
     }
 
+    public static void ChangeToWinningScene() 
+    {
+        SceneManager.LoadScene("Winning");
+    }
+
     public void ExitGame() 
     {
         Application.Quit();
