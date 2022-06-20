@@ -16,9 +16,9 @@ public class Map_Generator : MonoBehaviour
 
     const short maxLevel = 5;
 
-    [Range(1, maxLevel)] private static int level = 1;
+    [Range(1, maxLevel)] private int level = 1;
 
-    public static int Level 
+    public int Level 
     {
         get 
         {
@@ -37,31 +37,20 @@ public class Map_Generator : MonoBehaviour
     private const char lineBreakCharOne = (char)13;
     private const char lineBreakCharTwo = (char)10;
 
-    public static void NextLevel() 
-    {
+    public void NextLevel() 
+    {        
         if (level + 1 <= maxLevel) 
         {
             level++;
         }
+        
+        RestartLevel();
     }
 
     private void Awake()
     {
-        floorPrefab = (GameObject)Instantiate(Resources.Load(floorResourceName));        
-        
-        calculatedStaticObjects = false;
-
-        renderer = floorPrefab?.GetComponent<Renderer>();        
-
-        Tile_Map.GenerateTileMap(renderer.bounds.size, renderer.bounds.center);
-
-        Destroy(floorPrefab);
-
-        renderer = null;
-
-        char[] map = GetMapArrayChar();
-
-        InstanciateObjects(map);       
+        GenerateMap();
+        SetUpMap();   
     }
 
     private void Update()
@@ -72,6 +61,34 @@ public class Map_Generator : MonoBehaviour
 
             calculatedStaticObjects = true;
         }        
+    }
+
+    private void GenerateMap() 
+    {
+        floorPrefab = (GameObject)Instantiate(Resources.Load(floorResourceName));
+
+        calculatedStaticObjects = false;
+
+        renderer = floorPrefab?.GetComponent<Renderer>();
+
+        Tile_Map.GenerateTileMap(renderer.bounds.size, renderer.bounds.center);
+
+        Destroy(floorPrefab);
+
+        renderer = null;
+    }
+
+    private void SetUpMap() 
+    {
+        char[] map = GetMapArrayChar();
+
+        InstanciateObjects(map);
+    }
+
+    private void RestartLevel() 
+    {
+        Tile_Map.ClearTileMap();
+        SetUpMap();
     }
 
     private char[] GetMapArrayChar() 

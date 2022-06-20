@@ -9,6 +9,7 @@ TagManager:
   - Potion
   - Witcher
   - Gate
+  - Manager
   layers:
   - Default
   - TransparentFX

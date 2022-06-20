@@ -130,6 +130,23 @@ public static class Tile_Map
         }
     }
 
+    public static void ClearTileMap() 
+    {
+        if (mapGenerated) 
+        {
+            for (short i = 0; i < maxRows; i++) 
+            {
+                for (short v = 0; v < maxColumns; v++) 
+                {
+                    if (!tileMap[i, v].isEmpty) 
+                    {
+                        GameObject.Destroy(tileMap[i, v].TileObject);
+                    }
+                }
+            }
+        }
+    }
+
     public static Vector2 GetGameObjectIndex(GameObject gameObject)
     {
         for (short i = 0; i < maxRows; i++)
