@@ -18,5 +18,5 @@ public interface IDestroyable
 
 public interface ICanUsePotion 
 {
-    void InstanciatePotion(GameObject potionPrefab, Vector3 position);   
+    void InstanciatePotion(GameObject potionPrefab, Vector2 instantiatorIndex, WITCHER_DIRECTION direction);   
 }

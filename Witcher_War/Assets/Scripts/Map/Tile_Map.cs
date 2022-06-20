@@ -125,8 +125,7 @@ public static class Tile_Map
     public static void DestroyAdjacentObjectsOfATile(Vector2 targetIndex)
     {
         if (mapGenerated && IsValidIndex(targetIndex))
-        {
-            DestroyDestroyableGameObjectInTileX(targetIndex);
+        {            
             DestroyDestroyableGameObjectInTileX(targetIndex - new Vector2(0f, 1f));
             DestroyDestroyableGameObjectInTileX(targetIndex + new Vector2(0f, 1f));
             DestroyDestroyableGameObjectInTileX(targetIndex - new Vector2(1f, 0f));

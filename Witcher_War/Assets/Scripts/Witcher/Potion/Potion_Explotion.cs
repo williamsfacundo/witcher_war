@@ -5,14 +5,20 @@ public class Potion_Explotion : MonoBehaviour
     private const float explotionTime = 1.5f;
     private float explotionTimer;
 
-    Vector2 explosionIndex;
+    private Vector2 explosionIndex;
+
+    public Vector2 ExplosionIndex 
+    {
+        set 
+        {
+            explosionIndex = value;
+        }
+    }
 
     // Start is called before the first frame update
     void Start()
     {
-        explotionTimer = explotionTime;
-
-        explosionIndex = Tile_Map.GetGameObjectIndex(GameObject.FindGameObjectWithTag("Player"));
+        explotionTimer = explotionTime;        
     }    
 
     // Update is called once per frame

@@ -20,21 +20,51 @@ public class Player_Instanciate_Potion : ICanUsePotion
         newPotionTimer = 0f;
     }
 
-    public void InstanciatePotion(GameObject potionPrefab, Vector3 position)
+    public void InstanciatePotion(GameObject potionPrefab, Vector2 instantiatorIndex, WITCHER_DIRECTION direction)
     {
         if (Input.GetKeyDown(instanciatePotionKey) && amountPotions > 0) 
         {
-            GameObject potion = Object.Instantiate(potionPrefab, position, Quaternion.identity);
+            Vector2 targetIndex = GetIndexWherePlayerIsLooking(instantiatorIndex, direction);
 
-            potion.transform.position = Tile_Map.GetGameObjectRightYPosition(potionPrefab);
+            if (Tile_Map.IsTileEmpty(targetIndex)) 
+            {
+                GameObject potion = Object.Instantiate(potionPrefab);
 
-            amountPotions--;
+                potion.GetComponent<StaticGameObject>().InitialPosIndex = targetIndex;
+                potion.GetComponent<Potion_Explotion>().ExplosionIndex = targetIndex;
+
+                amountPotions--;
+            }            
         }
 
         PotionRegeneration();
     }
 
-    void PotionRegeneration() 
+    private Vector2 GetIndexWherePlayerIsLooking(Vector2 index, WITCHER_DIRECTION playerDirection) 
+    {
+        switch (playerDirection) 
+        {
+            case WITCHER_DIRECTION.DOWN:
+
+                return index + Vector2.up;
+                
+            case WITCHER_DIRECTION.UP:
+
+                return index - Vector2.up;
+
+            case WITCHER_DIRECTION.RIGHT:
+
+                return index + Vector2.right;
+            case WITCHER_DIRECTION.LEFT:
+
+                return index - Vector2.right;
+            default:
+
+                return index + Vector2.up;
+        }
+    }
+
+    private void PotionRegeneration() 
     {
         if (amountPotions < maxPotions) 
         {

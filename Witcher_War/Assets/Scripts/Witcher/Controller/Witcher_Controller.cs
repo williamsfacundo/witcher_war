@@ -76,7 +76,7 @@ public class Witcher_Controller : MonoBehaviour, IDestroyable
     {
         if (!movementMechanic.IsObjectMoving()) 
         {
-            usePotionMechanic?.InstanciatePotion(potionPrefab, transform.position);
+            usePotionMechanic?.InstanciatePotion(potionPrefab, Tile_Map.GetGameObjectIndex(gameObject), witcherDirection);
         }        
 
         movementMechanic?.MoveInput();
