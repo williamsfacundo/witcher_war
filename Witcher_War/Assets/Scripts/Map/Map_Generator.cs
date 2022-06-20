@@ -138,7 +138,7 @@ public class Map_Generator : MonoBehaviour
 
         Tile_Map.RescaleGameObjectDependingTileSize(gameObject, bookshelfSizePercentage, Tile_Map.TileSize.x);
 
-        gameObject.GetComponent<Wall>().InitialPosIndex = GetTileMapIndex(index);        
+        gameObject.GetComponent<StaticGameObject>().InitialPosIndex = GetTileMapIndex(index);        
     }
 
     void NewBookshelf(short index) 
@@ -147,7 +147,7 @@ public class Map_Generator : MonoBehaviour
 
         Tile_Map.RescaleGameObjectDependingTileSize(boockshelf, bookshelfSizePercentage, Tile_Map.TileSize.x);
 
-        boockshelf.GetComponent<Wall>().InitialPosIndex = GetTileMapIndex(index);        
+        boockshelf.GetComponent<StaticGameObject>().InitialPosIndex = GetTileMapIndex(index);        
     }
 
     void NewEnemy(short index) 
