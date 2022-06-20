@@ -12,10 +12,16 @@ public class Camera_Following_Player : MonoBehaviour
 
     // Start is called before the first frame update
     void Start()
-    {       
-        player = GameObject.FindGameObjectWithTag("Player");
-
+    {
         gameObject.transform.rotation = Quaternion.Euler(initialCameraAngle);
+    }
+    
+    void Update() 
+    {
+        if (player == null) 
+        {
+            player = GameObject.FindGameObjectWithTag("Player");
+        }
     }
 
     // Update is called once per frame
