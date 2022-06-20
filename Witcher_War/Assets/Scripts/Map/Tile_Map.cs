@@ -2,6 +2,9 @@ using UnityEngine;
 
 public static class Tile_Map
 {
+    //private const string floorBlockOneResourceName = "Floor/Floor_Block_One";
+    //private const string floorBlockTwoResourceName = "Floor/Floor_Block_Two";
+
     public const int maxRows = 7;
 
     public const int maxColumns = 7;    
@@ -10,13 +13,13 @@ public static class Tile_Map
 
     private static Vector2 gateTile;
 
-    private static Vector2 tileSize;
+    private static Vector3 tileSize;
 
     private static bool mapGenerated = false;
 
-    private static short destroyableStaticObjectsCount;
+    private static short destroyableStaticObjectsCount;    
 
-    public static Vector2 TileSize
+    public static Vector3 TileSize
     {
         get
         {
@@ -241,6 +244,34 @@ public static class Tile_Map
         }
     }
 
+    /*private static void InstanciateFloorBlocks() 
+    {
+        for (short i = 0; i < maxRows; i++) 
+        {
+            for (short v = 0; v < maxColumns; v++) 
+            {
+                if (v % 2 == 0) 
+                {
+                    SetFloorBlockSize((GameObject)GameObject.Instantiate(Resources.Load(floorBlockOneResourceName), tileMap[v, i].Position, Quaternion.identity));                    
+                }
+                else 
+                {
+                    SetFloorBlockSize((GameObject)GameObject.Instantiate(Resources.Load(floorBlockTwoResourceName), tileMap[v, i].Position, Quaternion.identity));
+                }
+            }
+        }
+    }
+
+    private static void SetFloorBlockSize(GameObject floorBlock) 
+    {
+        Vector3 size = floorBlock.GetComponent<Renderer>().bounds.size;
+
+        floorBlock.transform.localScale = ;
+
+        //tile size X -> 100;
+        //floor size X -> x
+    }*/
+
     private static void InitialMapSetting() 
     {
         tileMap = new Tile[maxRows, maxColumns];
@@ -256,13 +287,13 @@ public static class Tile_Map
 
     private static void SetMapPositions(Vector3 mapSize, Vector3 mapCenter) 
     {              
-        tileSize = new Vector2(mapSize.x / maxColumns, mapSize.z / maxRows);
+        tileSize = new Vector3(mapSize.x / maxColumns, mapSize.y, mapSize.z / maxRows);
         
         for (short i = 0; i < maxRows; i++) 
         {
             for (short v = 0; v < maxColumns; v++) 
             {
-                tileMap[i, v].Position = GetFirstMapPosition(mapSize, mapCenter) + new Vector3(tileSize.x * v, 0f,-tileSize.y * i);                            
+                tileMap[i, v].Position = GetFirstMapPosition(mapSize, mapCenter) + new Vector3(tileSize.x * v, 0f, -tileSize.z * i);                            
             }
         }       
     }
@@ -271,13 +302,13 @@ public static class Tile_Map
     {
         Vector3 firstMapPosition = mapCenter;
 
-        firstMapPosition.y += mapSize.y * 2;
+        firstMapPosition.y += mapSize.y / 2;
 
         firstMapPosition.x -= mapSize.x / 2f;
         firstMapPosition.z += mapSize.z / 2f;
 
         firstMapPosition.x += tileSize.x / 2f;
-        firstMapPosition.z -= tileSize.y / 2f;       
+        firstMapPosition.z -= tileSize.z / 2f;       
 
         return firstMapPosition;
     }   
