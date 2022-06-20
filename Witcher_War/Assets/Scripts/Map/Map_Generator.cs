@@ -38,6 +38,8 @@ public class Map_Generator : MonoBehaviour
 
         Tile_Map.GenerateTileMap(renderer.bounds.size, renderer.bounds.center);
 
+        Destroy(floorPrefab);
+
         renderer = null;
 
         char[] map = GetMapArrayChar();
