@@ -266,17 +266,22 @@ public static class Tile_Map
                 instanciateFloorBlockOne = !instanciateFloorBlockOne;
             }
         }
-    }
+    }    
 
     private static void SetFloorBlockSize(GameObject floorBlock) 
     {
-        Vector3 floorSize = floorBlock.GetComponent<Renderer>().bounds.size;
+        RescaleGameObject(floorBlock, tileSize);               
+    }
+    
+    private static void RescaleGameObject(GameObject gameObject, Vector3 size) 
+    {
+        Vector3 gameObjectSize = gameObject.GetComponent<Renderer>().bounds.size;
 
-        float xScale = floorBlock.transform.localScale.x * (tileSize.x / floorSize.x);
-        float yScale = floorBlock.transform.localScale.y * (tileSize.y / floorSize.y);
-        float zScale = floorBlock.transform.localScale.z * (tileSize.z / floorSize.z);
+        float xScale = gameObject.transform.localScale.x * (size.x / gameObjectSize.x);
+        float yScale = gameObject.transform.localScale.y * (size.y / gameObjectSize.y);
+        float zScale = gameObject.transform.localScale.z * (size.z / gameObjectSize.z);
 
-        floorBlock.transform.localScale = new Vector3(xScale, yScale, zScale);        
+        gameObject.transform.localScale = new Vector3(xScale, yScale, zScale);
     }
 
     private static void InitialMapSetting() 
