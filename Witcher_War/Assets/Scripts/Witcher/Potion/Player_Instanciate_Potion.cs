@@ -10,21 +10,21 @@ public class Player_Instanciate_Potion : ICanUsePotion
 
     float newPotionTime;
 
-    float newPotionTimer;
+    float newPotionTimer;    
 
     public Player_Instanciate_Potion(short maxBombs, float newPotionTime) 
     {       
         this.maxPotions = maxBombs;
         amountPotions = maxBombs;
         this.newPotionTime = newPotionTime;
-        newPotionTimer = 0f;
+        newPotionTimer = 0f;        
     }
 
     public void InstanciatePotion(GameObject potionPrefab, Vector2 instantiatorIndex, WITCHER_DIRECTION direction)
     {
         if (Input.GetKeyDown(instanciatePotionKey) && amountPotions > 0) 
         {
-            Vector2 targetIndex = GetIndexWherePlayerIsLooking(instantiatorIndex, direction);
+            Vector2 targetIndex = GetIndexWhereWitcherIsLooking(instantiatorIndex, direction);
 
             if (Tile_Map.IsTileEmpty(targetIndex)) 
             {
@@ -40,9 +40,9 @@ public class Player_Instanciate_Potion : ICanUsePotion
         PotionRegeneration();
     }
 
-    private Vector2 GetIndexWherePlayerIsLooking(Vector2 index, WITCHER_DIRECTION playerDirection) 
+    public static Vector2 GetIndexWhereWitcherIsLooking(Vector2 index, WITCHER_DIRECTION witcherDirection) 
     {
-        switch (playerDirection) 
+        switch (witcherDirection) 
         {
             case WITCHER_DIRECTION.DOWN:
 

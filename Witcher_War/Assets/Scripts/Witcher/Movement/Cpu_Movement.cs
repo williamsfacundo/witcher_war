@@ -2,21 +2,25 @@ using UnityEngine;
 
 public class Cpu_Movement : IMovable
 {
-    const float minInputTime = 2.5f;
-    const float maxInputTime = 7.5f;
+    const float minInputTime = 1.5f;
+    const float maxInputTime = 5.5f;
 
     private const float displacementTime = 0.3f;
 
     private GameObject player;
     private GameObject cpu;
 
+    WITCHER_DIRECTION potionInstanciatedMoveDirection;
+
     private bool moveHorizontal;
-    private bool calculateNewPosition;    
+    private bool calculateNewPosition;
+    private bool potionInstanciated;
 
     private Vector2 playerIndex;
     private Vector2 enemyIndex;    
     private Vector2 movementDirection;
     private Vector2 nextTileIndex;
+    private Vector2 potionInstanciatedMoveIndex;
 
     private Vector3 newPos;
     private Vector3 oldPos;
@@ -35,13 +39,17 @@ public class Cpu_Movement : IMovable
 
         moveHorizontal = true;
 
-        calculateNewPosition = false;        
+        calculateNewPosition = false;
+
+        potionInstanciated = false;
 
         enemyIndex = Tile_Map.nullIndex;
 
-        movementDirection = Tile_Map.nullIndex;
+        movementDirection = Tile_Map.nullIndex;        
 
         nextTileIndex = Tile_Map.nullIndex;
+
+        potionInstanciatedMoveIndex = Tile_Map.nullIndex;
 
         movementTimer = displacementTime;
 
@@ -62,26 +70,47 @@ public class Cpu_Movement : IMovable
 
     public void Move(GameObject gameObject, ref WITCHER_DIRECTION direction)
     {
-        if (calculateNewPosition)
+        if (potionInstanciated) 
         {
-            movementDirection = GetDirectionToMoveTowardsPlayer();
-            nextTileIndex = Tile_Map.GetGameObjectIndexPlusOtherIndex(gameObject, movementDirection);
-
-            if (Tile_Map.IsTileEmpty(nextTileIndex))
+            if (Tile_Map.IsTileEmpty(potionInstanciatedMoveIndex)) 
             {
                 movementTimer = 0f;
 
                 oldPos = Tile_Map.GetTileMapPosition(Tile_Map.GetGameObjectIndex(cpu));
                 oldPos.y = gameObject.transform.position.y;
-                newPos = Tile_Map.GetTileMapPosition(nextTileIndex);
+                newPos = Tile_Map.GetTileMapPosition(potionInstanciatedMoveIndex);
                 newPos.y = gameObject.transform.position.y;
 
-                Tile_Map.MoveGameObjectToTileX(nextTileIndex, cpu);
+                Tile_Map.MoveGameObjectToTileX(potionInstanciatedMoveIndex, cpu);
             }
 
-            RotatePlayer(movementDirection, ref direction, gameObject);
-            calculateNewPosition = false;
+            RotatePlayer(potionInstanciatedMoveDirection, ref potionInstanciatedMoveDirection, gameObject);
+
+            potionInstanciated = false;
         }
+        else 
+        {
+            if (calculateNewPosition)
+            {
+                movementDirection = GetDirectionToMoveTowardsPlayer();
+                nextTileIndex = Tile_Map.GetGameObjectIndexPlusOtherIndex(gameObject, movementDirection);
+
+                if (Tile_Map.IsTileEmpty(nextTileIndex))
+                {
+                    movementTimer = 0f;
+
+                    oldPos = Tile_Map.GetTileMapPosition(Tile_Map.GetGameObjectIndex(cpu));
+                    oldPos.y = gameObject.transform.position.y;
+                    newPos = Tile_Map.GetTileMapPosition(nextTileIndex);
+                    newPos.y = gameObject.transform.position.y;
+
+                    Tile_Map.MoveGameObjectToTileX(nextTileIndex, cpu);
+                }
+
+                RotatePlayer(movementDirection, ref direction, gameObject);
+                calculateNewPosition = false;
+            }
+        }        
 
         if (IsObjectMoving())
         {
@@ -112,6 +141,13 @@ public class Cpu_Movement : IMovable
     public bool IsObjectMoving() 
     {
         return movementTimer < displacementTime;
+    }
+
+    public void PotionInstanciated(Vector2 moveIndex, WITCHER_DIRECTION newWitcherDirection) 
+    {
+        potionInstanciated = true;
+        potionInstanciatedMoveIndex = moveIndex;
+        potionInstanciatedMoveDirection = newWitcherDirection;
     }
 
     private void RandomMoveTimer()
@@ -239,6 +275,34 @@ public class Cpu_Movement : IMovable
                 default:
                     break;
             }
+        }
+    }
+
+    private void RotatePlayer(WITCHER_DIRECTION newDirection, ref WITCHER_DIRECTION witcherDirection, GameObject gameObject)
+    {
+        gameObject.transform.rotation = Quaternion.identity;
+
+        witcherDirection = newDirection;
+
+        switch (witcherDirection)
+        {
+            case WITCHER_DIRECTION.UP:
+
+                gameObject.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
+                break;
+
+            case WITCHER_DIRECTION.RIGHT:
+
+                gameObject.transform.rotation = Quaternion.Euler(0f, -90f, 0f);
+                break;
+
+            case WITCHER_DIRECTION.LEFT:
+
+                gameObject.transform.rotation = Quaternion.Euler(0f, 90f, 0f);
+                break;
+
+            default:
+                break;
         }
     }
 }
