@@ -3,13 +3,11 @@ using UnityEngine;
 
 public class Map_Generator : MonoBehaviour
 {
-    [SerializeField] private Material nonDestroyableWallMat;
-    [SerializeField] private Material destroyableWallMat;
-
     const float potionSizePercentage = 0.5f;
+    const float bookshelfSizePercentage = 1f;
 
     private const string floorResourceName = "Floor";
-    private const string wallResourceName = "Wall";
+    private const string bookshelfResourceName = "Static_Objects/Bookshelf";
     private const string witcherResourceName = "Witcher";
     private const string potionResourceName = "Witcher/Potion";
 
@@ -129,16 +127,15 @@ public class Map_Generator : MonoBehaviour
 
     void NewDestroyableWall(short index) 
     {
-        GameObject gameObject = (GameObject)Instantiate(Resources.Load(wallResourceName));
-        gameObject.GetComponent<Renderer>().material = destroyableWallMat;
-        gameObject.GetComponent<Wall>().InitialPosIndex = GetTileMapIndex(index);        
+        //GameObject gameObject = (GameObject)Instantiate(Resources.Load(wallResourceName));
+        //gameObject.GetComponent<Renderer>().material = destroyableWallMat;
+        //gameObject.GetComponent<Wall>().InitialPosIndex = GetTileMapIndex(index);        
     }
 
     void NewNonDestroyableWall(short index) 
     {
-        GameObject nonDestroyableWall = (GameObject)Instantiate(Resources.Load(wallResourceName));
-        Destroy(nonDestroyableWall.GetComponent<Destroyable_Wall>());        
-        nonDestroyableWall.GetComponent<Renderer>().material = nonDestroyableWallMat;
+        GameObject nonDestroyableWall = (GameObject)Instantiate(Resources.Load(bookshelfResourceName));
+        Tile_Map.RescaleGameObjectDependingTileSize(nonDestroyableWall, bookshelfSizePercentage, Tile_Map.TileSize.x);
         nonDestroyableWall.GetComponent<Wall>().InitialPosIndex = GetTileMapIndex(index);        
     }
 

@@ -345,8 +345,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33eda239c2f9d0a46a2c2c66e1543d7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nonDestroyableWallMat: {fileID: 2100000, guid: c4ea3c53767cba44dac52201214fe626, type: 2}
-  destroyableWallMat: {fileID: 2100000, guid: 9655712e4ac54e0449876c1f98d2b568, type: 2}
 --- !u!114 &750957930
 MonoBehaviour:
   m_ObjectHideFlags: 0
