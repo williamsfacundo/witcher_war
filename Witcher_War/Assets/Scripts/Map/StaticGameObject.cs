@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Wall : MonoBehaviour
+public class StaticGameObject : MonoBehaviour
 {    
     private Vector2 initialPosIndex;
 

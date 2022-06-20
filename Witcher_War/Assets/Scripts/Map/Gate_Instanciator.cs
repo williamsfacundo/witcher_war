@@ -12,12 +12,12 @@ public class Gate_Instanciator : MonoBehaviour
 
     private void OnEnable()
     {        
-        Destroyable_Wall.objectAboutToBeDestroyed += InstanciateGateMechanic;
+        DestroyableObject.objectAboutToBeDestroyed += InstanciateGateMechanic;
     }
 
     private void OnDisable()
     {
-        Destroyable_Wall.objectAboutToBeDestroyed -= InstanciateGateMechanic;
+        DestroyableObject.objectAboutToBeDestroyed -= InstanciateGateMechanic;
     }    
 
     private void InstanciateGateMechanic() 
