@@ -14,7 +14,7 @@ public class Map_Generator : MonoBehaviour
 
     private GameObject floorPrefab;       
 
-    const short maxLevel = 5;
+    private const short maxLevel = 5;
 
     [Range(1, maxLevel)] private int level = 1;
 
@@ -24,6 +24,14 @@ public class Map_Generator : MonoBehaviour
         {
             return level;
         }        
+    }
+
+    public short MaxLevel 
+    {
+        get 
+        {
+            return maxLevel;
+        }
     }
 
     new Renderer renderer;
