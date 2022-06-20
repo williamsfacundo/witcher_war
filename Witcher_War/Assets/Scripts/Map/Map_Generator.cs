@@ -22,8 +22,8 @@ public class Map_Generator : MonoBehaviour
 
     private bool calculatedStaticObjects;
 
-    private const char nonDestroyableWallChar = 'X';
-    private const char destroyableWallChar = 'W';
+    private const char bookshelfChar = 'X';
+    private const char cauldronChar = 'W';
     private const char playerChar = 'P';
     private const char enemyChar = 'E';
     private const char lineBreakCharOne = (char)13;
@@ -93,13 +93,13 @@ public class Map_Generator : MonoBehaviour
         {
             switch (map[i])
             {
-                case nonDestroyableWallChar:
+                case bookshelfChar:
 
-                    NewNonDestroyableWall(i);                 
+                    NewBookshelf(i);                 
                     break;
-                case destroyableWallChar:
+                case cauldronChar:
 
-                    NewDestroyableWall(i);
+                    NewCauldron(i);
                     break;
                 case playerChar:
 
@@ -117,36 +117,51 @@ public class Map_Generator : MonoBehaviour
 
     void NewPlayer(short index) 
     {
-        GameObject gameObject = (GameObject)Instantiate(Resources.Load(witcherResourceName));
-        Witcher_Controller witcher_Controller = gameObject.GetComponent<Witcher_Controller>();
+        GameObject player = (GameObject)Instantiate(Resources.Load(witcherResourceName));
+
+        Witcher_Controller witcher_Controller = player.GetComponent<Witcher_Controller>();
+
         witcher_Controller.WitcherType = WITCHER_TYPE.PLAYER;       
+
         witcher_Controller.PotionPrefab = (GameObject)Resources.Load(potionResourceName);
+
         Tile_Map.RescaleGameObjectDependingTileSize(witcher_Controller.PotionPrefab, potionSizePercentage, Tile_Map.TileSize.x);
+
         witcher_Controller.InitialPosIndex = GetTileMapIndex(index);
-        gameObject.transform.tag = "Player";
+
+        player.transform.tag = "Player";
     }
 
-    void NewDestroyableWall(short index) 
+    void NewCauldron(short index) 
     {
         GameObject gameObject = (GameObject)Instantiate(Resources.Load(cauldronResourceName));
+
         Tile_Map.RescaleGameObjectDependingTileSize(gameObject, bookshelfSizePercentage, Tile_Map.TileSize.x);
+
         gameObject.GetComponent<Wall>().InitialPosIndex = GetTileMapIndex(index);        
     }
 
-    void NewNonDestroyableWall(short index) 
+    void NewBookshelf(short index) 
     {
-        GameObject nonDestroyableWall = (GameObject)Instantiate(Resources.Load(bookshelfResourceName));
-        Tile_Map.RescaleGameObjectDependingTileSize(nonDestroyableWall, bookshelfSizePercentage, Tile_Map.TileSize.x);
-        nonDestroyableWall.GetComponent<Wall>().InitialPosIndex = GetTileMapIndex(index);        
+        GameObject boockshelf = (GameObject)Instantiate(Resources.Load(bookshelfResourceName));
+
+        Tile_Map.RescaleGameObjectDependingTileSize(boockshelf, bookshelfSizePercentage, Tile_Map.TileSize.x);
+
+        boockshelf.GetComponent<Wall>().InitialPosIndex = GetTileMapIndex(index);        
     }
 
     void NewEnemy(short index) 
     {
-        GameObject gameObject = (GameObject)Instantiate(Resources.Load(witcherResourceName));
-        Witcher_Controller witcher_Controller = gameObject.GetComponent<Witcher_Controller>();
+        GameObject enemy = (GameObject)Instantiate(Resources.Load(witcherResourceName));
+
+        Witcher_Controller witcher_Controller = enemy.GetComponent<Witcher_Controller>();
+
         witcher_Controller.WitcherType = WITCHER_TYPE.CPU;
+
         witcher_Controller.PotionPrefab = (GameObject)Resources.Load(potionResourceName);
+
         Tile_Map.RescaleGameObjectDependingTileSize(witcher_Controller.PotionPrefab, potionSizePercentage, Tile_Map.TileSize.x);
+
         witcher_Controller.InitialPosIndex = GetTileMapIndex(index);        
     }
 
