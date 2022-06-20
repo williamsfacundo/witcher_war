@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Wall))]
-public class Destroyable_Wall : MonoBehaviour, IDestroyable
+public class DestroyableObject : MonoBehaviour, IDestroyable
 {
     public delegate void StaticObjectAboutToBeDestroyed();
 
