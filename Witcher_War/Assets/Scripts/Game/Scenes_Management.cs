@@ -28,6 +28,11 @@ public class Scenes_Management : MonoBehaviour
         SceneManager.LoadScene("Options");
     }
 
+    public static void ChangeToTutorialScene() 
+    {
+        SceneManager.LoadScene("Tutorial");
+    }
+
     public void ExitGame() 
     {
         Application.Quit();
