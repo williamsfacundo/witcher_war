@@ -2,8 +2,8 @@ using UnityEngine;
 
 public static class Tile_Map
 {
-    //private const string floorBlockOneResourceName = "Floor/Floor_Block_One";
-    //private const string floorBlockTwoResourceName = "Floor/Floor_Block_Two";
+    private const string floorBlockOneResourceName = "Floor/Floor_Block_One";
+    private const string floorBlockTwoResourceName = "Floor/Floor_Block_Two";
 
     public const int maxRows = 7;
 
@@ -65,6 +65,8 @@ public static class Tile_Map
         InitialMapSetting();
 
         SetMapPositions(surfaceSize, surfaceCenter);
+
+        InstanciateFloorBlocks();
     }
 
     public static void NewGameObjectInTile(Vector2 tileIndex, GameObject gameObject)
@@ -244,33 +246,38 @@ public static class Tile_Map
         }
     }
 
-    /*private static void InstanciateFloorBlocks() 
+    private static void InstanciateFloorBlocks() 
     {
+        bool instanciateFloorBlockOne = true;
+
         for (short i = 0; i < maxRows; i++) 
         {
             for (short v = 0; v < maxColumns; v++) 
             {
-                if (v % 2 == 0) 
-                {
-                    SetFloorBlockSize((GameObject)GameObject.Instantiate(Resources.Load(floorBlockOneResourceName), tileMap[v, i].Position, Quaternion.identity));                    
+                if (instanciateFloorBlockOne) 
+                {                    
+                    SetFloorBlockSize((GameObject)GameObject.Instantiate(Resources.Load(floorBlockOneResourceName), tileMap[i, v].Position, Quaternion.identity));                    
                 }
                 else 
-                {
-                    SetFloorBlockSize((GameObject)GameObject.Instantiate(Resources.Load(floorBlockTwoResourceName), tileMap[v, i].Position, Quaternion.identity));
+                {                    
+                    SetFloorBlockSize((GameObject)GameObject.Instantiate(Resources.Load(floorBlockTwoResourceName), tileMap[i, v].Position, Quaternion.identity));
                 }
+
+                instanciateFloorBlockOne = !instanciateFloorBlockOne;
             }
         }
     }
 
     private static void SetFloorBlockSize(GameObject floorBlock) 
     {
-        Vector3 size = floorBlock.GetComponent<Renderer>().bounds.size;
+        Vector3 floorSize = floorBlock.GetComponent<Renderer>().bounds.size;
 
-        floorBlock.transform.localScale = ;
+        float xScale = floorBlock.transform.localScale.x * (tileSize.x / floorSize.x);
+        float yScale = floorBlock.transform.localScale.y * (tileSize.y / floorSize.y);
+        float zScale = floorBlock.transform.localScale.z * (tileSize.z / floorSize.z);
 
-        //tile size X -> 100;
-        //floor size X -> x
-    }*/
+        floorBlock.transform.localScale = new Vector3(xScale, yScale, zScale);        
+    }
 
     private static void InitialMapSetting() 
     {
