@@ -24,7 +24,9 @@ public class Player_Instanciate_Potion : ICanUsePotion
     {
         if (Input.GetKeyDown(instanciatePotionKey) && amountPotions > 0) 
         {
-            Object.Instantiate(potionPrefab, position, Quaternion.identity);
+            GameObject potion = Object.Instantiate(potionPrefab, position, Quaternion.identity);
+
+            potion.transform.position = Tile_Map.GetGameObjectRightYPosition(potionPrefab);
 
             amountPotions--;
         }

@@ -65,6 +65,8 @@ public class Witcher_Controller : MonoBehaviour, IDestroyable
 
         transform.position = Tile_Map.GetTileMapPosition(initialPosIndex);
 
+        transform.position = Tile_Map.GetGameObjectRightYPosition(gameObject);
+
         transform.rotation = Quaternion.identity;
 
         WitcherDirection = WITCHER_DIRECTION.DOWN;        

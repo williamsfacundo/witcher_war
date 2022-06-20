@@ -158,7 +158,7 @@ public class Map_Generator : MonoBehaviour
 
     private void NewPlayer(short index) 
     {
-        GameObject player = (GameObject)Instantiate(Resources.Load(witcherResourceName));
+        GameObject player = (GameObject)Instantiate(Resources.Load(witcherResourceName));        
 
         Witcher_Controller witcher_Controller = player.GetComponent<Witcher_Controller>();
 

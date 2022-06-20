@@ -17,5 +17,7 @@ public class StaticGameObject : MonoBehaviour
         Tile_Map.NewGameObjectInTile(initialPosIndex, gameObject);
 
         transform.position = Tile_Map.GetTileMapPosition(initialPosIndex);
+
+        transform.position = Tile_Map.GetGameObjectRightYPosition(gameObject);
     }    
 }
