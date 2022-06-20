@@ -34,6 +34,10 @@ public class Witcher_Controller : MonoBehaviour, IDestroyable
         {
             potionPrefab = value;
         }
+        get 
+        {
+            return potionPrefab;
+        }
     }
 
     private Vector2 initialPosIndex;

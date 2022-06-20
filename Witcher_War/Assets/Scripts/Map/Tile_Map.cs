@@ -266,7 +266,14 @@ public static class Tile_Map
                 instanciateFloorBlockOne = !instanciateFloorBlockOne;
             }
         }
-    }    
+    }
+
+    public static void RescaleGameObjectDependingTileSize(GameObject gameObject, float percentage, float tileSizeAxis)
+    {
+        Vector3 size = Vector3.one * tileSizeAxis* percentage; 
+
+        RescaleGameObject(gameObject, size);
+    }
 
     private static void SetFloorBlockSize(GameObject floorBlock) 
     {

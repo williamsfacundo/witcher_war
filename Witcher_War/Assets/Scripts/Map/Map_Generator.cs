@@ -6,10 +6,12 @@ public class Map_Generator : MonoBehaviour
     [SerializeField] private Material nonDestroyableWallMat;
     [SerializeField] private Material destroyableWallMat;
 
+    const float potionSizePercentage = 0.5f;
+
     private const string floorResourceName = "Floor";
     private const string wallResourceName = "Wall";
     private const string witcherResourceName = "Witcher";
-    private const string potionResourceName = "Potion";
+    private const string potionResourceName = "Witcher/Potion";
 
     private GameObject floorPrefab;       
 
@@ -118,8 +120,9 @@ public class Map_Generator : MonoBehaviour
     {
         GameObject gameObject = (GameObject)Instantiate(Resources.Load(witcherResourceName));
         Witcher_Controller witcher_Controller = gameObject.GetComponent<Witcher_Controller>();
-        witcher_Controller.WitcherType = WITCHER_TYPE.PLAYER;
+        witcher_Controller.WitcherType = WITCHER_TYPE.PLAYER;       
         witcher_Controller.PotionPrefab = (GameObject)Resources.Load(potionResourceName);
+        Tile_Map.RescaleGameObjectDependingTileSize(witcher_Controller.PotionPrefab, potionSizePercentage, Tile_Map.TileSize.x);
         witcher_Controller.InitialPosIndex = GetTileMapIndex(index);
         gameObject.transform.tag = "Player";
     }
@@ -145,6 +148,7 @@ public class Map_Generator : MonoBehaviour
         Witcher_Controller witcher_Controller = gameObject.GetComponent<Witcher_Controller>();
         witcher_Controller.WitcherType = WITCHER_TYPE.CPU;
         witcher_Controller.PotionPrefab = (GameObject)Resources.Load(potionResourceName);
+        Tile_Map.RescaleGameObjectDependingTileSize(witcher_Controller.PotionPrefab, potionSizePercentage, Tile_Map.TileSize.x);
         witcher_Controller.InitialPosIndex = GetTileMapIndex(index);        
     }
 
