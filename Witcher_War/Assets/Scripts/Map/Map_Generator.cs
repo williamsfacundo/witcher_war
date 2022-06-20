@@ -14,9 +14,17 @@ public class Map_Generator : MonoBehaviour
 
     private GameObject floorPrefab;       
 
-    const short maxLevel = 3;
+    const short maxLevel = 5;
 
-    [Range(1, maxLevel)] private int level = 1;
+    [Range(1, maxLevel)] private static int level = 1;
+
+    public static int Level 
+    {
+        get 
+        {
+            return level;
+        }        
+    }
 
     new Renderer renderer;
 
@@ -28,6 +36,14 @@ public class Map_Generator : MonoBehaviour
     private const char enemyChar = 'E';
     private const char lineBreakCharOne = (char)13;
     private const char lineBreakCharTwo = (char)10;
+
+    public static void NextLevel() 
+    {
+        if (level + 1 <= maxLevel) 
+        {
+            level++;
+        }
+    }
 
     private void Awake()
     {
@@ -115,7 +131,7 @@ public class Map_Generator : MonoBehaviour
         }       
     }
 
-    void NewPlayer(short index) 
+    private void NewPlayer(short index) 
     {
         GameObject player = (GameObject)Instantiate(Resources.Load(witcherResourceName));
 
@@ -132,7 +148,7 @@ public class Map_Generator : MonoBehaviour
         player.transform.tag = "Player";
     }
 
-    void NewCauldron(short index) 
+    private void NewCauldron(short index) 
     {
         GameObject gameObject = (GameObject)Instantiate(Resources.Load(cauldronResourceName));
 
@@ -141,7 +157,7 @@ public class Map_Generator : MonoBehaviour
         gameObject.GetComponent<StaticGameObject>().InitialPosIndex = GetTileMapIndex(index);        
     }
 
-    void NewBookshelf(short index) 
+    private void NewBookshelf(short index) 
     {
         GameObject boockshelf = (GameObject)Instantiate(Resources.Load(bookshelfResourceName));
 
@@ -150,7 +166,7 @@ public class Map_Generator : MonoBehaviour
         boockshelf.GetComponent<StaticGameObject>().InitialPosIndex = GetTileMapIndex(index);        
     }
 
-    void NewEnemy(short index) 
+    private void NewEnemy(short index) 
     {
         GameObject enemy = (GameObject)Instantiate(Resources.Load(witcherResourceName));
 
@@ -165,7 +181,7 @@ public class Map_Generator : MonoBehaviour
         witcher_Controller.InitialPosIndex = GetTileMapIndex(index);        
     }
 
-    Vector2 GetTileMapIndex(int arrayIndex) 
+    private Vector2 GetTileMapIndex(int arrayIndex) 
     {        
         Vector2 index = new Vector2(0f, 0f);                        
 
@@ -181,5 +197,5 @@ public class Map_Generator : MonoBehaviour
         }       
 
         return index;
-    }
+    }   
 }   
