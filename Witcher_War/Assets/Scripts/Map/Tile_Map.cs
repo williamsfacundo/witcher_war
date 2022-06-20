@@ -268,18 +268,24 @@ public static class Tile_Map
 
     public static Vector3 GetGameObjectRightYPosition(GameObject gameObject) 
     {
-        if (gameObject.transform.childCount > 0 && gameObject.GetComponent<Renderer>() == null) 
+        Renderer auxRenderer = gameObject.GetComponent<Renderer>();
+
+        if (gameObject.transform.childCount > 0 && auxRenderer == null) 
         {
             return new Vector3(gameObject.transform.position.x,
             ySurfacePosition + (gameObject.transform.GetChild(0).GetComponent<Renderer>().bounds.size.y / 2f),
             gameObject.transform.position.z);
         }
-        else 
+        else if (auxRenderer != null) 
         {
             return new Vector3(gameObject.transform.position.x,
-            ySurfacePosition + (gameObject.GetComponent<Renderer>().bounds.size.y / 2f),
+            ySurfacePosition + (auxRenderer.bounds.size.y / 2f),
             gameObject.transform.position.z);
-        }        
+        }
+        else 
+        {
+            return new Vector3(gameObject.transform.position.x, ySurfacePosition, gameObject.transform.position.z);
+        }
     }
 
     private static void InstanciateFloorBlocks() 

@@ -6,7 +6,9 @@ public class Player_Is_In_Gate : MonoBehaviour
 
     private void Start()
     {
-        player = GameObject.FindWithTag("Player");        
+        player = GameObject.FindWithTag("Player");
+
+        gameObject.transform.position = Tile_Map.GetGameObjectRightYPosition(gameObject);
     }
 
     // Update is called once per frame
