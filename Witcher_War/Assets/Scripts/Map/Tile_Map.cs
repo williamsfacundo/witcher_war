@@ -270,9 +270,26 @@ public static class Tile_Map
 
     public static void RescaleGameObjectDependingTileSize(GameObject gameObject, float percentage, float tileSizeAxis)
     {
-        Vector3 size = Vector3.one * tileSizeAxis* percentage; 
+        Vector3 size = Vector3.one * tileSizeAxis * percentage;
 
-        RescaleGameObject(gameObject, size);
+        if (gameObject.GetComponent<Renderer>() == null) 
+        {
+            GameObject child;
+
+            for (short i = 0; i < gameObject.transform.childCount; i++)
+            {
+                child = gameObject.transform.GetChild(i).gameObject;
+
+                if (child.GetComponent<Renderer>() != null) 
+                {
+                    RescaleGameObject(child, size);
+                }                
+            }
+        }
+        else 
+        {
+            RescaleGameObject(gameObject, size);
+        }                   
     }
 
     private static void SetFloorBlockSize(GameObject floorBlock) 

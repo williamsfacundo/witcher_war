@@ -8,6 +8,7 @@ public class Map_Generator : MonoBehaviour
 
     private const string floorResourceName = "Floor";
     private const string bookshelfResourceName = "Static_Objects/Bookshelf";
+    private const string cauldronResourceName = "Static_Objects/Cauldron";
     private const string witcherResourceName = "Witcher";
     private const string potionResourceName = "Witcher/Potion";
 
@@ -127,9 +128,9 @@ public class Map_Generator : MonoBehaviour
 
     void NewDestroyableWall(short index) 
     {
-        //GameObject gameObject = (GameObject)Instantiate(Resources.Load(wallResourceName));
-        //gameObject.GetComponent<Renderer>().material = destroyableWallMat;
-        //gameObject.GetComponent<Wall>().InitialPosIndex = GetTileMapIndex(index);        
+        GameObject gameObject = (GameObject)Instantiate(Resources.Load(cauldronResourceName));
+        Tile_Map.RescaleGameObjectDependingTileSize(gameObject, bookshelfSizePercentage, Tile_Map.TileSize.x);
+        gameObject.GetComponent<Wall>().InitialPosIndex = GetTileMapIndex(index);        
     }
 
     void NewNonDestroyableWall(short index) 
