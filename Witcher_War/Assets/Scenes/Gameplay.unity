@@ -134,7 +134,6 @@ GameObject:
   - component: {fileID: 218944146}
   - component: {fileID: 218944145}
   - component: {fileID: 218944144}
-  - component: {fileID: 218944143}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -142,20 +141,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &218944143
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 218944142}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 55c4cd4e9a31ffc4e93d6a6a1e2e5113, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  offset: {x: 0, y: -11.5, z: 10}
-  initialCameraAngle: {x: 38, y: 0, z: 0}
 --- !u!81 &218944144
 AudioListener:
   m_ObjectHideFlags: 0
