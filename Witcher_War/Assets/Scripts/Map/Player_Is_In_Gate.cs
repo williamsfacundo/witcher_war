@@ -18,7 +18,7 @@ public class Player_Is_In_Gate : MonoBehaviour
             {
                 if (Vector3.Distance(transform.position, player.transform.position) < (Tile_Map.TileSize.x) / 10f) 
                 {
-                    Debug.Log("NEXT LEVEL");
+                    GameObject.FindWithTag("Manager").GetComponent<Map_Generator>()?.NextLevel();
                 }                
             }
         }        

@@ -107,7 +107,10 @@ public class Witcher_Controller : MonoBehaviour, IDestroyable
     }
 
     public void ObjectAboutToBeDestroyed()
-    {       
-        //Tile_Map.DestroyGameObjectInTileX(Tile_Map.GetGameObjectDownIndex(gameObject));
+    {
+        if (witcherType == WITCHER_TYPE.PLAYER) 
+        {
+            Scenes_Management.ChangeToEndGameScene();
+        }        
     }
 }
