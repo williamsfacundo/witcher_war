@@ -710,7 +710,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 60
+    m_FontSize: 45
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
@@ -728,12 +728,14 @@ MonoBehaviour:
 
 
     DROP POTION:
-    SPACE BAR
+    SPACE BAR (KEY)
 
 
     PAUSE: P (KEY)
 
-'
+
+    ONLY CHANGE DIRECTION: LEFT OR RIGHT
+    CTRL + MOVE KEY'
 --- !u!222 &987666726
 CanvasRenderer:
   m_ObjectHideFlags: 0
