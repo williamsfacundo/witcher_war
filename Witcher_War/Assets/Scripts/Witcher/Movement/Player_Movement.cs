@@ -53,7 +53,9 @@ public class Player_Movement : IMovable
                 movementTimer = 0f;
 
                 oldPosition = Tile_Map.GetTileMapPosition(Tile_Map.GetGameObjectIndex(gameObject));
+                oldPosition.y = gameObject.transform.position.y;
                 newPosition = Tile_Map.GetTileMapPosition(nextTileIndex);
+                newPosition.y = gameObject.transform.position.y;
 
                 Tile_Map.MoveGameObjectToTileX(nextTileIndex, gameObject);
             }

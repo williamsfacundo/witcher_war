@@ -72,7 +72,9 @@ public class Cpu_Movement : IMovable
                 movementTimer = 0f;
 
                 oldPos = Tile_Map.GetTileMapPosition(Tile_Map.GetGameObjectIndex(cpu));
+                oldPos.y = gameObject.transform.position.y;
                 newPos = Tile_Map.GetTileMapPosition(nextTileIndex);
+                newPos.y = gameObject.transform.position.y;
 
                 Tile_Map.MoveGameObjectToTileX(nextTileIndex, cpu);
             }
