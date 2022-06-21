@@ -26,9 +26,7 @@ public class Gate_Instanciator : MonoBehaviour
         {            
             if (Tile_Map.DestroyableStaticObjectsCount - 1 >= 0f)
             {
-                float random = Random.Range(1f, 100f);               
-
-                if ((short)random <= probabilityToSpawnGate)
+                if ((short)Random.Range(1f, 100f) <= probabilityToSpawnGate)
                 {
                     InstanciateGate();
                 }

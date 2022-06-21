@@ -18,7 +18,7 @@ public class Player_Is_In_Gate : MonoBehaviour
         {
             if (Tile_Map.GetGameObjectIndex(player) == Tile_Map.GateTile && Tile_Map.DestroyableStaticObjectsCount <= 0) 
             {
-                if (Vector3.Distance(transform.position, player.transform.position) < (Tile_Map.TileSize.x) / 10f) 
+                if (Vector3.Distance(transform.position, player.transform.position) < (Tile_Map.TileSize.x) / 2f) 
                 {
                     Map_Generator mapGenerator = GameObject.FindWithTag("Manager").GetComponent<Map_Generator>();
                     
