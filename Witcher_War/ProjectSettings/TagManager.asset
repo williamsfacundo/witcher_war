@@ -10,6 +10,7 @@ TagManager:
   - Witcher
   - Gate
   - Manager
+  - Terrain
   layers:
   - Default
   - TransparentFX
