@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 7423490252840066360}
   - component: {fileID: -8861003259899284799}
   - component: {fileID: -5007548469264292766}
+  - component: {fileID: 5817134972139082140}
+  - component: {fileID: 3142115236511584170}
   m_Layer: 0
   m_Name: Potion
   m_TagString: Potion
@@ -109,3 +111,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6db9f63833e22ba4c932636bcf806002, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &5817134972139082140
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8936678217678650605}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 312ac61f53750df4782d5781d7930dec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!95 &3142115236511584170
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8936678217678650605}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 130b833207b936b4581280b8f976a9e4, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class Potion_Explotion : MonoBehaviour
 {
+    PotionAnimationController potionAnimationController;
+
     private const float explotionTime = 1.5f;
     private float explotionTimer;
 
@@ -13,6 +15,11 @@ public class Potion_Explotion : MonoBehaviour
         {
             explosionIndex = value;
         }
+    }
+
+    private void Awake()
+    {
+        potionAnimationController = GetComponent<PotionAnimationController>();
     }
 
     // Start is called before the first frame update
@@ -33,7 +40,8 @@ public class Potion_Explotion : MonoBehaviour
     {
         if (explotionTimer <= 0f) 
         {
-            DestroyAdjacentObjects();
+            DestroyAdjacentObjects();           
+
 
             Destroy(gameObject);
         }        
