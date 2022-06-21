@@ -55,5 +55,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: Floor_Block_One
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9f54e29a76452d14fb51d6ea7312d8ca, type: 3}
+      propertyPath: m_TagString
+      value: FloorCubeOne
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9f54e29a76452d14fb51d6ea7312d8ca, type: 3}
