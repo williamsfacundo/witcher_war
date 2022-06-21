@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Player_Instanciate_Potion : ICanUsePotion
+public class PlayerInstanciatePotion : ICanUsePotion
 {
     private const KeyCode instanciatePotionKey = KeyCode.Space;    
 
@@ -12,7 +12,7 @@ public class Player_Instanciate_Potion : ICanUsePotion
 
     float newPotionTimer;    
 
-    public Player_Instanciate_Potion() 
+    public PlayerInstanciatePotion() 
     {       
         amountPotions = maxPotions;
         
@@ -25,12 +25,12 @@ public class Player_Instanciate_Potion : ICanUsePotion
         {
             Vector2 targetIndex = GetIndexWhereWitcherIsLooking(instantiatorIndex, direction);
 
-            if (Tile_Map.IsTileEmpty(targetIndex)) 
+            if (TileMap.IsTileEmpty(targetIndex)) 
             {
                 GameObject potion = Object.Instantiate(potionPrefab);
 
                 potion.GetComponent<StaticGameObject>().InitialPosIndex = targetIndex;
-                potion.GetComponent<Potion_Explotion>().ExplosionIndex = targetIndex;
+                potion.GetComponent<PotionExplotion>().ExplosionIndex = targetIndex;
 
                 amountPotions--;
             }            

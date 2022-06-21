@@ -56,18 +56,18 @@ public class Player_Movement : IMovable
             }
             else 
             {
-                nextTileIndex = Tile_Map.GetGameObjectIndexPlusOtherIndex(gameObject, movementAxis);
+                nextTileIndex = TileMap.GetGameObjectIndexPlusOtherIndex(gameObject, movementAxis);
 
-                if (Tile_Map.IsTileEmpty(nextTileIndex))
+                if (TileMap.IsTileEmpty(nextTileIndex))
                 {
                     movementTimer = 0f;
 
-                    oldPosition = Tile_Map.GetTileMapPosition(Tile_Map.GetGameObjectIndex(gameObject));
+                    oldPosition = TileMap.GetTileMapPosition(TileMap.GetGameObjectIndex(gameObject));
                     oldPosition.y = gameObject.transform.position.y;
-                    newPosition = Tile_Map.GetTileMapPosition(nextTileIndex);
+                    newPosition = TileMap.GetTileMapPosition(nextTileIndex);
                     newPosition.y = gameObject.transform.position.y;
 
-                    Tile_Map.MoveGameObjectToTileX(nextTileIndex, gameObject);
+                    TileMap.MoveGameObjectToTileX(nextTileIndex, gameObject);
                 }
 
                 RotatePlayer(movementAxis, ref direction, gameObject);

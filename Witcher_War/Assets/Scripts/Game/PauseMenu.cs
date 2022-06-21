@@ -4,7 +4,7 @@ public class PauseMenu : MonoBehaviour
 {
     [SerializeField] private Canvas pauseMenuCanvas;
 
-    private Map_Generator mapGenerator;
+    private MapGenerator mapGenerator;
 
     private KeyCode pauseMenuKey = KeyCode.P;
 
@@ -12,7 +12,7 @@ public class PauseMenu : MonoBehaviour
 
     private void Awake()
     {
-        mapGenerator = GameObject.FindWithTag("Manager").GetComponent<Map_Generator>();
+        mapGenerator = GameObject.FindWithTag("Manager").GetComponent<MapGenerator>();
 
         Resume();
     }
@@ -64,7 +64,7 @@ public class PauseMenu : MonoBehaviour
 
     public void ChangeToMainMenu() 
     {
-        Scenes_Management.ChangeToMainMenuScene();
+        ScenesManagement.ChangeToMainMenuScene();
 
         if (Time.timeScale != 1f) 
         {

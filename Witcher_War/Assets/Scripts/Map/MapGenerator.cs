@@ -1,7 +1,7 @@
 using System.IO;
 using UnityEngine;
 
-public class Map_Generator : MonoBehaviour
+public class MapGenerator : MonoBehaviour
 {
     const float potionSizePercentage = 0.35f;
     const float bookshelfSizePercentage = 0.80f;
@@ -63,9 +63,9 @@ public class Map_Generator : MonoBehaviour
 
     public void RestartLevel()
     {
-        Tile_Map.ClearTileMap();
+        TileMap.ClearTileMap();
         SetUpMap();
-        GetComponent<Gate_Instanciator>().DestroyGate();
+        GetComponent<GateInstanciator>().DestroyGate();
     }
 
     private void Awake()
@@ -78,7 +78,7 @@ public class Map_Generator : MonoBehaviour
     {
         if (!calculatedStaticObjects) 
         {
-            Tile_Map.CalculateDestroyableStaticObjectsCount();
+            TileMap.CalculateDestroyableStaticObjectsCount();
 
             calculatedStaticObjects = true;
         }        
@@ -90,7 +90,7 @@ public class Map_Generator : MonoBehaviour
 
         renderer = floorPrefab?.GetComponent<Renderer>();
 
-        Tile_Map.GenerateTileMap(renderer.bounds.size, renderer.bounds.center);
+        TileMap.GenerateTileMap(renderer.bounds.size, renderer.bounds.center);
 
         Destroy(floorPrefab);
 
@@ -115,7 +115,7 @@ public class Map_Generator : MonoBehaviour
         StreamReader sr = new StreamReader(fs);
 
         char[] map = sr.ReadToEnd().ToCharArray();
-        char[] mapWithOutLineBreaks = new char[map.Length - ((Tile_Map.maxRows - 1) * 2) ];
+        char[] mapWithOutLineBreaks = new char[map.Length - ((TileMap.maxRows - 1) * 2) ];
 
         int auxIndex = 0;
 
@@ -173,7 +173,7 @@ public class Map_Generator : MonoBehaviour
 
         witcher_Controller.PotionPrefab = (GameObject)Resources.Load(potionResourceName);
 
-        Tile_Map.RescaleGameObjectDependingTileSize(witcher_Controller.PotionPrefab, potionSizePercentage, Tile_Map.TileSize.x);
+        TileMap.RescaleGameObjectDependingTileSize(witcher_Controller.PotionPrefab, potionSizePercentage, TileMap.TileSize.x);
 
         witcher_Controller.InitialPosIndex = GetTileMapIndex(index);
 
@@ -186,7 +186,7 @@ public class Map_Generator : MonoBehaviour
 
         GameObjectRandomRotation(cauldron);
 
-        Tile_Map.RescaleGameObjectDependingTileSize(cauldron, cauldronSizePercentage, Tile_Map.TileSize.x);
+        TileMap.RescaleGameObjectDependingTileSize(cauldron, cauldronSizePercentage, TileMap.TileSize.x);
 
         cauldron.GetComponent<StaticGameObject>().InitialPosIndex = GetTileMapIndex(index);        
     }
@@ -197,7 +197,7 @@ public class Map_Generator : MonoBehaviour
 
         GameObjectRandomRotation(boockshelf);
 
-        Tile_Map.RescaleGameObjectDependingTileSize(boockshelf, bookshelfSizePercentage, Tile_Map.TileSize.x);
+        TileMap.RescaleGameObjectDependingTileSize(boockshelf, bookshelfSizePercentage, TileMap.TileSize.x);
 
         boockshelf.GetComponent<StaticGameObject>().InitialPosIndex = GetTileMapIndex(index);        
     }
@@ -212,7 +212,7 @@ public class Map_Generator : MonoBehaviour
 
         witcher_Controller.PotionPrefab = (GameObject)Resources.Load(potionResourceName);
 
-        Tile_Map.RescaleGameObjectDependingTileSize(witcher_Controller.PotionPrefab, potionSizePercentage, Tile_Map.TileSize.x);
+        TileMap.RescaleGameObjectDependingTileSize(witcher_Controller.PotionPrefab, potionSizePercentage, TileMap.TileSize.x);
 
         witcher_Controller.InitialPosIndex = GetTileMapIndex(index);        
     }
@@ -225,7 +225,7 @@ public class Map_Generator : MonoBehaviour
         {
             index.x++;
 
-            if (index.x == Tile_Map.maxRows - 1 && i + 1 < arrayIndex) 
+            if (index.x == TileMap.maxRows - 1 && i + 1 < arrayIndex) 
             {
                 index.x = -1;
                 index.y++;

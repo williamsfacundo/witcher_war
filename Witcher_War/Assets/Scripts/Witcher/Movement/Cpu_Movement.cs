@@ -43,13 +43,13 @@ public class Cpu_Movement : IMovable
 
         potionInstanciated = false;
 
-        enemyIndex = Tile_Map.nullIndex;
+        enemyIndex = TileMap.nullIndex;
 
-        movementDirection = Tile_Map.nullIndex;        
+        movementDirection = TileMap.nullIndex;        
 
-        nextTileIndex = Tile_Map.nullIndex;
+        nextTileIndex = TileMap.nullIndex;
 
-        potionInstanciatedMoveIndex = Tile_Map.nullIndex;
+        potionInstanciatedMoveIndex = TileMap.nullIndex;
 
         movementTimer = displacementTime;
 
@@ -72,16 +72,16 @@ public class Cpu_Movement : IMovable
     {
         if (potionInstanciated) 
         {
-            if (Tile_Map.IsTileEmpty(potionInstanciatedMoveIndex)) 
+            if (TileMap.IsTileEmpty(potionInstanciatedMoveIndex)) 
             {
                 movementTimer = 0f;
 
-                oldPos = Tile_Map.GetTileMapPosition(Tile_Map.GetGameObjectIndex(cpu));
+                oldPos = TileMap.GetTileMapPosition(TileMap.GetGameObjectIndex(cpu));
                 oldPos.y = gameObject.transform.position.y;
-                newPos = Tile_Map.GetTileMapPosition(potionInstanciatedMoveIndex);
+                newPos = TileMap.GetTileMapPosition(potionInstanciatedMoveIndex);
                 newPos.y = gameObject.transform.position.y;
 
-                Tile_Map.MoveGameObjectToTileX(potionInstanciatedMoveIndex, cpu);
+                TileMap.MoveGameObjectToTileX(potionInstanciatedMoveIndex, cpu);
             }
 
             RotatePlayer(potionInstanciatedMoveDirection, ref potionInstanciatedMoveDirection, gameObject);
@@ -93,18 +93,18 @@ public class Cpu_Movement : IMovable
             if (calculateNewPosition)
             {
                 movementDirection = GetDirectionToMoveTowardsPlayer();
-                nextTileIndex = Tile_Map.GetGameObjectIndexPlusOtherIndex(gameObject, movementDirection);
+                nextTileIndex = TileMap.GetGameObjectIndexPlusOtherIndex(gameObject, movementDirection);
 
-                if (Tile_Map.IsTileEmpty(nextTileIndex))
+                if (TileMap.IsTileEmpty(nextTileIndex))
                 {
                     movementTimer = 0f;
 
-                    oldPos = Tile_Map.GetTileMapPosition(Tile_Map.GetGameObjectIndex(cpu));
+                    oldPos = TileMap.GetTileMapPosition(TileMap.GetGameObjectIndex(cpu));
                     oldPos.y = gameObject.transform.position.y;
-                    newPos = Tile_Map.GetTileMapPosition(nextTileIndex);
+                    newPos = TileMap.GetTileMapPosition(nextTileIndex);
                     newPos.y = gameObject.transform.position.y;
 
-                    Tile_Map.MoveGameObjectToTileX(nextTileIndex, cpu);
+                    TileMap.MoveGameObjectToTileX(nextTileIndex, cpu);
                 }
 
                 RotatePlayer(movementDirection, ref direction, gameObject);
@@ -157,8 +157,8 @@ public class Cpu_Movement : IMovable
 
     private Vector2 GetDirectionToMoveTowardsPlayer() 
     {
-        playerIndex = Tile_Map.GetGameObjectIndex(player);
-        enemyIndex = Tile_Map.GetGameObjectIndex(cpu);
+        playerIndex = TileMap.GetGameObjectIndex(player);
+        enemyIndex = TileMap.GetGameObjectIndex(cpu);
 
         if (moveHorizontal) 
         {

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Player_Is_In_Gate : MonoBehaviour
+public class PlayerIsInGate : MonoBehaviour
 {
     GameObject player;    
 
@@ -8,7 +8,7 @@ public class Player_Is_In_Gate : MonoBehaviour
     {
         player = GameObject.FindWithTag("Player");
 
-        gameObject.transform.position = Tile_Map.GetGameObjectRightYPosition(gameObject);
+        gameObject.transform.position = TileMap.GetGameObjectRightYPosition(gameObject);
     }
 
     // Update is called once per frame
@@ -16,21 +16,21 @@ public class Player_Is_In_Gate : MonoBehaviour
     {
         if (player != null) 
         {
-            if (Tile_Map.GetGameObjectIndex(player) == Tile_Map.GateTile && Tile_Map.DestroyableStaticObjectsCount <= 0) 
+            if (TileMap.GetGameObjectIndex(player) == TileMap.GateTile && TileMap.DestroyableStaticObjectsCount <= 0) 
             {
-                if (Vector3.Distance(transform.position, player.transform.position) < (Tile_Map.TileSize.x) / 2f) 
+                if (Vector3.Distance(transform.position, player.transform.position) < (TileMap.TileSize.x) / 2f) 
                 {
-                    Map_Generator mapGenerator = GameObject.FindWithTag("Manager").GetComponent<Map_Generator>();
+                    MapGenerator mapGenerator = GameObject.FindWithTag("Manager").GetComponent<MapGenerator>();
                     
                     if (mapGenerator.Level + 1 < mapGenerator.MaxLevel) 
                     {                        
                         mapGenerator?.NextLevel();
-                        Gate_Instanciator.GateInstanciated = false;
+                        GateInstanciator.GateInstanciated = false;
                         Destroy(gameObject);
                     }
                     else 
                     {
-                        Scenes_Management.ChangeToWinningScene();
+                        ScenesManagement.ChangeToWinningScene();
                     }
                 }                
             }

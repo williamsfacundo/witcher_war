@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Potion_Explotion : MonoBehaviour
+public class PotionExplotion : MonoBehaviour
 {
     PotionAnimationController potionAnimationController;
 
@@ -49,7 +49,7 @@ public class Potion_Explotion : MonoBehaviour
 
     void DestroyAdjacentObjects() 
     {
-        Tile_Map.DestroyAdjacentObjectsOfATile(explosionIndex);
+        TileMap.DestroyAdjacentObjectsOfATile(explosionIndex);
     }
 
     void DecreaseTimer() 

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public static class Tile_Map
+public static class TileMap
 {
     private const string floorBlockOneResourceName = "Floor/Floor_Block_One";
     private const string floorBlockTwoResourceName = "Floor/Floor_Block_Two";

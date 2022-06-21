@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Scenes_Management : MonoBehaviour
+public class ScenesManagement : MonoBehaviour
 {
     public static void ChangeToGameplayScene() 
     {

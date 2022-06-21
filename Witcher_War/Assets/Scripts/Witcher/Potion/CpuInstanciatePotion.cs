@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Cpu_Instanciate_Potion : ICanUsePotion
+public class CpuInstanciatePotion : ICanUsePotion
 {
     const float minTimeToSpawnPotion = 3.5f;
     const float maxTimeToSpawnPotion = 6.5f; 
@@ -9,7 +9,7 @@ public class Cpu_Instanciate_Potion : ICanUsePotion
 
     Cpu_Movement cpuMovement;
 
-    public Cpu_Instanciate_Potion(Cpu_Movement cpuMovement) 
+    public CpuInstanciatePotion(Cpu_Movement cpuMovement) 
     {
         this.cpuMovement = cpuMovement;
 
@@ -25,15 +25,15 @@ public class Cpu_Instanciate_Potion : ICanUsePotion
         
         if (!cpuMovement.IsObjectMoving() && timer <= 0f) 
         {
-            Vector2 targetIndex = Player_Instanciate_Potion.GetIndexWhereWitcherIsLooking(instantiatorIndex, direction);
+            Vector2 targetIndex = PlayerInstanciatePotion.GetIndexWhereWitcherIsLooking(instantiatorIndex, direction);
             Vector2 moveIndex = GetOpositeTileIndex(instantiatorIndex, direction);
 
-            if (Tile_Map.IsTileEmpty(targetIndex) && Tile_Map.IsTileEmpty(moveIndex))
+            if (TileMap.IsTileEmpty(targetIndex) && TileMap.IsTileEmpty(moveIndex))
             {
                 GameObject potion = Object.Instantiate(potionPrefab);
 
                 potion.GetComponent<StaticGameObject>().InitialPosIndex = targetIndex;
-                potion.GetComponent<Potion_Explotion>().ExplosionIndex = targetIndex;                
+                potion.GetComponent<PotionExplotion>().ExplosionIndex = targetIndex;                
 
                 direction = GetOpositeTileDirection(direction);
                 cpuMovement.PotionInstanciated(moveIndex, direction);

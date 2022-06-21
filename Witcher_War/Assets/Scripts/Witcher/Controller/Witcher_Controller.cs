@@ -61,11 +61,11 @@ public class Witcher_Controller : MonoBehaviour, IDestroyable
     {
         SetWitcher(witcherType);
 
-        Tile_Map.NewGameObjectInTile(initialPosIndex, gameObject);        
+        TileMap.NewGameObjectInTile(initialPosIndex, gameObject);        
 
-        transform.position = Tile_Map.GetTileMapPosition(initialPosIndex);
+        transform.position = TileMap.GetTileMapPosition(initialPosIndex);
 
-        transform.position = Tile_Map.GetGameObjectRightYPosition(gameObject);
+        transform.position = TileMap.GetGameObjectRightYPosition(gameObject);
 
         transform.rotation = Quaternion.identity;
 
@@ -76,7 +76,7 @@ public class Witcher_Controller : MonoBehaviour, IDestroyable
     {
         if (!movementMechanic.IsObjectMoving()) 
         {
-            usePotionMechanic?.InstanciatePotion(potionPrefab, Tile_Map.GetGameObjectIndex(gameObject), witcherDirection);
+            usePotionMechanic?.InstanciatePotion(potionPrefab, TileMap.GetGameObjectIndex(gameObject), witcherDirection);
         }        
 
         movementMechanic?.MoveInput();
@@ -96,14 +96,14 @@ public class Witcher_Controller : MonoBehaviour, IDestroyable
             case WITCHER_TYPE.PLAYER:
 
                 movementMechanic = new Player_Movement();
-                usePotionMechanic = new Player_Instanciate_Potion();                
+                usePotionMechanic = new PlayerInstanciatePotion();                
 
                 break;
             case WITCHER_TYPE.CPU:
 
                 Cpu_Movement auxCpuMovement = new Cpu_Movement(gameObject);
                 movementMechanic = auxCpuMovement;
-                usePotionMechanic = new Cpu_Instanciate_Potion(auxCpuMovement);
+                usePotionMechanic = new CpuInstanciatePotion(auxCpuMovement);
                 
                 break;
         }
@@ -113,7 +113,7 @@ public class Witcher_Controller : MonoBehaviour, IDestroyable
     {
         if (witcherType == WITCHER_TYPE.PLAYER) 
         {
-            Scenes_Management.ChangeToEndGameScene();
+            ScenesManagement.ChangeToEndGameScene();
         }        
     }
 }

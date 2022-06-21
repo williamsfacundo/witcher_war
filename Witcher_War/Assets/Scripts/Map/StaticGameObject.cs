@@ -14,10 +14,10 @@ public class StaticGameObject : MonoBehaviour
 
     private void Start()
     {
-        Tile_Map.NewGameObjectInTile(initialPosIndex, gameObject);
+        TileMap.NewGameObjectInTile(initialPosIndex, gameObject);
 
-        transform.position = Tile_Map.GetTileMapPosition(initialPosIndex);
+        transform.position = TileMap.GetTileMapPosition(initialPosIndex);
 
-        transform.position = Tile_Map.GetGameObjectRightYPosition(gameObject);
+        transform.position = TileMap.GetGameObjectRightYPosition(gameObject);
     }    
 }
