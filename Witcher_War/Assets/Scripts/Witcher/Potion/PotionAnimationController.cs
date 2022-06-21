@@ -12,6 +12,6 @@ public class PotionAnimationController : MonoBehaviour
     
     public void StartAnimation()
     {
-        potionExplotionAnimator.SetBool("Exploted", true);        
+        potionExplotionAnimator.SetBool("Exploted", true);          
     }
 }

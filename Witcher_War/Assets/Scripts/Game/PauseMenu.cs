@@ -8,11 +8,13 @@ public class PauseMenu : MonoBehaviour
 
     private KeyCode pauseMenuKey = KeyCode.P;
 
-    private bool gamePaused = false;
+    private bool gamePaused;
 
     private void Awake()
     {
         mapGenerator = GameObject.FindWithTag("Manager").GetComponent<Map_Generator>();
+
+        Resume();
     }
 
     private void Start()
@@ -26,14 +28,10 @@ public class PauseMenu : MonoBehaviour
     {
         if (Input.GetKeyDown(pauseMenuKey))
         {
-            if (gamePaused)
-            {
-                Resume();
-            }
-            else
+            if (!gamePaused)
             {
                 Pause();
-            }
+            }            
         }
     }
 
