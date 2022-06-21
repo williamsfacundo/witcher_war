@@ -6,7 +6,15 @@ public class Gate_Instanciator : MonoBehaviour
 
     private const string gateResourceName = "Gate";
 
-    bool gateInstanciated = false;
+    private static bool gateInstanciated = false;
+
+    public static bool GateInstanciated 
+    {
+        set 
+        {
+            gateInstanciated = value;
+        }
+    }
 
     GameObject gate;
 

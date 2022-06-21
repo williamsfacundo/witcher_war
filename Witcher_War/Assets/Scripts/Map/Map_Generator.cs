@@ -73,9 +73,7 @@ public class Map_Generator : MonoBehaviour
 
     private void GenerateMap() 
     {
-        floorPrefab = (GameObject)Instantiate(Resources.Load(floorResourceName));
-
-        calculatedStaticObjects = false;
+        floorPrefab = (GameObject)Instantiate(Resources.Load(floorResourceName));        
 
         renderer = floorPrefab?.GetComponent<Renderer>();
 
@@ -91,6 +89,8 @@ public class Map_Generator : MonoBehaviour
         char[] map = GetMapArrayChar();
 
         InstanciateObjects(map);
+
+        calculatedStaticObjects = false;
     }
 
     private void RestartLevel() 

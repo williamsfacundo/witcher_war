@@ -25,6 +25,7 @@ public class Player_Is_In_Gate : MonoBehaviour
                     if (mapGenerator.Level < mapGenerator.MaxLevel - 1) 
                     {                        
                         mapGenerator?.NextLevel();
+                        Gate_Instanciator.GateInstanciated = false;
                         Destroy(gameObject);
                     }
                     else 
