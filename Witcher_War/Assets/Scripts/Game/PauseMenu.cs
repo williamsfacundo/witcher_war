@@ -59,6 +59,8 @@ public class PauseMenu : MonoBehaviour
     {
         mapGenerator.RestartLevel();
 
+        mapGenerator.SetLevelToOne();
+
         Resume();
     }
 

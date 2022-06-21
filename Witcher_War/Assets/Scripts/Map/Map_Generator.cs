@@ -46,6 +46,11 @@ public class Map_Generator : MonoBehaviour
     private const char lineBreakCharOne = (char)13;
     private const char lineBreakCharTwo = (char)10;
 
+    public void SetLevelToOne() 
+    {
+        level = 1;
+    }
+
     public void NextLevel() 
     {        
         if (level + 1 <= maxLevel) 
@@ -60,6 +65,7 @@ public class Map_Generator : MonoBehaviour
     {
         Tile_Map.ClearTileMap();
         SetUpMap();
+        GetComponent<Gate_Instanciator>().DestroyGate();
     }
 
     private void Awake()
@@ -93,8 +99,6 @@ public class Map_Generator : MonoBehaviour
 
     private void SetUpMap() 
     {
-        level = 1;
-
         char[] map = GetMapArrayChar();
 
         InstanciateObjects(map);
