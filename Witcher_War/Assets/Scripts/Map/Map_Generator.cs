@@ -176,16 +176,18 @@ public class Map_Generator : MonoBehaviour
 
     private void NewCauldron(short index) 
     {
-        GameObject gameObject = (GameObject)Instantiate(Resources.Load(cauldronResourceName));
+        GameObject cauldron = (GameObject)Instantiate(Resources.Load(cauldronResourceName));        
 
-        Tile_Map.RescaleGameObjectDependingTileSize(gameObject, cauldronSizePercentage, Tile_Map.TileSize.x);
+        Tile_Map.RescaleGameObjectDependingTileSize(cauldron, cauldronSizePercentage, Tile_Map.TileSize.x);
 
-        gameObject.GetComponent<StaticGameObject>().InitialPosIndex = GetTileMapIndex(index);        
+        cauldron.GetComponent<StaticGameObject>().InitialPosIndex = GetTileMapIndex(index);        
     }
 
     private void NewBookshelf(short index) 
     {
         GameObject boockshelf = (GameObject)Instantiate(Resources.Load(bookshelfResourceName));
+
+        GameObjectRandomRotation(boockshelf);
 
         Tile_Map.RescaleGameObjectDependingTileSize(boockshelf, bookshelfSizePercentage, Tile_Map.TileSize.x);
 
@@ -223,5 +225,23 @@ public class Map_Generator : MonoBehaviour
         }       
 
         return index;
-    }   
+    }
+    
+    private void GameObjectRandomRotation(GameObject gameObject) 
+    {
+        switch ((short)Random.Range(1f, 4.9f)) 
+        {
+            case 1:
+                gameObject.transform.rotation = Quaternion.Euler(0f, 90f, 0f);
+                break;
+            case 2:
+                gameObject.transform.rotation = Quaternion.Euler(0f, -90f, 0f);
+                break;
+            case 3:
+                gameObject.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
+                break;
+            default:
+                break;
+        }        
+    }
 }   
