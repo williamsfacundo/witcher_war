@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Gate_Instanciator : MonoBehaviour
 {
-    [SerializeField] [Range(0, 100)] private short probabilityToSpawnGate = 10;
+    [SerializeField] [Range(0, 100)] private short probabilityToSpawnGate = 20;
 
     private const string gateResourceName = "Gate";
 
