@@ -4,19 +4,18 @@ public class Player_Instanciate_Potion : ICanUsePotion
 {
     private const KeyCode instanciatePotionKey = KeyCode.Space;    
 
-    float maxPotions;
+    const float maxPotions = 2;
 
-    float amountPotions;
+    const float newPotionTime = 1.5f;
 
-    float newPotionTime;
+    float amountPotions;    
 
     float newPotionTimer;    
 
-    public Player_Instanciate_Potion(short maxBombs, float newPotionTime) 
+    public Player_Instanciate_Potion() 
     {       
-        this.maxPotions = maxBombs;
-        amountPotions = maxBombs;
-        this.newPotionTime = newPotionTime;
+        amountPotions = maxPotions;
+        
         newPotionTimer = 0f;        
     }
 

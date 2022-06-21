@@ -96,7 +96,7 @@ public class Witcher_Controller : MonoBehaviour, IDestroyable
             case WITCHER_TYPE.PLAYER:
 
                 movementMechanic = new Player_Movement();
-                usePotionMechanic = new Player_Instanciate_Potion(initialBombsCarried, generateNewPotionTime);                
+                usePotionMechanic = new Player_Instanciate_Potion();                
 
                 break;
             case WITCHER_TYPE.CPU:
