@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6473985218707448315}
   - component: {fileID: 1067023729822611592}
   - component: {fileID: 6978942436512865973}
+  - component: {fileID: 3543269830260836430}
   m_Layer: 0
   m_Name: Bookshelf
   m_TagString: Bookshelf
@@ -96,5 +97,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6db9f63833e22ba4c932636bcf806002, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3543269830260836430
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3285448504401297677}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b82797d654eb2043884b5dee5d3d09b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
