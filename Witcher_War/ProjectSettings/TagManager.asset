@@ -5,12 +5,15 @@ TagManager:
   serializedVersion: 2
   tags:
   - Floor
-  - Wall
   - Potion
   - Witcher
   - Gate
   - Manager
   - Terrain
+  - FloorCubeOne
+  - FloorCubeTwo
+  - Cauldron
+  - Bookshelf
   layers:
   - Default
   - TransparentFX
