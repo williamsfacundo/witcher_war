@@ -17,7 +17,7 @@ public class Map_Generator : MonoBehaviour
 
     private const short maxLevel = 5;
 
-    [Range(1, maxLevel)] private int level = 4;
+    [Range(1, maxLevel)] private int level = 1;
 
     public int Level 
     {

@@ -22,7 +22,7 @@ public class Player_Is_In_Gate : MonoBehaviour
                 {
                     Map_Generator mapGenerator = GameObject.FindWithTag("Manager").GetComponent<Map_Generator>();
                     
-                    if (mapGenerator.Level < mapGenerator.MaxLevel - 1) 
+                    if (mapGenerator.Level + 1 < mapGenerator.MaxLevel) 
                     {                        
                         mapGenerator?.NextLevel();
                         Gate_Instanciator.GateInstanciated = false;
