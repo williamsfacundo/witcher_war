@@ -144,6 +144,7 @@ public static class Tile_Map
                     if (!tileMap[i, v].isEmpty) 
                     {
                         GameObject.Destroy(tileMap[i, v].TileObject);
+                        tileMap[i, v].TileObject = null;
                     }
                 }
             }
