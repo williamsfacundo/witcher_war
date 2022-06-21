@@ -1,7 +1,7 @@
-.P.W..E
-...W...
-...W...
-XXWWWXX
-...W...
-.E.W.E.
-...W...
+EW.P.W.
+WXWXWXW
+.W.E.W.
+.XWXWX.
+W..E..W
+EXWXWX.
+W..E..W
