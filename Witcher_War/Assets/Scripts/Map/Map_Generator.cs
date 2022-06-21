@@ -3,8 +3,9 @@ using UnityEngine;
 
 public class Map_Generator : MonoBehaviour
 {
-    const float potionSizePercentage = 0.5f;
-    const float bookshelfSizePercentage = 1f;
+    const float potionSizePercentage = 0.35f;
+    const float bookshelfSizePercentage = 0.80f;
+    const float cauldronSizePercentage = 0.65f;
 
     private const string floorResourceName = "Floor";
     private const string bookshelfResourceName = "Static_Objects/Bookshelf";
@@ -38,8 +39,8 @@ public class Map_Generator : MonoBehaviour
 
     private bool calculatedStaticObjects;
 
-    private const char bookshelfChar = 'X';
-    private const char cauldronChar = 'W';
+    private const char bookshelfChar = 'W';
+    private const char cauldronChar = 'X';
     private const char playerChar = 'P';
     private const char enemyChar = 'E';
     private const char lineBreakCharOne = (char)13;
@@ -177,7 +178,7 @@ public class Map_Generator : MonoBehaviour
     {
         GameObject gameObject = (GameObject)Instantiate(Resources.Load(cauldronResourceName));
 
-        Tile_Map.RescaleGameObjectDependingTileSize(gameObject, bookshelfSizePercentage, Tile_Map.TileSize.x);
+        Tile_Map.RescaleGameObjectDependingTileSize(gameObject, cauldronSizePercentage, Tile_Map.TileSize.x);
 
         gameObject.GetComponent<StaticGameObject>().InitialPosIndex = GetTileMapIndex(index);        
     }
