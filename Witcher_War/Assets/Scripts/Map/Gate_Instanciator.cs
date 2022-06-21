@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Gate_Instanciator : MonoBehaviour
 {
-    [SerializeField] [Range(0, 100)] private short probabilityToSpawnGate = 20;
+    [Range(0, 100)] private short probabilityToSpawnGate = 35;
 
     private const string gateResourceName = "Gate";
 
@@ -23,10 +23,10 @@ public class Gate_Instanciator : MonoBehaviour
     private void InstanciateGateMechanic() 
     {
         if (!gateInstanciated) 
-        {
+        {            
             if (Tile_Map.DestroyableStaticObjectsCount - 1 >= 0f)
             {
-                float random = Random.Range(1f, 100f);
+                float random = Random.Range(1f, 100f);               
 
                 if ((short)random <= probabilityToSpawnGate)
                 {
