@@ -176,7 +176,9 @@ public class Map_Generator : MonoBehaviour
 
     private void NewCauldron(short index) 
     {
-        GameObject cauldron = (GameObject)Instantiate(Resources.Load(cauldronResourceName));        
+        GameObject cauldron = (GameObject)Instantiate(Resources.Load(cauldronResourceName));
+
+        GameObjectRandomRotation(cauldron);
 
         Tile_Map.RescaleGameObjectDependingTileSize(cauldron, cauldronSizePercentage, Tile_Map.TileSize.x);
 
