@@ -58,4 +58,12 @@ public class Gate_Instanciator : MonoBehaviour
 
         Tile_Map.SetGateTile(gate, gateIndex);
     }
+
+    private void DestroyGate() 
+    {
+        if (gate != null) 
+        {
+            Destroy(gate);
+        }
+    }
 }

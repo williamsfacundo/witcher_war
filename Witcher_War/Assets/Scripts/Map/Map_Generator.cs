@@ -56,6 +56,12 @@ public class Map_Generator : MonoBehaviour
         RestartLevel();
     }
 
+    public void RestartLevel()
+    {
+        Tile_Map.ClearTileMap();
+        SetUpMap();
+    }
+
     private void Awake()
     {
         GenerateMap();
@@ -87,18 +93,14 @@ public class Map_Generator : MonoBehaviour
 
     private void SetUpMap() 
     {
+        level = 1;
+
         char[] map = GetMapArrayChar();
 
         InstanciateObjects(map);
 
         calculatedStaticObjects = false;
-    }
-
-    private void RestartLevel() 
-    {
-        Tile_Map.ClearTileMap();
-        SetUpMap();
-    }
+    }    
 
     private char[] GetMapArrayChar() 
     {
