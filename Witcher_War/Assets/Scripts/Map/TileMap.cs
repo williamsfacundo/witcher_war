@@ -122,7 +122,7 @@ public static class TileMap
         }
     }
 
-    public static void DestroyAdjacentObjectsOfATile(Vector2 targetIndex)
+    public static void DestroyAdjacentObjectsOfATile(Vector2 targetIndex) //Esto es solo para la bomba por ende es un comportamiento que deberia ir a la bomba
     {
         if (mapGenerated && IsValidIndex(targetIndex))
         {            
