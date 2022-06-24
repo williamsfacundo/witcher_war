@@ -13,9 +13,17 @@ namespace WizardWar
             [SerializeField] private Vector3 _tileMapSize;
 
             private TileMap _tileMap;
-            private FloorBlocksInstanciator _floorBlocksInstanciator;
+            
+            private FloorBlocksInstanciator _floorBlocksInstanciator;            
 
-            // Start is called before the first frame update
+            public TileMap TileMap 
+            {
+                get 
+                {
+                    return _tileMap;
+                }
+            }
+           
             void Awake()
             {
                 CreateTileMap();

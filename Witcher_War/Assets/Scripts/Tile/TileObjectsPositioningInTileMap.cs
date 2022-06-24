@@ -10,14 +10,14 @@ namespace WizardWar
 
             private Tile _specialTile; //Index of special tile object that will be unique (only 1) and other game objects can go through it  
 
-            public TileObjectsPositioningInTileMap (TileMap tileMap) 
+            public TileObjectsPositioningInTileMap(TileMap tileMap) 
             {
                 _tileMap = tileMap;
 
                 _specialTile = new Tile();               
             }
             
-            ~TileObjectsPositioningInTileMap () 
+            ~TileObjectsPositioningInTileMap() 
             {
                 ClearTileMap();
             }

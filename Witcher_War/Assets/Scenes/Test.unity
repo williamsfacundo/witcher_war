@@ -226,6 +226,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1502015582}
   - component: {fileID: 1502015581}
+  - component: {fileID: 1502015583}
   m_Layer: 0
   m_Name: Gameplay Manager
   m_TagString: Untagged
@@ -263,6 +264,23 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1502015583
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1502015580}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 142a5fc92a16e3b42b31ab2c50a2ad22, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _bookshelfPrefab: {fileID: 0}
+  _cauldronPrefab: {fileID: 0}
+  _witcherPrefab: {fileID: 0}
+  _potionPrefab: {fileID: 0}
+  _level: 1
 --- !u!1 &1623486347
 GameObject:
   m_ObjectHideFlags: 0
