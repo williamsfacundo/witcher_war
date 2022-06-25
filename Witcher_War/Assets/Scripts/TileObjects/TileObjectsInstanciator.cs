@@ -139,8 +139,6 @@ namespace WizardWar
 
             private void NewPlayer(short index) //Guardar los tags en un archivo + Posicionar objeto correctamente 
             {
-                Debug.Log(LevelCreator.TileMapSize.x);
-
                 if (_witcherPrefab != null) 
                 {
                     GameObject player = Instantiate(_witcherPrefab);
@@ -157,7 +155,7 @@ namespace WizardWar
 
                         _tileObjectsPositioningInTileMap.NewGameObjectInTile(arrayIndex2D, player);
 
-                        player.transform.position = _tileObjectsPositioningInTileMap.GetTileMapPosition(arrayIndex2D);
+                        GameObjectPositioningCorrectly(player, arrayIndex2D);
 
                         player.transform.tag = "Player";
                     }
@@ -186,7 +184,7 @@ namespace WizardWar
 
                     _tileObjectsPositioningInTileMap.NewGameObjectInTile(arrayIndex2D, cauldron);
 
-                    cauldron.transform.position = _tileObjectsPositioningInTileMap.GetTileMapPosition(arrayIndex2D);
+                    GameObjectPositioningCorrectly(cauldron, arrayIndex2D);
                 }
                 else 
                 {
@@ -208,7 +206,7 @@ namespace WizardWar
 
                     _tileObjectsPositioningInTileMap.NewGameObjectInTile(arrayIndex2D, boockshelf);
 
-                    boockshelf.transform.position = _tileObjectsPositioningInTileMap.GetTileMapPosition(arrayIndex2D);
+                    GameObjectPositioningCorrectly(boockshelf, arrayIndex2D);
                 }
                 else 
                 {
@@ -234,7 +232,7 @@ namespace WizardWar
 
                         _tileObjectsPositioningInTileMap.NewGameObjectInTile(arrayIndex2D, enemy);
 
-                        witcherController.transform.position = _tileObjectsPositioningInTileMap.GetTileMapPosition(arrayIndex2D);
+                        GameObjectPositioningCorrectly(enemy, arrayIndex2D);
                     }
                     else 
                     {                        
@@ -263,6 +261,43 @@ namespace WizardWar
                     default:
                         break;
                 }
+            }
+
+            private void GameObjectPositioningCorrectly(GameObject gameObject, Index2 index) 
+            {
+                Vector3 halfTileMapYSize = Vector3.up * (LevelCreator.TileMap.TilesSize.y / 2f);
+                Vector3 playerHalfSize = Vector3.up * (GetGameObjectHeight(gameObject) / 2f);
+                Vector3 tileMapPosition = _tileObjectsPositioningInTileMap.GetTileMapPosition(index);
+
+                gameObject.transform.position = tileMapPosition + halfTileMapYSize + playerHalfSize;
+            }
+
+            private float GetGameObjectHeight(GameObject gameObject) 
+            {
+                Renderer renderer = gameObject.GetComponent<Renderer>();
+
+                if (renderer == null)
+                {
+                    GameObject child;
+
+                    for (short i = 0; i < gameObject.transform.childCount; i++)
+                    {
+                        child = gameObject.transform.GetChild(i).gameObject;
+
+                        renderer = child.GetComponent<Renderer>();
+
+                        if (renderer != null)
+                        {
+                            return renderer.bounds.size.y;                            
+                        }
+                    }
+                }
+                else 
+                {
+                    return renderer.bounds.size.y;
+                }
+
+                return 0f;
             }
         }
     }    

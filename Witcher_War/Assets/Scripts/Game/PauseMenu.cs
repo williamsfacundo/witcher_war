@@ -14,7 +14,7 @@ namespace WizardWar
 
                 private TileObjectsInstanciator _tileObjectsInstanciator;
 
-                private bool gamePaused;
+                private bool _gamePaused;
 
                 private void Awake()
                 {
@@ -25,38 +25,20 @@ namespace WizardWar
 
                 private void Start()
                 {
-                    _pauseMenuCanvas.gameObject.SetActive(gamePaused);
+                    _pauseMenuCanvas.gameObject.SetActive(_gamePaused);
                 }
 
 
                 // Update is called once per frame
-                void Update()
+                private void Update()
                 {
                     if (Input.GetKeyDown(pauseMenuKey))
                     {
-                        if (!gamePaused)
+                        if (!_gamePaused)
                         {
                             Pause();
                         }
                     }
-                }
-
-                private void Resume()
-                {
-                    gamePaused = false;
-
-                    Time.timeScale = 1f;
-
-                    _pauseMenuCanvas.gameObject.SetActive(false);
-                }
-
-                private void Pause()
-                {
-                    gamePaused = true;
-
-                    Time.timeScale = 0f;
-
-                    _pauseMenuCanvas.gameObject.SetActive(true);
                 }
 
                 public void RestartButtonAction()
@@ -75,6 +57,24 @@ namespace WizardWar
                         Time.timeScale = 1f;
                     }
                 }
+
+                private void Resume()
+                {
+                    _gamePaused = false;
+
+                    Time.timeScale = 1f;
+
+                    _pauseMenuCanvas.gameObject.SetActive(false);
+                }
+
+                private void Pause()
+                {
+                    _gamePaused = true;
+
+                    Time.timeScale = 0f;
+
+                    _pauseMenuCanvas.gameObject.SetActive(true);
+                }               
             }
         }        
     }
