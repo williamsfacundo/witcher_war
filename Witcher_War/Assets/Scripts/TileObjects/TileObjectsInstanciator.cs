@@ -139,110 +139,68 @@ namespace WizardWar
 
             private void NewPlayer(short index) //Guardar los tags en un archivo + Posicionar objeto correctamente 
             {
-                if (_witcherPrefab != null) 
-                {
-                    GameObject player = Instantiate(_witcherPrefab);
+                GameObject player = Instantiate(_witcherPrefab);
 
-                    WitcherController witcherController = player.GetComponent<WitcherController>();
+                WitcherController witcherController = player.GetComponent<WitcherController>();
 
-                    if (witcherController != null) 
-                    {
-                        witcherController.WitcherType = WitcherType.Player;
+                witcherController.WitcherType = WitcherType.Player;
 
-                        witcherController.PotionPrefab = _potionPrefab;                        
+                witcherController.PotionPrefab = _potionPrefab;
 
-                        Index2 arrayIndex2D = MapReader.CovertArrayIndexIntoArray2DIndex(index, _levelCreator.TileMap.MaxRows);
+                Index2 arrayIndex2D = MapReader.CovertArrayIndexIntoArray2DIndex(index, _levelCreator.TileMap.MaxRows);
 
-                        _tileObjectsPositioningInTileMap.NewGameObjectInTile(arrayIndex2D, player);
+                _tileObjectsPositioningInTileMap.NewGameObjectInTile(arrayIndex2D, player);
 
-                        GameObjectPositioningCorrectly(player, arrayIndex2D);
+                GameObjectPositioningCorrectly(player, arrayIndex2D);
 
-                        player.transform.tag = "Player";
-                    }
-                    else 
-                    {
-                        Debug.LogError("No witcher controller in game object.");
-                    }                   
-                }
-                else 
-                {
-                    Debug.LogError("No witcher prefab.");
-                }                
+                player.transform.tag = "Player";
             }
 
             private void NewCauldron(short index) //Posicionar objeto correctamente
             {
-                if (_cauldronPrefab != null)
-                {
-                    GameObject cauldron = Instantiate(_cauldronPrefab);
+                GameObject cauldron = Instantiate(_cauldronPrefab);
 
-                    GameObjectRotateRandomly(cauldron);
+                GameObjectRotateRandomly(cauldron);
 
-                    RescaleTool.RescaleGameObjectBasedOnPercentageSize(cauldron, cauldronSizePercentage, LevelCreator.TileMap.TilesSize.x);
+                RescaleTool.RescaleGameObjectBasedOnPercentageSize(cauldron, cauldronSizePercentage, LevelCreator.TileMap.TilesSize.x);
 
-                    Index2 arrayIndex2D = MapReader.CovertArrayIndexIntoArray2DIndex(index, _levelCreator.TileMap.MaxRows);
+                Index2 arrayIndex2D = MapReader.CovertArrayIndexIntoArray2DIndex(index, _levelCreator.TileMap.MaxRows);
 
-                    _tileObjectsPositioningInTileMap.NewGameObjectInTile(arrayIndex2D, cauldron);
+                _tileObjectsPositioningInTileMap.NewGameObjectInTile(arrayIndex2D, cauldron);
 
-                    GameObjectPositioningCorrectly(cauldron, arrayIndex2D);
-                }
-                else 
-                {
-                    Debug.LogError("No cauldron prefab.");
-                }                
+                GameObjectPositioningCorrectly(cauldron, arrayIndex2D);
             }
 
             private void NewBookshelf(short index) //Posicionar objeto correctamente
             {
-                if (_bookshelfPrefab != null) 
-                {
-                    GameObject boockshelf = Instantiate(_bookshelfPrefab);
+                GameObject boockshelf = Instantiate(_bookshelfPrefab);
 
-                    GameObjectRotateRandomly(boockshelf);
-                    
-                    RescaleTool.RescaleGameObjectBasedOnPercentageSize(boockshelf, bookshelfSizePercentage, LevelCreator.TileMap.TilesSize.x);
+                GameObjectRotateRandomly(boockshelf);
 
-                    Index2 arrayIndex2D = MapReader.CovertArrayIndexIntoArray2DIndex(index, _levelCreator.TileMap.MaxRows);
+                RescaleTool.RescaleGameObjectBasedOnPercentageSize(boockshelf, bookshelfSizePercentage, LevelCreator.TileMap.TilesSize.x);
 
-                    _tileObjectsPositioningInTileMap.NewGameObjectInTile(arrayIndex2D, boockshelf);
+                Index2 arrayIndex2D = MapReader.CovertArrayIndexIntoArray2DIndex(index, _levelCreator.TileMap.MaxRows);
 
-                    GameObjectPositioningCorrectly(boockshelf, arrayIndex2D);
-                }
-                else 
-                {
-                    Debug.LogError("No bookshelf prefab.");
-                }
+                _tileObjectsPositioningInTileMap.NewGameObjectInTile(arrayIndex2D, boockshelf);
+
+                GameObjectPositioningCorrectly(boockshelf, arrayIndex2D);
             }
 
             private void NewEnemy(short index) //Posicionar objeto correctamente
             {
-                if (_witcherPrefab != null) 
-                {
-                    GameObject enemy = Instantiate(_witcherPrefab);
+                GameObject enemy = Instantiate(_witcherPrefab);
 
-                    WitcherController witcherController = enemy.GetComponent<WitcherController>();
+                WitcherController witcherController = enemy.GetComponent<WitcherController>();
 
-                    if (witcherController != null) 
-                    {
-                        witcherController.WitcherType = WitcherType.Cpu;
+                witcherController.WitcherType = WitcherType.Cpu;
 
-                        witcherController.PotionPrefab = _potionPrefab;                        
+                witcherController.PotionPrefab = _potionPrefab;
 
-                        Index2 arrayIndex2D = MapReader.CovertArrayIndexIntoArray2DIndex(index, _levelCreator.TileMap.MaxRows);
+                Index2 arrayIndex2D = MapReader.CovertArrayIndexIntoArray2DIndex(index, _levelCreator.TileMap.MaxRows);
 
-                        _tileObjectsPositioningInTileMap.NewGameObjectInTile(arrayIndex2D, enemy);
+                _tileObjectsPositioningInTileMap.NewGameObjectInTile(arrayIndex2D, enemy);
 
-                        GameObjectPositioningCorrectly(enemy, arrayIndex2D);
-                    }
-                    else 
-                    {                        
-                        Debug.LogError("No witcher controller in game object.");
-                    }                    
-                }
-                else 
-                {
-                    Debug.LogError("No witcher prefab.");
-                }                
+                GameObjectPositioningCorrectly(enemy, arrayIndex2D);
             }
 
             private void GameObjectRotateRandomly(GameObject gameObject)

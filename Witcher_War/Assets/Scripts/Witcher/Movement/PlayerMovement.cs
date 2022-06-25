@@ -1,4 +1,6 @@
 using UnityEngine;
+using WizardWar.Tile;
+using WizardWar.TileObjects;
 
 namespace WizardWar
 {
@@ -8,109 +10,128 @@ namespace WizardWar
         {
             public class PlayerMovement : IMovable
             {
-                /*private Vector2 movementAxis;
+                private const float _displacementTime = 0.3f;
 
-                private float freezePos;
+                private float _freezePos;
 
-                private Vector3 oldPosition;
+                private float _movementTimer;
 
-                private Vector3 newPosition;
+                private float _percentageMoved;
 
-                private const float displacementTime = 0.3f;
+                private Index2 _movementAxis;
 
-                private float movementTimer;        
+                private Index2 _nextTileIndex;
 
-                private float percentageMoved;
+                private Vector3 _oldPosition;
 
-                private Vector2 nextTileIndex;*/
+                private Vector3 _newPosition;       
+
+                private TileObjectsPositioningInTileMap _tileObjectsPositioningInTileMap;
+
+                private TileObjectsInstanciator _tileObjectsInstanciator;
 
                 public PlayerMovement() 
                 {
-                    //movementAxis = Vector2.zero;
-                    //oldPosition = Vector2.zero;
-                    //movementTimer = displacementTime;        
-                    //percentageMoved = 0f;
-                    //nextTileIndex = Vector2.zero;        
+                    _freezePos = 0f;
+
+                    _movementTimer = _displacementTime;
+
+                    _percentageMoved = 0f;
+
+                    _movementAxis = Index2.IndexNull;
+
+                    _nextTileIndex = Index2.IndexNull;
+
+                    _oldPosition = Vector3.zero;
+
+                    _newPosition = Vector3.zero;                   
+
+                    _tileObjectsInstanciator = GameObject.FindWithTag("Manager").GetComponent<TileObjectsInstanciator>();
+
+                    _tileObjectsPositioningInTileMap = _tileObjectsInstanciator.TileObjectsPositioningInTileMap;
                 }
 
-                /*public void MoveInput() 
+                public void MoveInput() 
                 {
-                    movementAxis.x = Input.GetAxisRaw("Horizontal");
+                    _movementAxis.X = (short)Input.GetAxisRaw("Horizontal");
 
-                    movementAxis.y = Input.GetAxisRaw("Vertical");
+                    _movementAxis.Y = (short)Input.GetAxisRaw("Vertical");
 
-                    if (movementAxis.y != 0f)
+                    if (_movementAxis.Y != 0)
                     {
-                        movementAxis.y *= -1;
+                        _movementAxis.Y *= -1;
                     }
 
-                    if (movementAxis.x != 0f && movementAxis.y != 0f) 
+                    if (_movementAxis.X != 0 && _movementAxis.Y != 0) 
                     {
-                        movementAxis.y = 0f;
+                        _movementAxis.Y = 0;
                     }
 
-                    freezePos = Input.GetAxisRaw("Freeze");
+                    _freezePos = Input.GetAxisRaw("Freeze");
                 }    
 
                 public void Move(GameObject gameObject, ref WitcherLookingDirection direction)
                 {
-                    if (movementAxis != Vector2.zero && !IsObjectMoving()) 
+                    if (_movementAxis != Index2.IndexNull && !IsObjectMoving()) 
                     {
-                        if (freezePos != 0f) 
+                        if (_freezePos != 0f) 
                         {
-                            RotatePlayer(movementAxis, ref direction, gameObject);
+                            RotatePlayer(_movementAxis, ref direction, gameObject);
                         }
                         else 
                         {
-                            nextTileIndex = TileMap.GetGameObjectIndexPlusOtherIndex(gameObject, movementAxis);
+                            _nextTileIndex = _tileObjectsPositioningInTileMap.GetTileObjectIndexPlusOtherIndex(gameObject, _movementAxis);
 
-                            if (TileMap.IsTileEmpty(nextTileIndex))
+                            if (_tileObjectsInstanciator.LevelCreator.TileMap.IsTileEmpty(_nextTileIndex))
                             {
-                                movementTimer = 0f;
+                                _movementTimer = 0f;
 
-                                oldPosition = TileMap.GetTileMapPosition(TileMap.GetGameObjectIndex(gameObject));
-                                oldPosition.y = gameObject.transform.position.y;
-                                newPosition = TileMap.GetTileMapPosition(nextTileIndex);
-                                newPosition.y = gameObject.transform.position.y;
+                                _oldPosition = _tileObjectsPositioningInTileMap.GetTileMapPosition(_tileObjectsPositioningInTileMap.GetTileObjectIndex(gameObject));
 
-                                TileMap.MoveGameObjectToTileX(nextTileIndex, gameObject);
+                                _oldPosition.y = gameObject.transform.position.y;
+
+                                _newPosition = _tileObjectsPositioningInTileMap.GetTileMapPosition(_nextTileIndex);
+
+                                _newPosition.y = gameObject.transform.position.y;
+
+                                _tileObjectsPositioningInTileMap.MoveGameObjectToTileX(_nextTileIndex, gameObject);                              
                             }
 
-                            RotatePlayer(movementAxis, ref direction, gameObject);
+                            RotatePlayer(_movementAxis, ref direction, gameObject);
                         }
                     }        
 
                     if (IsObjectMoving())
                     {
-                        percentageMoved = movementTimer / displacementTime;
+                        _percentageMoved = _movementTimer / _displacementTime;
 
-                        gameObject.transform.position = Vector3.Lerp(oldPosition, newPosition, percentageMoved);
+                        gameObject.transform.position = Vector3.Lerp(_oldPosition, _newPosition, _percentageMoved);
                     }
                 }   
 
                 public void Timer() 
                 {
-                    if (movementTimer < displacementTime) 
+                    if (_movementTimer < _displacementTime) 
                     {
-                        movementTimer += Time.deltaTime;
+                        _movementTimer += Time.deltaTime;
 
-                        if (movementTimer > displacementTime)
+                        if (_movementTimer > _displacementTime)
                         {
-                            movementTimer = displacementTime;
+                            _movementTimer = _displacementTime;
                         }            
                     }        
                 }   
 
                 public bool IsObjectMoving()
                 {
-                    return movementTimer < displacementTime;
+                    return _movementTimer < _displacementTime;
                 }
 
-                void RotatePlayer(Vector2 movementAxis, ref WitcherLookingDirection witcherDirection, GameObject gameObject) 
+                void RotatePlayer(Index2 movementAxis, ref WitcherLookingDirection witcherDirection, GameObject gameObject) 
                 {
                     WitcherLookingDirection newDirection = WitcherLookingDirection.Left;
 
-                    switch ((int)movementAxis.x) 
+                    switch (movementAxis.X) 
                     {
                         case -1:
 
@@ -124,9 +145,9 @@ namespace WizardWar
                             break;
                     }
 
-                    if (movementAxis.x == 0) 
+                    if (movementAxis.X == 0) 
                     {
-                        switch ((int)movementAxis.y)
+                        switch (movementAxis.Y)
                         {
                             case -1:
 
@@ -143,12 +164,14 @@ namespace WizardWar
 
                     if (newDirection != witcherDirection) 
                     {
-                        gameObject.transform.rotation = Quaternion.identity;
-
                         witcherDirection = newDirection;
 
                         switch (witcherDirection) 
                         {
+                            case WitcherLookingDirection.Down:
+
+                                gameObject.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
+                                break;
                             case WitcherLookingDirection.Up:
 
                                 gameObject.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
@@ -168,27 +191,7 @@ namespace WizardWar
                                 break;
                         }
                     }
-                }*/
-
-                public void MoveInput()
-                {
-
-                }
-
-                public void Move(GameObject gameObject, ref WitcherLookingDirection direction)
-                {
-
-                }
-
-                public void Timer()
-                {
-
-                }
-
-                public bool IsObjectMoving()
-                {
-                    return false;
-                }
+                }              
             }
         }
     }

@@ -40,6 +40,22 @@ namespace WizardWar
                 }
             }
 
+            public static Index2 Right 
+            {
+                get 
+                {
+                    return new Index2(1, 0);
+                }
+            }
+
+            public static Index2 Up 
+            {
+                get 
+                {
+                    return new Index2(0, 1);
+                }
+            }
+
             public Index2() 
             {
                 _x = 0;
@@ -55,6 +71,11 @@ namespace WizardWar
             public static Index2 operator +(Index2 index1, Index2 index2)
             {
                 return new Index2((short)(index1.X + index2.X), (short)(index1.Y + index2.Y));
+            }
+
+            public static Index2 operator -(Index2 index1, Index2 index2)
+            {
+                return new Index2((short)(index1.X - index2.X), (short)(index1.Y - index2.Y));
             }
 
             public override bool Equals(object obj)

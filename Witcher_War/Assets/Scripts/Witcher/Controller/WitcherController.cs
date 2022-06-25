@@ -83,7 +83,7 @@ namespace WizardWar
 
             private void FixedUpdate()
             {
-                _movementMechanic?.Move(gameObject, ref _witcherDirection);
+                //_movementMechanic?.Move(gameObject, ref _witcherDirection);
             }
 
             void SetWitcher(WitcherType witcherType)
@@ -95,20 +95,25 @@ namespace WizardWar
                     case WitcherType.Player:
 
                         _movementMechanic = new PlayerMovement();
+
                         _usePotionMechanic = new PlayerInstanciatePotion();
 
                         break;
                     case WitcherType.Cpu:
 
+
                         auxCpuMovement = new CpuMovement(gameObject);
                         _movementMechanic = auxCpuMovement;
+
                         _usePotionMechanic = new CpuInstanciatePotion(auxCpuMovement);
 
                         break;
                     default:
 
                         auxCpuMovement = new CpuMovement(gameObject);
+
                         _movementMechanic = auxCpuMovement;
+
                         _usePotionMechanic = new CpuInstanciatePotion(auxCpuMovement);
                         break;
                 }

@@ -1,5 +1,6 @@
 using UnityEngine;
 using WizardWar.Tile;
+using WizardWar.TileObjects;
 
 namespace WizardWar 
 {
@@ -17,6 +18,8 @@ namespace WizardWar
 
                 private Index2 _explosionIndex;
 
+                TileObjectsInstanciator _tileObjectsInstanciator;
+
                 public Index2 ExplosionIndex
                 {
                     set
@@ -28,6 +31,8 @@ namespace WizardWar
                 private void Awake()
                 {
                     _potionAnimationController = GetComponent<PotionAnimationController>();
+
+                    _tileObjectsInstanciator = GameObject.FindWithTag("Manager").GetComponent<TileObjectsInstanciator>();
                 }
                 
                 void Start()
@@ -48,7 +53,7 @@ namespace WizardWar
                     {
                         DestroyAdjacentObjectsInTileMap();
 
-                        Destroy(gameObject);
+                        _tileObjectsInstanciator.TileObjectsPositioningInTileMap.DestroyGameObject(gameObject);
                     }
                 }
 

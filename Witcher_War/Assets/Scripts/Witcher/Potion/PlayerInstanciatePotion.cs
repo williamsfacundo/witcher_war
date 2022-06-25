@@ -1,5 +1,6 @@
 using UnityEngine;
 using WizardWar.Tile;
+using WizardWar.TileObjects;
 
 namespace WizardWar 
 {
@@ -9,7 +10,7 @@ namespace WizardWar
         {
             public class PlayerInstanciatePotion : ICanUsePotion
             {
-                /*private const KeyCode instanciatePotionKey = KeyCode.Space;
+                private const KeyCode instanciatePotionKey = KeyCode.Space;
 
                 private const float maxPotions = 2;
 
@@ -19,26 +20,29 @@ namespace WizardWar
 
                 private float newPotionTimer;
 
-                private TileObjectsInstanciator _tileObjectsInstanciator;*/
+                private TileObjectsInstanciator _tileObjectsInstanciator;
 
                 public PlayerInstanciatePotion()
                 {
-                    //amountPotions = maxPotions;
+                    amountPotions = maxPotions;
 
-                    //newPotionTimer = 0f;
+                    newPotionTimer = 0f;
+
+                    _tileObjectsInstanciator = GameObject.FindWithTag("Manager").GetComponent<TileObjectsInstanciator>();
                 }
 
-                /*public void InstanciatePotion(GameObject potionPrefab, Vector2 instantiatorIndex, WitcherLookingDirection direction)
+                public void InstanciatePotion(GameObject potionPrefab, Index2 instantiatorIndex, WitcherLookingDirection direction)
                 {
                     if (Input.GetKeyDown(instanciatePotionKey) && amountPotions > 0)
                     {
                         Index2 targetIndex = GetIndexWhereWitcherIsLooking(instantiatorIndex, direction);
 
-                        if (TileMap.IsTileEmpty(targetIndex))
+                        if (_tileObjectsInstanciator.LevelCreator.TileMap.IsTileEmpty(targetIndex))
                         {
                             GameObject potion = Object.Instantiate(potionPrefab);
 
-                            potion.GetComponent<StaticGameObject>().InitialPosIndex = targetIndex;
+                            _tileObjectsInstanciator.TileObjectsPositioningInTileMap.NewGameObjectInTile(instantiatorIndex, potion);
+                            
                             potion.GetComponent<PotionExplotion>().ExplosionIndex = targetIndex;
 
                             amountPotions--;
@@ -48,27 +52,27 @@ namespace WizardWar
                     PotionRegeneration();
                 }
 
-                public static Index2 GetIndexWhereWitcherIsLooking(Vector2 index, WitcherLookingDirection witcherDirection)
+                public static Index2 GetIndexWhereWitcherIsLooking(Index2 index, WitcherLookingDirection witcherDirection)
                 {
                     switch (witcherDirection)
                     {
                         case WitcherLookingDirection.Down:
 
-                            return index + Vector2.up;
+                            return index + Index2.Up;
 
                         case WitcherLookingDirection.Up:
 
-                            return index - Vector2.up;
+                            return index - Index2.Up;
 
                         case WitcherLookingDirection.Right:
 
-                            return index + Vector2.right;
+                            return index + Index2.Right;
                         case WitcherLookingDirection.Left:
 
-                            return index - Vector2.right;
+                            return index - Index2.Right;
                         default:
 
-                            return index + Vector2.up;
+                            return index + Index2.Up;
                     }
                 }
 
@@ -84,12 +88,7 @@ namespace WizardWar
                         newPotionTimer = 0f;
                         amountPotions++;
                     }
-                }*/
-
-                public void InstanciatePotion(GameObject potionPrefab, Index2 instantiatorIndex, WitcherLookingDirection direction) 
-                {
-
-                }
+                }                
             }
         }
     }
