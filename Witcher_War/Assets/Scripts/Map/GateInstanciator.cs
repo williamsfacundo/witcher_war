@@ -1,22 +1,18 @@
 using UnityEngine;
+using WizardWar.Tile;
+using WizardWar.TileObjects;
 
 public class GateInstanciator : MonoBehaviour
 {
-    /*[Range(0, 100)] private short probabilityToSpawnGate = 35;
+    [SerializeField] private GameObject _gatePrefab;
 
-    private const string gateResourceName = "Gate";
+    [SerializeField] [Range(0, 100)] private short _probabilityToSpawnGate = 35;
 
-    private static bool gateInstanciated = false;
+    [SerializeField] private TileObjectsInstanciator _tileObjectsInstanciator;
 
-    public static bool GateInstanciated 
-    {
-        set 
-        {
-            gateInstanciated = value;
-        }
-    }
+    private bool gateInstanciated = false;
 
-    GameObject gate;
+    private GameObject gate;    
 
     private void OnEnable()
     {        
@@ -30,41 +26,51 @@ public class GateInstanciator : MonoBehaviour
 
     private void InstanciateGateMechanic() 
     {
-        if (!gateInstanciated) 
-        {            
-            if (TileMap.DestroyableStaticObjectsCount - 1 >= 0f)
+        if (_tileObjectsInstanciator != null) 
+        {
+            if (!gateInstanciated)
             {
-                if ((short)Random.Range(1f, 100f) <= probabilityToSpawnGate)
+                if (Random.Range(1, 100) <= _probabilityToSpawnGate) //Hacer que si la cantidad de librerias es igual a cero si o si instanciar portal
+                {
+                    if (Random.Range(1, 100) <= _probabilityToSpawnGate)
+                    {
+                        InstanciateGate();
+                    }
+                }
+                else
                 {
                     InstanciateGate();
                 }
             }
-            else
-            {
-                InstanciateGate();
-            }
-        }        
+        }              
     }    
 
     private void InstanciateGate() 
     {
-        gateInstanciated = true;
+        if (_gatePrefab != null) 
+        {
+            gateInstanciated = true;
 
-        Vector2 gateIndex = TileMap.GetRandomEmptyIndex();
+            Index2 gateIndex = _tileObjectsInstanciator.TileObjectsPositioningInTileMap.GetRandomEmptyIndex();
 
-        gate = (GameObject)Instantiate(Resources.Load(gateResourceName));
+            if (gateIndex != Index2.IndexNull) 
+            {
+                gate = Instantiate(_gatePrefab);
 
-        gate.transform.position = TileMap.GetTileMapPosition(gateIndex);
+                _tileObjectsInstanciator.TileObjectsPositioningInTileMap.SetSpecialTile(gate, gateIndex);
 
-        TileMap.SetGateTile(gate, gateIndex);
+                gate.transform.position = _tileObjectsInstanciator.TileObjectsPositioningInTileMap.GetTileMapPosition(gateIndex);                
+            }            
+        }        
     }
 
     public void DestroyGate() 
     {
         if (gate != null) 
         {
-            Destroy(gate);
+            _tileObjectsInstanciator.TileObjectsPositioningInTileMap.DestroySpecialTile(gameObject);            
+
             gateInstanciated = false;
         }
-    }*/
+    }
 }

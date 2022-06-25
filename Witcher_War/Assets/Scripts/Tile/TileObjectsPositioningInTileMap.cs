@@ -108,9 +108,7 @@ namespace WizardWar
                                 _tileMap.TileArray2D[i, v].TileObject = null;
                             }
                         }
-                    }
-
-                    DestroySpecialTile(_specialTile.TileObject);
+                    }                    
                 }
             }
 
@@ -171,11 +169,32 @@ namespace WizardWar
 
                             _specialTile.TileObject = null;
 
+                            specialObject = null;
+
                             _specialTileIndex2 = Index2.IndexNull;
                         }                        
                     }
                 }
-            }           
+            }
+
+            public Index2 GetRandomEmptyIndex() 
+            {
+                if (_tileMap != null) 
+                {
+                    for (short i = 0; i < _tileMap.MaxRows; i++) 
+                    {
+                        for (short v = 0; v < _tileMap.MaxColumns; i++) 
+                        {
+                            if (_tileMap.TileArray2D[i, v].IsEmpty) 
+                            {
+                                return new Index2(v, i);
+                            }
+                        }
+                    }
+                }
+
+                return Index2.IndexNull;
+            }
 
             private bool IsGameObjectTilable(GameObject tileObject) 
             {

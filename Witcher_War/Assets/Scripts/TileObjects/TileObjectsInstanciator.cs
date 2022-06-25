@@ -16,6 +16,8 @@ namespace WizardWar
 
             [SerializeField] [Range(1, _maxLevel)] private short _level;
 
+            [SerializeField] private GateInstanciator _gateInstanciator;
+
             private const short _maxLevel = 5;
 
             private const char bookshelfChar = 'W';
@@ -84,6 +86,8 @@ namespace WizardWar
                 _level = 1;
 
                 _tileObjectsPositioningInTileMap.ClearTileMap();
+
+                _gateInstanciator?.DestroyGate();
 
                 SetMapWithTextFileChars();
 

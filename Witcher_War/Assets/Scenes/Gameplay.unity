@@ -720,6 +720,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 993f02eff6e69b3448d7a2b5290cb26c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _gatePrefab: {fileID: 564954625676798836, guid: 7c82b7296569f844ab12aa6ab5daddcf, type: 3}
+  _probabilityToSpawnGate: 35
+  _tileObjectsInstanciator: {fileID: 995868470}
 --- !u!114 &995868470
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -737,6 +740,7 @@ MonoBehaviour:
   _witcherPrefab: {fileID: 811643792500304249, guid: a213bf502c810454296ab1bed36a6e9e, type: 3}
   _potionPrefab: {fileID: 8936678217678650605, guid: 4074363d82c64f5408446bd12acc7e2c, type: 3}
   _level: 1
+  _gateInstanciator: {fileID: 995868469}
 --- !u!114 &995868471
 MonoBehaviour:
   m_ObjectHideFlags: 0
