@@ -1,6 +1,5 @@
 using UnityEngine;
 
-[RequireComponent(typeof(StaticGameObject))]
 public class DestroyableObject : MonoBehaviour, IDestroyable
 {
     public delegate void StaticObjectAboutToBeDestroyed();
@@ -9,6 +8,6 @@ public class DestroyableObject : MonoBehaviour, IDestroyable
 
     public void ObjectAboutToBeDestroyed()  
     {
-        objectAboutToBeDestroyed();
+        
     }
 }

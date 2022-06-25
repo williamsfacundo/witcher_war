@@ -55,8 +55,18 @@ namespace WizardWar
                 CalculateTilesSize(surfaceSize, surfaceCenter);
 
                 SetTilesArray2DPositions(surfaceSize ,surfaceCenter);
-            }    
-            
+            }
+
+            public bool IsIndexValid(Index2 index)
+            {
+                return (index.X >= 0 && index.X < _maxColumns) && (index.Y >= 0 && index.Y < _maxRows);
+            }
+
+            public bool IsTileEmpty(Index2 tileIndex) 
+            {
+                return _tilesArray2D[tileIndex.Y, tileIndex.X].IsEmpty;
+            }
+
             private void NewDefaultTileArray2D() 
             {
                 _tilesArray2D = new Tile[_maxRows, _maxColumns];
@@ -101,12 +111,7 @@ namespace WizardWar
                 firstMapPosition.z -= _tilesSize.z / 2f;
 
                 return firstMapPosition;
-            }
-
-            public bool IsIndexValid(Index2 index) 
-            {
-                return (index.X >= 0 && index.X < _maxColumns) && (index.Y >= 0  && index.Y < _maxRows);
-            }           
+            }                      
         }
     }
 }

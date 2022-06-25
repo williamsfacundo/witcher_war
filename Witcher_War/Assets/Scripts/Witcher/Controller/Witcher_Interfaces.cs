@@ -1,10 +1,11 @@
 using UnityEngine;
+using WizardWar.Tile;
 
 public interface IMovable 
 {
     void MoveInput();
 
-    void Move(GameObject gameObject, ref WITCHER_DIRECTION direction);
+    void Move(GameObject gameObject, ref WitcherLookingDirection direction);
 
     void Timer();
 
@@ -18,5 +19,5 @@ public interface IDestroyable
 
 public interface ICanUsePotion 
 {
-    void InstanciatePotion(GameObject potionPrefab, Vector2 instantiatorIndex, WITCHER_DIRECTION direction);   
+    void InstanciatePotion(GameObject potionPrefab, Index2 instantiatorIndex, WitcherLookingDirection direction);   
 }

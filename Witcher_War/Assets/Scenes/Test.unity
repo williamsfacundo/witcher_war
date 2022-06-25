@@ -228,8 +228,8 @@ GameObject:
   - component: {fileID: 1502015581}
   - component: {fileID: 1502015583}
   m_Layer: 0
-  m_Name: Gameplay Manager
-  m_TagString: Untagged
+  m_Name: Tile Map Manager
+  m_TagString: Manager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -276,10 +276,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 142a5fc92a16e3b42b31ab2c50a2ad22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _bookshelfPrefab: {fileID: 0}
-  _cauldronPrefab: {fileID: 0}
-  _witcherPrefab: {fileID: 0}
-  _potionPrefab: {fileID: 0}
+  _bookshelfPrefab: {fileID: 3285448504401297677, guid: 4f55d2e8aa70ad54cb651d3da4f05f88, type: 3}
+  _cauldronPrefab: {fileID: 534300413868919351, guid: 5a183420d2841a74186ddb25e3032c95, type: 3}
+  _witcherPrefab: {fileID: 811643792500304249, guid: a213bf502c810454296ab1bed36a6e9e, type: 3}
+  _potionPrefab: {fileID: 8936678217678650605, guid: 4074363d82c64f5408446bd12acc7e2c, type: 3}
   _level: 1
 --- !u!1 &1623486347
 GameObject:
@@ -358,7 +358,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1623486347}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -10}
+  m_LocalPosition: {x: 0, y: 47.3, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

@@ -14,7 +14,15 @@ namespace WizardWar
 
             private TileMap _tileMap;
             
-            private FloorBlocksInstanciator _floorBlocksInstanciator;            
+            private FloorBlocksInstanciator _floorBlocksInstanciator;
+            
+            public Vector3 TileMapSize 
+            {
+                get 
+                {
+                    return _tileMapSize;
+                }
+            }
 
             public TileMap TileMap 
             {

@@ -1,39 +1,45 @@
 using UnityEngine;
+using WizardWar.TileObjects;
 
-public class PlayerIsInGate : MonoBehaviour
+namespace WizardWar 
 {
-    GameObject player;    
-
-    private void Start()
+    namespace Gate 
     {
-        player = GameObject.FindWithTag("Player");
-
-        gameObject.transform.position = TileMap.GetGameObjectRightYPosition(gameObject);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (player != null) 
+        public class PlayerIsInGate : MonoBehaviour
         {
-            if (TileMap.GetGameObjectIndex(player) == TileMap.GateTile && TileMap.DestroyableStaticObjectsCount <= 0) 
+            private TileObjectsInstanciator _tileObjectsInstanciator;
+
+            private GameObject _player;
+
+            private void Start()
             {
-                if (Vector3.Distance(transform.position, player.transform.position) < (TileMap.TileSize.x) / 2f) 
-                {
-                    MapGenerator mapGenerator = GameObject.FindWithTag("Manager").GetComponent<MapGenerator>();
-                    
-                    if (mapGenerator.Level + 1 < mapGenerator.MaxLevel) 
-                    {                        
-                        mapGenerator?.NextLevel();
-                        GateInstanciator.GateInstanciated = false;
-                        Destroy(gameObject);
-                    }
-                    else 
-                    {
-                        ScenesManagement.ChangeToWinningScene();
-                    }
-                }                
+                _player = GameObject.FindWithTag("Player");
+
+                _tileObjectsInstanciator = GameObject.FindWithTag("Manager").GetComponent<TileObjectsInstanciator>();
             }
-        }        
+
+            void Update() //Agregar al segundo if la condicion de que la cantidad de librerias debe ser igual a cero
+            {
+                if (_player != null && _tileObjectsInstanciator != null)
+                {
+                    if (_tileObjectsInstanciator.TileObjectsPositioningInTileMap.GetTileObjectIndex(_player) == _tileObjectsInstanciator.TileObjectsPositioningInTileMap.SpecialTileIndex2)
+                    {
+                        if (Vector3.Distance(transform.position, _player.transform.position) <= _tileObjectsInstanciator.LevelCreator.TileMapSize.y)
+                        {
+                            if (_tileObjectsInstanciator.OnLastLevel())
+                            {
+                                _tileObjectsInstanciator.NextLevel();
+
+                                _tileObjectsInstanciator.TileObjectsPositioningInTileMap.DestroySpecialTile(gameObject);
+                            }
+                            else //No cambia la escena sera la misma solo hay que activar el canvas de endgame defeat  
+                            {
+                                ScenesManagement.ChangeToWinningScene();
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 }

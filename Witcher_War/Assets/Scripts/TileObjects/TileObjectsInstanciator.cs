@@ -1,5 +1,7 @@
 using UnityEngine;
 using WizardWar.Tile;
+using WizardWar.Witcher;
+
 
 namespace WizardWar 
 {
@@ -31,12 +33,27 @@ namespace WizardWar
 
             private TileObjectsPositioningInTileMap _tileObjectsPositioningInTileMap;
 
+            public LevelCreator LevelCreator 
+            {
+                get 
+                {
+                    return _levelCreator;
+                }
+            }
+
+            public TileObjectsPositioningInTileMap TileObjectsPositioningInTileMap 
+            {
+                get 
+                {
+                    return _tileObjectsPositioningInTileMap;
+                }
+            }
+
             private void Awake()
             {
                 _levelCreator = GetComponent<LevelCreator>();                
             }
-
-            // Start is called before the first frame update
+            
             void Start()
             {
                 SetMapWithTextFileChars();
@@ -44,6 +61,8 @@ namespace WizardWar
                 _tileObjectsPositioningInTileMap = new TileObjectsPositioningInTileMap(_levelCreator.TileMap);
 
                 InstanciateObjects(_map);
+
+                PrefabPotionRescale();
             }
 
             public void NextLevel()
@@ -58,6 +77,27 @@ namespace WizardWar
 
                     InstanciateObjects(_map);
                 }
+            }
+
+            public void ResetTileObjects() 
+            {
+                _level = 1;
+
+                _tileObjectsPositioningInTileMap.ClearTileMap();
+
+                SetMapWithTextFileChars();
+
+                InstanciateObjects(_map);
+            }
+
+            public bool OnLastLevel() 
+            {
+                return _level == _maxLevel;
+            }
+
+            private void PrefabPotionRescale() 
+            {
+                RescaleTool.RescaleGameObjectBasedOnPercentageSize(_potionPrefab, potionSizePercentage, LevelCreator.TileMap.TilesSize.x);
             }
 
             private void SetMapWithTextFileChars() 
@@ -97,23 +137,27 @@ namespace WizardWar
                 }
             }
 
-            private void NewPlayer(short index)
+            private void NewPlayer(short index) //Guardar los tags en un archivo + Posicionar objeto correctamente 
             {
+                Debug.Log(LevelCreator.TileMapSize.x);
+
                 if (_witcherPrefab != null) 
                 {
                     GameObject player = Instantiate(_witcherPrefab);
 
-                    Witcher_Controller witcher_Controller = player.GetComponent<Witcher_Controller>();
+                    WitcherController witcherController = player.GetComponent<WitcherController>();
 
-                    if (witcher_Controller != null) 
+                    if (witcherController != null) 
                     {
-                        witcher_Controller.WitcherType = WITCHER_TYPE.PLAYER;
+                        witcherController.WitcherType = WitcherType.Player;
 
-                        witcher_Controller.PotionPrefab = _potionPrefab;
+                        witcherController.PotionPrefab = _potionPrefab;                        
 
-                        RescaleTool.RescaleGameObjectBasedOnPercentageSize(witcher_Controller.PotionPrefab, potionSizePercentage, _levelCreator.TileMap.TilesSize.x);
+                        Index2 arrayIndex2D = MapReader.CovertArrayIndexIntoArray2DIndex(index, _levelCreator.TileMap.MaxRows);
 
-                        _tileObjectsPositioningInTileMap.NewGameObjectInTile(MapReader.CovertArrayIndexIntoArray2DIndex(index, _levelCreator.TileMap.MaxRows), player);
+                        _tileObjectsPositioningInTileMap.NewGameObjectInTile(arrayIndex2D, player);
+
+                        player.transform.position = _tileObjectsPositioningInTileMap.GetTileMapPosition(arrayIndex2D);
 
                         player.transform.tag = "Player";
                     }
@@ -128,7 +172,7 @@ namespace WizardWar
                 }                
             }
 
-            private void NewCauldron(short index)
+            private void NewCauldron(short index) //Posicionar objeto correctamente
             {
                 if (_cauldronPrefab != null)
                 {
@@ -136,9 +180,13 @@ namespace WizardWar
 
                     GameObjectRotateRandomly(cauldron);
 
-                    TileMap.RescaleGameObjectDependingTileSize(cauldron, cauldronSizePercentage, TileMap.TileSize.x);
+                    RescaleTool.RescaleGameObjectBasedOnPercentageSize(cauldron, cauldronSizePercentage, LevelCreator.TileMap.TilesSize.x);
 
-                    _tileObjectsPositioningInTileMap.NewGameObjectInTile(MapReader.CovertArrayIndexIntoArray2DIndex(index, _levelCreator.TileMap.MaxRows), cauldron);
+                    Index2 arrayIndex2D = MapReader.CovertArrayIndexIntoArray2DIndex(index, _levelCreator.TileMap.MaxRows);
+
+                    _tileObjectsPositioningInTileMap.NewGameObjectInTile(arrayIndex2D, cauldron);
+
+                    cauldron.transform.position = _tileObjectsPositioningInTileMap.GetTileMapPosition(arrayIndex2D);
                 }
                 else 
                 {
@@ -146,17 +194,21 @@ namespace WizardWar
                 }                
             }
 
-            private void NewBookshelf(short index)
+            private void NewBookshelf(short index) //Posicionar objeto correctamente
             {
                 if (_bookshelfPrefab != null) 
                 {
                     GameObject boockshelf = Instantiate(_bookshelfPrefab);
 
                     GameObjectRotateRandomly(boockshelf);
+                    
+                    RescaleTool.RescaleGameObjectBasedOnPercentageSize(boockshelf, bookshelfSizePercentage, LevelCreator.TileMap.TilesSize.x);
 
-                    TileMap.RescaleGameObjectDependingTileSize(boockshelf, bookshelfSizePercentage, TileMap.TileSize.x);
+                    Index2 arrayIndex2D = MapReader.CovertArrayIndexIntoArray2DIndex(index, _levelCreator.TileMap.MaxRows);
 
-                    _tileObjectsPositioningInTileMap.NewGameObjectInTile(MapReader.CovertArrayIndexIntoArray2DIndex(index, _levelCreator.TileMap.MaxRows), boockshelf);
+                    _tileObjectsPositioningInTileMap.NewGameObjectInTile(arrayIndex2D, boockshelf);
+
+                    boockshelf.transform.position = _tileObjectsPositioningInTileMap.GetTileMapPosition(arrayIndex2D);
                 }
                 else 
                 {
@@ -164,23 +216,25 @@ namespace WizardWar
                 }
             }
 
-            private void NewEnemy(short index)
+            private void NewEnemy(short index) //Posicionar objeto correctamente
             {
                 if (_witcherPrefab != null) 
                 {
                     GameObject enemy = Instantiate(_witcherPrefab);
 
-                    Witcher_Controller witcher_Controller = enemy.GetComponent<Witcher_Controller>();
+                    WitcherController witcherController = enemy.GetComponent<WitcherController>();
 
-                    if (witcher_Controller != null) 
+                    if (witcherController != null) 
                     {
-                        witcher_Controller.WitcherType = WITCHER_TYPE.CPU;
+                        witcherController.WitcherType = WitcherType.Cpu;
 
-                        witcher_Controller.PotionPrefab = _potionPrefab;
+                        witcherController.PotionPrefab = _potionPrefab;                        
 
-                        TileMap.RescaleGameObjectDependingTileSize(witcher_Controller.PotionPrefab, potionSizePercentage, TileMap.TileSize.x);
+                        Index2 arrayIndex2D = MapReader.CovertArrayIndexIntoArray2DIndex(index, _levelCreator.TileMap.MaxRows);
 
-                        _tileObjectsPositioningInTileMap.NewGameObjectInTile(MapReader.CovertArrayIndexIntoArray2DIndex(index, _levelCreator.TileMap.MaxRows), enemy);
+                        _tileObjectsPositioningInTileMap.NewGameObjectInTile(arrayIndex2D, enemy);
+
+                        witcherController.transform.position = _tileObjectsPositioningInTileMap.GetTileMapPosition(arrayIndex2D);
                     }
                     else 
                     {                        

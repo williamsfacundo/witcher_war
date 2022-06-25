@@ -1,59 +1,67 @@
 using UnityEngine;
+using WizardWar.Tile;
 
-public class PotionExplotion : MonoBehaviour
+namespace WizardWar 
 {
-    PotionAnimationController potionAnimationController;
-
-    private const float explotionTime = 1.5f;
-    private float explotionTimer;
-
-    private Vector2 explosionIndex;
-
-    public Vector2 ExplosionIndex 
+    namespace Witcher 
     {
-        set 
+        namespace Potion 
         {
-            explosionIndex = value;
+            public class PotionExplotion : MonoBehaviour
+            {
+                PotionAnimationController _potionAnimationController;
+
+                private const float _explotionTime = 1.5f;
+
+                private float _explotionTimer;
+
+                private Index2 _explosionIndex;
+
+                public Index2 ExplosionIndex
+                {
+                    set
+                    {
+                        _explosionIndex = value;
+                    }
+                }
+
+                private void Awake()
+                {
+                    _potionAnimationController = GetComponent<PotionAnimationController>();
+                }
+                
+                void Start()
+                {
+                    _explotionTimer = _explotionTime;
+                }
+                
+                void Update()
+                {
+                    Explotion();
+
+                    DecreaseTimer();
+                }
+
+                void Explotion()
+                {
+                    if (_explotionTimer <= 0f)
+                    {
+                        DestroyAdjacentObjectsInTileMap();
+
+                        Destroy(gameObject);
+                    }
+                }
+
+                void DestroyAdjacentObjectsInTileMap() //Terminar la mecanica 
+                {
+
+                }
+
+                void DecreaseTimer()
+                {
+                    _explotionTimer -= Time.deltaTime;
+                }
+            }
         }
-    }
-
-    private void Awake()
-    {
-        potionAnimationController = GetComponent<PotionAnimationController>();
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        explotionTimer = explotionTime;        
-    }    
-
-    // Update is called once per frame
-    void Update()
-    {
-        Explotion();
-
-        DecreaseTimer();       
-    }
-
-    void Explotion() 
-    {
-        if (explotionTimer <= 0f) 
-        {
-            DestroyAdjacentObjects();           
-
-
-            Destroy(gameObject);
-        }        
-    }
-
-    void DestroyAdjacentObjects() 
-    {
-        TileMap.DestroyAdjacentObjectsOfATile(explosionIndex);
-    }
-
-    void DecreaseTimer() 
-    {
-        explotionTimer -= Time.deltaTime;
     }
 }

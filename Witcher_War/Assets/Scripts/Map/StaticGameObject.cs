@@ -1,23 +1,19 @@
 using UnityEngine;
+using WizardWar.Tile;
 
-public class StaticGameObject : MonoBehaviour
-{    
-    private Vector2 initialPosIndex;
-
-    public Vector2 InitialPosIndex
+namespace WizardWar 
+{
+    namespace TileObjects 
     {
-        set
+        namespace StaticObject 
         {
-            initialPosIndex = value;
+            public class StaticGameObject : MonoBehaviour, ITileleable
+            {
+                private void Start()
+                {
+                    
+                }
+            }
         }
-    }
-
-    private void Start()
-    {
-        TileMap.NewGameObjectInTile(initialPosIndex, gameObject);
-
-        transform.position = TileMap.GetTileMapPosition(initialPosIndex);
-
-        transform.position = TileMap.GetGameObjectRightYPosition(gameObject);
-    }    
+    } 
 }

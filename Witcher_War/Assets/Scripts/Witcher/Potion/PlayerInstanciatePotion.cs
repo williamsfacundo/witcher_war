@@ -1,79 +1,96 @@
 using UnityEngine;
+using WizardWar.Tile;
 
-public class PlayerInstanciatePotion : ICanUsePotion
+namespace WizardWar 
 {
-    private const KeyCode instanciatePotionKey = KeyCode.Space;    
-
-    const float maxPotions = 2;
-
-    const float newPotionTime = 1.5f;
-
-    float amountPotions;    
-
-    float newPotionTimer;    
-
-    public PlayerInstanciatePotion() 
-    {       
-        amountPotions = maxPotions;
-        
-        newPotionTimer = 0f;        
-    }
-
-    public void InstanciatePotion(GameObject potionPrefab, Vector2 instantiatorIndex, WITCHER_DIRECTION direction)
+    namespace Witcher 
     {
-        if (Input.GetKeyDown(instanciatePotionKey) && amountPotions > 0) 
+        namespace Potion
         {
-            Vector2 targetIndex = GetIndexWhereWitcherIsLooking(instantiatorIndex, direction);
-
-            if (TileMap.IsTileEmpty(targetIndex)) 
+            public class PlayerInstanciatePotion : ICanUsePotion
             {
-                GameObject potion = Object.Instantiate(potionPrefab);
+                /*private const KeyCode instanciatePotionKey = KeyCode.Space;
 
-                potion.GetComponent<StaticGameObject>().InitialPosIndex = targetIndex;
-                potion.GetComponent<PotionExplotion>().ExplosionIndex = targetIndex;
+                private const float maxPotions = 2;
 
-                amountPotions--;
-            }            
-        }
+                private const float newPotionTime = 1.5f;
 
-        PotionRegeneration();
-    }
+                private float amountPotions;
 
-    public static Vector2 GetIndexWhereWitcherIsLooking(Vector2 index, WITCHER_DIRECTION witcherDirection) 
-    {
-        switch (witcherDirection) 
-        {
-            case WITCHER_DIRECTION.DOWN:
+                private float newPotionTimer;
 
-                return index + Vector2.up;
-                
-            case WITCHER_DIRECTION.UP:
+                private TileObjectsInstanciator _tileObjectsInstanciator;*/
 
-                return index - Vector2.up;
+                public PlayerInstanciatePotion()
+                {
+                    //amountPotions = maxPotions;
 
-            case WITCHER_DIRECTION.RIGHT:
+                    //newPotionTimer = 0f;
+                }
 
-                return index + Vector2.right;
-            case WITCHER_DIRECTION.LEFT:
+                /*public void InstanciatePotion(GameObject potionPrefab, Vector2 instantiatorIndex, WitcherLookingDirection direction)
+                {
+                    if (Input.GetKeyDown(instanciatePotionKey) && amountPotions > 0)
+                    {
+                        Index2 targetIndex = GetIndexWhereWitcherIsLooking(instantiatorIndex, direction);
 
-                return index - Vector2.right;
-            default:
+                        if (TileMap.IsTileEmpty(targetIndex))
+                        {
+                            GameObject potion = Object.Instantiate(potionPrefab);
 
-                return index + Vector2.up;
-        }
-    }
+                            potion.GetComponent<StaticGameObject>().InitialPosIndex = targetIndex;
+                            potion.GetComponent<PotionExplotion>().ExplosionIndex = targetIndex;
 
-    private void PotionRegeneration() 
-    {
-        if (amountPotions < maxPotions) 
-        {
-            newPotionTimer += Time.deltaTime;
-        }
+                            amountPotions--;
+                        }
+                    }
 
-        if (newPotionTimer >= newPotionTime) 
-        {
-            newPotionTimer = 0f;
-            amountPotions++;
+                    PotionRegeneration();
+                }
+
+                public static Index2 GetIndexWhereWitcherIsLooking(Vector2 index, WitcherLookingDirection witcherDirection)
+                {
+                    switch (witcherDirection)
+                    {
+                        case WitcherLookingDirection.Down:
+
+                            return index + Vector2.up;
+
+                        case WitcherLookingDirection.Up:
+
+                            return index - Vector2.up;
+
+                        case WitcherLookingDirection.Right:
+
+                            return index + Vector2.right;
+                        case WitcherLookingDirection.Left:
+
+                            return index - Vector2.right;
+                        default:
+
+                            return index + Vector2.up;
+                    }
+                }
+
+                private void PotionRegeneration()
+                {
+                    if (amountPotions < maxPotions)
+                    {
+                        newPotionTimer += Time.deltaTime;
+                    }
+
+                    if (newPotionTimer >= newPotionTime)
+                    {
+                        newPotionTimer = 0f;
+                        amountPotions++;
+                    }
+                }*/
+
+                public void InstanciatePotion(GameObject potionPrefab, Index2 instantiatorIndex, WitcherLookingDirection direction) 
+                {
+
+                }
+            }
         }
     }
 }

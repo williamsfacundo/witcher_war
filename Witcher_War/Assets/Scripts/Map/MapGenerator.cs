@@ -1,4 +1,4 @@
-using System.IO;
+/*using System.IO;
 using UnityEngine;
 
 public class MapGenerator : MonoBehaviour
@@ -169,7 +169,7 @@ public class MapGenerator : MonoBehaviour
 
         Witcher_Controller witcher_Controller = player.GetComponent<Witcher_Controller>();
 
-        witcher_Controller.WitcherType = WITCHER_TYPE.PLAYER;       
+        witcher_Controller.WitcherType = WitcherType.Player;       
 
         witcher_Controller.PotionPrefab = (GameObject)Resources.Load(potionResourceName);
 
@@ -208,7 +208,7 @@ public class MapGenerator : MonoBehaviour
 
         Witcher_Controller witcher_Controller = enemy.GetComponent<Witcher_Controller>();
 
-        witcher_Controller.WitcherType = WITCHER_TYPE.CPU;
+        witcher_Controller.WitcherType = WitcherType.Cpu;
 
         witcher_Controller.PotionPrefab = (GameObject)Resources.Load(potionResourceName);
 
@@ -252,4 +252,4 @@ public class MapGenerator : MonoBehaviour
                 break;
         }        
     }
-}   
+}   */

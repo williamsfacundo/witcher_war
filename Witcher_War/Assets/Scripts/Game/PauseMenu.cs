@@ -1,74 +1,81 @@
 using UnityEngine;
+using WizardWar.TileObjects;
 
-public class PauseMenu : MonoBehaviour
+namespace WizardWar
 {
-    [SerializeField] private Canvas pauseMenuCanvas;
-
-    private MapGenerator mapGenerator;
-
-    private KeyCode pauseMenuKey = KeyCode.P;
-
-    private bool gamePaused;
-
-    private void Awake()
+    namespace Menu 
     {
-        mapGenerator = GameObject.FindWithTag("Manager").GetComponent<MapGenerator>();
-
-        Resume();
-    }
-
-    private void Start()
-    {
-        pauseMenuCanvas.gameObject.SetActive(gamePaused);
-    }
-
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetKeyDown(pauseMenuKey))
+        namespace Pause
         {
-            if (!gamePaused)
+            public class PauseMenu : MonoBehaviour
             {
-                Pause();
-            }            
-        }
-    }
+                [SerializeField] private Canvas _pauseMenuCanvas;
+                [SerializeField] private KeyCode pauseMenuKey = KeyCode.P;
 
-    private void Resume()
-    {
-        gamePaused = false;
+                private TileObjectsInstanciator _tileObjectsInstanciator;
 
-        Time.timeScale = 1f;
+                private bool gamePaused;
 
-        pauseMenuCanvas.gameObject.SetActive(false);
-    }
+                private void Awake()
+                {
+                    _tileObjectsInstanciator = GetComponent<TileObjectsInstanciator>();
 
-    private void Pause()
-    {
-        gamePaused = true;
+                    Resume();
+                }
 
-        Time.timeScale = 0f;
+                private void Start()
+                {
+                    _pauseMenuCanvas.gameObject.SetActive(gamePaused);
+                }
 
-        pauseMenuCanvas.gameObject.SetActive(true);
-    }
 
-    public void RestartButtonAction()
-    {
-        mapGenerator.RestartLevel();
+                // Update is called once per frame
+                void Update()
+                {
+                    if (Input.GetKeyDown(pauseMenuKey))
+                    {
+                        if (!gamePaused)
+                        {
+                            Pause();
+                        }
+                    }
+                }
 
-        mapGenerator.SetLevelToOne();
+                private void Resume()
+                {
+                    gamePaused = false;
 
-        Resume();
-    }
+                    Time.timeScale = 1f;
 
-    public void ChangeToMainMenu() 
-    {
-        ScenesManagement.ChangeToMainMenuScene();
+                    _pauseMenuCanvas.gameObject.SetActive(false);
+                }
 
-        if (Time.timeScale != 1f) 
-        {
-            Time.timeScale = 1f;
-        }
+                private void Pause()
+                {
+                    gamePaused = true;
+
+                    Time.timeScale = 0f;
+
+                    _pauseMenuCanvas.gameObject.SetActive(true);
+                }
+
+                public void RestartButtonAction()
+                {
+                    _tileObjectsInstanciator.ResetTileObjects();
+
+                    Resume();
+                }
+
+                public void ChangeToMainMenu()
+                {
+                    ScenesManagement.ChangeToMainMenuScene();
+
+                    if (Time.timeScale != 1f)
+                    {
+                        Time.timeScale = 1f;
+                    }
+                }
+            }
+        }        
     }
 }

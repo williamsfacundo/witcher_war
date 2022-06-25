@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class GateInstanciator : MonoBehaviour
 {
-    [Range(0, 100)] private short probabilityToSpawnGate = 35;
+    /*[Range(0, 100)] private short probabilityToSpawnGate = 35;
 
     private const string gateResourceName = "Gate";
 
@@ -66,5 +66,5 @@ public class GateInstanciator : MonoBehaviour
             Destroy(gate);
             gateInstanciated = false;
         }
-    }
+    }*/
 }

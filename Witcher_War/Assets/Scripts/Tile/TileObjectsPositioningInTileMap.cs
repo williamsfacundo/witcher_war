@@ -8,13 +8,25 @@ namespace WizardWar
         {
             private TileMap _tileMap;
 
-            private Tile _specialTile; //Index of special tile object that will be unique (only 1) and other game objects can go through it  
+            private Tile _specialTile; //Index of special tile object that will be unique (only 1) and other game objects can go through it
+
+            private Index2 _specialTileIndex2;
+
+            public Index2 SpecialTileIndex2
+            {
+                get 
+                {
+                    return _specialTileIndex2;
+                }
+            }
 
             public TileObjectsPositioningInTileMap(TileMap tileMap) 
             {
                 _tileMap = tileMap;
 
-                _specialTile = new Tile();               
+                _specialTile = new Tile();
+
+                _specialTileIndex2 = Index2.IndexNull;
             }
             
             ~TileObjectsPositioningInTileMap() 
@@ -31,6 +43,8 @@ namespace WizardWar
                         _specialTile.TileObject = specialTile;
 
                         _specialTile.TilePosition = GetTileMapPosition(specialTileIndex);
+
+                        _specialTileIndex2 = specialTileIndex;
                     }
                 }
             }
@@ -96,7 +110,7 @@ namespace WizardWar
                         }
                     }
 
-                    DestroySpecialTile();
+                    DestroySpecialTile(_specialTile.TileObject);
                 }
             }
 
@@ -118,20 +132,18 @@ namespace WizardWar
 
                 return Index2.IndexNull;
             }
-            private void DestroySpecialTile()
-            {
-                if (_specialTile != null)
-                {
-                    if (_specialTile.TileObject != null)
-                    {
-                        GameObject.Destroy(_specialTile.TileObject);
 
-                        _specialTile.TileObject = null;
-                    }
+            public Vector3 GetTileMapPosition(Index2 targetIndex)
+            {
+                if (_tileMap.IsIndexValid(targetIndex))
+                {
+                    return _tileMap.TileArray2D[targetIndex.Y, targetIndex.X].TilePosition;
                 }
+
+                return Vector3.zero;
             }
 
-            private Index2 GetTileObjectIndex(GameObject tileObject)
+            public Index2 GetTileObjectIndex(GameObject tileObject)
             {
                 for (short i = 0; i < _tileMap.MaxRows; i++)
                 {
@@ -146,6 +158,24 @@ namespace WizardWar
 
                 return Index2.IndexNull;
             }
+
+            public void DestroySpecialTile(GameObject specialObject)
+            {
+                if (_specialTile != null)
+                {
+                    if (_specialTile.TileObject != null)
+                    {
+                        if (_specialTile.TileObject == specialObject) 
+                        {
+                            GameObject.Destroy(_specialTile.TileObject);
+
+                            _specialTile.TileObject = null;
+
+                            _specialTileIndex2 = Index2.IndexNull;
+                        }                        
+                    }
+                }
+            }           
 
             private bool IsGameObjectTilable(GameObject tileObject) 
             {
@@ -199,12 +229,7 @@ namespace WizardWar
                         _tileMap.TileArray2D[newIndex.Y, newIndex.X].TileObject = tileObject;
                     }
                 }
-            }
-
-            private Vector3 GetTileMapPosition(Index2 targetIndex)
-            {
-                return _tileMap.TileArray2D[targetIndex.Y, targetIndex.X].TilePosition;
-            }
+            }           
         }
     }
 }
