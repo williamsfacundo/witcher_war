@@ -736,8 +736,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _level: 1
   _gateInstanciator: {fileID: 995868469}
-  _tileMapSize: {x: 50, y: 4, z: 50}
-  _tileMapCenter: {x: 0, y: 0, z: 0}
+  _tileMapSize: {x: 26.5, y: 2.5, z: 30.5}
+  _tileMapCenter: {x: -0.6, y: -1.2, z: -0.17}
 --- !u!1001 &1008911510
 PrefabInstance:
   m_ObjectHideFlags: 0

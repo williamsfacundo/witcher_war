@@ -64,7 +64,12 @@ namespace WizardWar
 
             public bool IsTileEmpty(Index2 tileIndex) 
             {
-                return _tilesArray2D[tileIndex.Y, tileIndex.X].IsEmpty;
+                if (IsIndexValid(tileIndex)) 
+                {
+                    return _tilesArray2D[tileIndex.Y, tileIndex.X].IsEmpty;
+                }
+
+                return false;
             }
 
             private void NewDefaultTileArray2D() 
@@ -93,7 +98,7 @@ namespace WizardWar
                 {
                     for (short v = 0; v < _maxColumns; v++)
                     {
-                        _tilesArray2D[i, v].TilePosition = firstTilePosition + new Vector3(_tilesSize.x * v, 0f, -_tilesSize.z * i);
+                        _tilesArray2D[i, v].TilePosition = firstTilePosition + new Vector3(_tilesSize.x * v, 0f, -_tilesSize.z * i);                       
                     }
                 }
             }
