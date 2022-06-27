@@ -1,6 +1,6 @@
 using UnityEngine;
 using WizardWar.Tile;
-using WizardWar.TileObjects;
+using WizardWar.GameplayObjects;
 
 namespace WizardWar 
 {
@@ -10,7 +10,7 @@ namespace WizardWar
         {
             public class PotionExplotion : MonoBehaviour
             {
-                PotionAnimationController _potionAnimationController;
+                private PotionAnimationController _potionAnimationController;
 
                 private const float _explotionTime = 1.5f;
 
@@ -18,7 +18,7 @@ namespace WizardWar
 
                 private Index2 _explosionIndex;
 
-                TileObjectsInstanciator _tileObjectsInstanciator;
+                 Gameplay _gameplay;
 
                 public Index2 ExplosionIndex
                 {
@@ -32,7 +32,7 @@ namespace WizardWar
                 {
                     _potionAnimationController = GetComponent<PotionAnimationController>();
 
-                    _tileObjectsInstanciator = GameObject.FindWithTag("Manager").GetComponent<TileObjectsInstanciator>();
+                    _gameplay = GameObject.FindWithTag("Manager").GetComponent<Gameplay>();
                 }
                 
                 void Start()
@@ -53,7 +53,7 @@ namespace WizardWar
                     {
                         DestroyAdjacentObjectsInTileMap();
 
-                        _tileObjectsInstanciator.TileObjectsPositioningInTileMap.DestroyGameObject(gameObject);
+                        _gameplay?.TileObjectsInstanciator.TileObjectsPositioningInTileMap.DestroyGameObject(gameObject);
                     }
                 }
 

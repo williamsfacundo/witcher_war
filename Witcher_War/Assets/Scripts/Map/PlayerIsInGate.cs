@@ -1,5 +1,6 @@
 using UnityEngine;
-using WizardWar.TileObjects;
+using WizardWar.Tile;
+using WizardWar.GameplayObjects;
 
 namespace WizardWar 
 {
@@ -7,30 +8,35 @@ namespace WizardWar
     {
         public class PlayerIsInGate : MonoBehaviour
         {
-            private TileObjectsInstanciator _tileObjectsInstanciator;
+            private Gameplay _gameplay;
 
+            private TileObjectsPositioningInTileMap _tileObjectsPositioningInTileMap; 
+            
             private GameObject _player;
 
             private void Start()
             {
                 _player = GameObject.FindWithTag("Player");
 
-                _tileObjectsInstanciator = GameObject.FindWithTag("Manager").GetComponent<TileObjectsInstanciator>();
+                _gameplay = GameObject.FindWithTag("Manager").GetComponent<Gameplay>();
+
+                if (_gameplay != null) 
+                {
+                    _tileObjectsPositioningInTileMap = _gameplay.TileObjectsPositioningInTileMap;
+                }                
             }
 
             void Update() //Agregar al segundo if la condicion de que la cantidad de librerias debe ser igual a cero
             {
-                if (_player != null && _tileObjectsInstanciator != null)
+                if (_player != null && _tileObjectsPositioningInTileMap != null)
                 {
-                    if (_tileObjectsInstanciator.TileObjectsPositioningInTileMap.GetTileObjectIndex(_player) == _tileObjectsInstanciator.TileObjectsPositioningInTileMap.SpecialTileIndex2)
+                    if (_tileObjectsPositioningInTileMap.GetTileObjectIndex(_player) == _tileObjectsPositioningInTileMap.SpecialTileIndex2)
                     {
-                        if (Vector3.Distance(transform.position, _player.transform.position) <= _tileObjectsInstanciator.LevelCreator.TileMapSize.y)
+                        if (Vector3.Distance(transform.position, _player.transform.position) <= _gameplay.LevelCreator.TileMapSize.y)
                         {
-                            if (_tileObjectsInstanciator.OnLastLevel())
+                            if (!_gameplay.OnLastLevel())
                             {
-                                _tileObjectsInstanciator.NextLevel();
-
-                                _tileObjectsInstanciator.TileObjectsPositioningInTileMap.DestroySpecialTile(gameObject);
+                                _gameplay.GoToNextLevel();                                
                             }
                             else //No cambia la escena sera la misma solo hay que activar el canvas de endgame defeat  
                             {

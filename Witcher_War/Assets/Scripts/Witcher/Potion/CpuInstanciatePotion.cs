@@ -1,6 +1,6 @@
 using UnityEngine;
 using WizardWar.Witcher.Movement;
-using WizardWar.TileObjects;
+using WizardWar.GameplayObjects;
 using WizardWar.Tile;
 
 namespace WizardWar 
@@ -11,47 +11,49 @@ namespace WizardWar
         {
             public class CpuInstanciatePotion : ICanUsePotion
             {
-                private const float minTimeToSpawnPotion = 3.5f;
-                private const float maxTimeToSpawnPotion = 6.5f;
+                private const float _minTimeToSpawnPotion = 3.5f;
+                private const float _maxTimeToSpawnPotion = 6.5f;
 
-                private float timer = 0f;
+                private float _timer;
 
-                private CpuMovement cpuMovement;
-
-                TileObjectsInstanciator _tileObjectsInstanciator;
+                private CpuMovement _cpuMovement;
+                
+                private Gameplay _gameplay;
 
                 public CpuInstanciatePotion(CpuMovement cpuMovement)
                 {
-                    this.cpuMovement = cpuMovement;
+                    _timer = 0f;
 
-                    _tileObjectsInstanciator = GameObject.FindWithTag("Manager").GetComponent<TileObjectsInstanciator>();
+                    _cpuMovement = cpuMovement;
+
+                    _gameplay = GameObject.FindWithTag("Manager").GetComponent<Gameplay>();
 
                     RandomTime();
                 }
 
                 public void InstanciatePotion(GameObject potionPrefab, Index2 instantiatorIndex, WitcherLookingDirection direction)
                 {
-                    if (timer > 0f)
+                    if (_timer > 0f)
                     {
-                        timer -= Time.deltaTime;
+                        _timer -= Time.deltaTime;
                     }
 
-                    if (!cpuMovement.IsObjectMoving() && timer <= 0f)
+                    if (!_cpuMovement.IsObjectMoving() && _timer <= 0f)
                     {
                         Index2 targetIndex = PlayerInstanciatePotion.GetIndexWhereWitcherIsLooking(instantiatorIndex, direction);
                         Index2 moveIndex = GetOpositeTileIndex(instantiatorIndex, direction);
 
-                        if (_tileObjectsInstanciator.LevelCreator.TileMap.IsIndexValid(targetIndex) && _tileObjectsInstanciator.LevelCreator.TileMap.IsTileEmpty(moveIndex))
+                        if (_gameplay.TileObjectsInstanciator.LevelCreator.TileMap.IsIndexValid(targetIndex) && _gameplay.TileObjectsInstanciator.LevelCreator.TileMap.IsTileEmpty(moveIndex))
                         {
                             GameObject potion = Object.Instantiate(potionPrefab);
 
-                            _tileObjectsInstanciator.TileObjectsPositioningInTileMap.NewGameObjectInTile(instantiatorIndex, potion);
+                            _gameplay.TileObjectsPositioningInTileMap.NewGameObjectInTile(instantiatorIndex, potion);
 
                             potion.GetComponent<PotionExplotion>().ExplosionIndex = targetIndex;                            
 
                             direction = GetOpositeTileDirection(direction);
 
-                            cpuMovement.PotionInstanciated(moveIndex, direction);
+                            _cpuMovement.PotionInstanciated(moveIndex, direction);
                         }
 
                         RandomTime();
@@ -104,7 +106,7 @@ namespace WizardWar
 
                 private void RandomTime()
                 {
-                    timer = Random.Range(minTimeToSpawnPotion, maxTimeToSpawnPotion);
+                    _timer = Random.Range(_minTimeToSpawnPotion, _maxTimeToSpawnPotion);
                 }                
             }
         }

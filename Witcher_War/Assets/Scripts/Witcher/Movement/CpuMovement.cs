@@ -1,6 +1,6 @@
 using UnityEngine;
 using WizardWar.Tile;
-using WizardWar.TileObjects;
+using WizardWar.GameplayObjects;
 
 namespace WizardWar 
 {
@@ -37,8 +37,7 @@ namespace WizardWar
                 private float _movementTimer;
                 private float _percentageMoved;
 
-                private TileObjectsPositioningInTileMap _tileObjectsPositioningInTileMap;
-                private TileObjectsInstanciator _tileObjectsInstanciator;
+                private Gameplay _gameplay;
 
                 public CpuMovement(GameObject cpuGameObject)
                 {
@@ -69,9 +68,7 @@ namespace WizardWar
                     _newPos = Vector2.zero;
                     _oldPos = Vector2.zero;
 
-                    _tileObjectsInstanciator = GameObject.FindWithTag("Manager").GetComponent<TileObjectsInstanciator>();
-
-                    _tileObjectsPositioningInTileMap = _tileObjectsInstanciator.TileObjectsPositioningInTileMap;                    
+                    _gameplay = GameObject.FindWithTag("Manager").GetComponent<Gameplay>();                                        
                 }
 
                 public void MoveInput()
@@ -87,19 +84,19 @@ namespace WizardWar
                 {
                     if (_potionInstanciated)
                     {
-                        if (_tileObjectsInstanciator.LevelCreator.TileMap.IsTileEmpty(_potionInstanciatedMoveIndex))
+                        if (_gameplay.TileObjectsInstanciator.LevelCreator.TileMap.IsTileEmpty(_potionInstanciatedMoveIndex))
                         {
                             _movementTimer = 0f;
 
-                            _oldPos = _tileObjectsPositioningInTileMap.GetTileMapPosition(_tileObjectsPositioningInTileMap.GetTileObjectIndex(_cpu));
+                            _oldPos = _gameplay.TileObjectsPositioningInTileMap.GetTileMapPosition(_gameplay.TileObjectsPositioningInTileMap.GetTileObjectIndex(_cpu));
 
                             _oldPos.y = gameObject.transform.position.y;
                             
-                            _newPos = _tileObjectsPositioningInTileMap.GetTileMapPosition(_potionInstanciatedMoveIndex);
+                            _newPos = _gameplay.TileObjectsPositioningInTileMap.GetTileMapPosition(_potionInstanciatedMoveIndex);
                             
                             _newPos.y = gameObject.transform.position.y;
 
-                            _tileObjectsPositioningInTileMap.MoveGameObjectToTileX(_potionInstanciatedMoveIndex, _cpu);
+                            _gameplay.TileObjectsPositioningInTileMap.MoveGameObjectToTileX(_potionInstanciatedMoveIndex, _cpu);
                         }
 
                         RotatePlayer(_potionInstanciatedLookingDirection, ref _potionInstanciatedLookingDirection, gameObject);
@@ -112,21 +109,21 @@ namespace WizardWar
                         {
                             _movementDirection = GetDirectionToMoveTowardsPlayer();
 
-                            _nextTileIndex = _tileObjectsPositioningInTileMap.GetTileObjectIndexPlusOtherIndex(gameObject, _movementDirection);
+                            _nextTileIndex = _gameplay.TileObjectsPositioningInTileMap.GetTileObjectIndexPlusOtherIndex(gameObject, _movementDirection);
 
-                            if (_tileObjectsInstanciator.LevelCreator.TileMap.IsTileEmpty(_nextTileIndex))
+                            if (_gameplay.TileObjectsInstanciator.LevelCreator.TileMap.IsTileEmpty(_nextTileIndex))
                             {
                                 _movementTimer = 0f;
 
-                                _oldPos = _tileObjectsPositioningInTileMap.GetTileMapPosition(_tileObjectsPositioningInTileMap.GetTileObjectIndex(_cpu));
+                                _oldPos = _gameplay.TileObjectsPositioningInTileMap.GetTileMapPosition(_gameplay.TileObjectsPositioningInTileMap.GetTileObjectIndex(_cpu));
 
                                 _oldPos.y = gameObject.transform.position.y;
 
-                                _newPos = _tileObjectsPositioningInTileMap.GetTileMapPosition(_nextTileIndex);
+                                _newPos = _gameplay.TileObjectsPositioningInTileMap.GetTileMapPosition(_nextTileIndex);
 
                                 _newPos.y = gameObject.transform.position.y;
 
-                                _tileObjectsPositioningInTileMap.MoveGameObjectToTileX(_nextTileIndex, _cpu);
+                                _gameplay.TileObjectsPositioningInTileMap.MoveGameObjectToTileX(_nextTileIndex, _cpu);
                             }
 
                             RotatePlayer(_movementDirection, ref direction, gameObject);
@@ -180,9 +177,9 @@ namespace WizardWar
 
                 private Index2 GetDirectionToMoveTowardsPlayer()
                 {
-                    _playerIndex = _tileObjectsPositioningInTileMap.GetTileObjectIndex(_player);
+                    _playerIndex = _gameplay.TileObjectsPositioningInTileMap.GetTileObjectIndex(_player);
 
-                    _enemyIndex = _tileObjectsPositioningInTileMap.GetTileObjectIndex(_cpu);
+                    _enemyIndex = _gameplay.TileObjectsPositioningInTileMap.GetTileObjectIndex(_cpu);
 
                     if (_moveHorizontal)
                     {

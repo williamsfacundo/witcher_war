@@ -167,7 +167,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _pauseMenuCanvas: {fileID: 915393603}
-  pauseMenuKey: 112
+  _pauseMenuKey: 112
+  _gameplay: {fileID: 995868470}
 --- !u!1 &202611057
 GameObject:
   m_ObjectHideFlags: 0
@@ -554,7 +555,7 @@ GameObject:
   - component: {fileID: 750957931}
   m_Layer: 0
   m_Name: Game Manager
-  m_TagString: Manager
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -684,12 +685,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 995868468}
-  - component: {fileID: 995868471}
   - component: {fileID: 995868470}
   - component: {fileID: 995868469}
   m_Layer: 0
-  m_Name: Tile Map
-  m_TagString: Untagged
+  m_Name: Gameplay
+  m_TagString: Manager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -722,7 +722,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _gatePrefab: {fileID: 564954625676798836, guid: 7c82b7296569f844ab12aa6ab5daddcf, type: 3}
   _probabilityToSpawnGate: 35
-  _tileObjectsInstanciator: {fileID: 995868470}
 --- !u!114 &995868470
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -732,31 +731,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 995868467}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 142a5fc92a16e3b42b31ab2c50a2ad22, type: 3}
+  m_Script: {fileID: 11500000, guid: f2efc6c7882b22d44a67384b312e3ebe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _bookshelfPrefab: {fileID: 3285448504401297677, guid: 4f55d2e8aa70ad54cb651d3da4f05f88, type: 3}
-  _cauldronPrefab: {fileID: 534300413868919351, guid: 5a183420d2841a74186ddb25e3032c95, type: 3}
-  _witcherPrefab: {fileID: 811643792500304249, guid: a213bf502c810454296ab1bed36a6e9e, type: 3}
-  _potionPrefab: {fileID: 8936678217678650605, guid: 4074363d82c64f5408446bd12acc7e2c, type: 3}
   _level: 1
   _gateInstanciator: {fileID: 995868469}
---- !u!114 &995868471
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 995868467}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 141995c4848c7644381fe234d7c6e0dd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _initialMapRows: 7
-  _initialMapColumns: 7
-  _tileMapCenter: {x: 0, y: 0, z: 0}
   _tileMapSize: {x: 50, y: 4, z: 50}
+  _tileMapCenter: {x: 0, y: 0, z: 0}
 --- !u!1001 &1008911510
 PrefabInstance:
   m_ObjectHideFlags: 0

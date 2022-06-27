@@ -8,7 +8,7 @@ namespace WizardWar
         {
             private TileMap _tileMap;
 
-            private Tile _specialTile; //Index of special tile object that will be unique (only 1) and other game objects can go through it
+            private Tile _specialTile; //Special tile object that will be unique (only 1) and other game objects can go through it
 
             private Index2 _specialTileIndex2;
 

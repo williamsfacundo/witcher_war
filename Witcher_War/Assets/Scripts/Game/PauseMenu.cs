@@ -1,5 +1,6 @@
 using UnityEngine;
 using WizardWar.TileObjects;
+using WizardWar.GameplayObjects;
 
 namespace WizardWar
 {
@@ -10,40 +11,29 @@ namespace WizardWar
             public class PauseMenu : MonoBehaviour
             {
                 [SerializeField] private Canvas _pauseMenuCanvas;
-                [SerializeField] private KeyCode pauseMenuKey = KeyCode.P;
 
-                private TileObjectsInstanciator _tileObjectsInstanciator;
+                [SerializeField] private KeyCode _pauseMenuKey = KeyCode.P;
+
+                [SerializeField] private Gameplay _gameplay;
 
                 private bool _gamePaused;
-
+                
                 private void Awake()
                 {
-                    _tileObjectsInstanciator = GetComponent<TileObjectsInstanciator>();
-
                     Resume();
                 }
-
-                private void Start()
-                {
-                    _pauseMenuCanvas.gameObject.SetActive(_gamePaused);
-                }
-
-
-                // Update is called once per frame
+                
                 private void Update()
                 {
-                    if (Input.GetKeyDown(pauseMenuKey))
+                    if (Input.GetKeyDown(_pauseMenuKey) && !_gamePaused)
                     {
-                        if (!_gamePaused)
-                        {
-                            Pause();
-                        }
+                        Pause();
                     }
                 }
 
                 public void RestartButtonAction()
                 {
-                    _tileObjectsInstanciator.ResetTileObjects();
+                    _gameplay.GoToLevelOne();
 
                     Resume();
                 }

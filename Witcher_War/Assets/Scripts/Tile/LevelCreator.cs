@@ -4,18 +4,20 @@ namespace WizardWar
 {
     namespace Tile 
     {
-        public class LevelCreator : MonoBehaviour
+        public class LevelCreator
         {
-            [SerializeField] private short _initialMapRows = 7;
-            [SerializeField] private short _initialMapColumns = 7;
-
-            [SerializeField] private Vector3 _tileMapCenter;
-            [SerializeField] private Vector3 _tileMapSize;
-
             private TileMap _tileMap;
             
             private FloorBlocksInstanciator _floorBlocksInstanciator;
-            
+
+            private short _initialMapRows = 7;
+            private short _initialMapColumns = 7;
+
+            private Vector3 _tileMapCenter;
+            private Vector3 _tileMapSize;
+
+            private Vector3 _defaultMapSize = new Vector3(50, 4, 50); 
+
             public Vector3 TileMapSize 
             {
                 get 
@@ -31,13 +33,23 @@ namespace WizardWar
                     return _tileMap;
                 }
             }
-           
-            void Awake()
+
+            public LevelCreator(Vector3 tileMapCenter, Vector3 tileMapSize) 
             {
+                _tileMapCenter = tileMapCenter;
+                _tileMapSize = tileMapSize;
+
+                CreateLevel();
+            }
+            
+            public void CreateLevel() 
+            {
+                TileMapSizeNotZeroVerification();
+
                 CreateTileMap();
 
                 InstaciateFloorBlocks();
-            }            
+            }
 
             private void CreateTileMap() 
             {
@@ -47,6 +59,14 @@ namespace WizardWar
             private void InstaciateFloorBlocks() 
             {
                 _floorBlocksInstanciator = new FloorBlocksInstanciator(_tileMap);
+            }
+
+            private void TileMapSizeNotZeroVerification() 
+            {
+                if (_tileMapSize == Vector3.zero) 
+                {
+                    _tileMapSize = _defaultMapSize;
+                }
             }
         }
     }

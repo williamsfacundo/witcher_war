@@ -1,6 +1,6 @@
 using UnityEngine;
 using WizardWar.Tile;
-using WizardWar.TileObjects;
+using WizardWar.GameplayObjects;
 
 namespace WizardWar
 {
@@ -24,11 +24,9 @@ namespace WizardWar
 
                 private Vector3 _oldPosition;
 
-                private Vector3 _newPosition;       
+                private Vector3 _newPosition;                
 
-                private TileObjectsPositioningInTileMap _tileObjectsPositioningInTileMap;
-
-                private TileObjectsInstanciator _tileObjectsInstanciator;
+                private Gameplay _gameplay;
 
                 public PlayerMovement() 
                 {
@@ -44,11 +42,9 @@ namespace WizardWar
 
                     _oldPosition = Vector3.zero;
 
-                    _newPosition = Vector3.zero;                   
+                    _newPosition = Vector3.zero;
 
-                    _tileObjectsInstanciator = GameObject.FindWithTag("Manager").GetComponent<TileObjectsInstanciator>();
-
-                    _tileObjectsPositioningInTileMap = _tileObjectsInstanciator.TileObjectsPositioningInTileMap;
+                    _gameplay = GameObject.FindWithTag("Manager").GetComponent<Gameplay>();                   
                 }
 
                 public void MoveInput() 
@@ -80,21 +76,21 @@ namespace WizardWar
                         }
                         else 
                         {
-                            _nextTileIndex = _tileObjectsPositioningInTileMap.GetTileObjectIndexPlusOtherIndex(gameObject, _movementAxis);
+                            _nextTileIndex = _gameplay.TileObjectsPositioningInTileMap.GetTileObjectIndexPlusOtherIndex(gameObject, _movementAxis);
 
-                            if (_tileObjectsInstanciator.LevelCreator.TileMap.IsTileEmpty(_nextTileIndex))
+                            if (_gameplay.TileObjectsInstanciator.LevelCreator.TileMap.IsTileEmpty(_nextTileIndex))
                             {
                                 _movementTimer = 0f;
 
-                                _oldPosition = _tileObjectsPositioningInTileMap.GetTileMapPosition(_tileObjectsPositioningInTileMap.GetTileObjectIndex(gameObject));
+                                _oldPosition = _gameplay.TileObjectsPositioningInTileMap.GetTileMapPosition(_gameplay.TileObjectsPositioningInTileMap.GetTileObjectIndex(gameObject));
 
                                 _oldPosition.y = gameObject.transform.position.y;
 
-                                _newPosition = _tileObjectsPositioningInTileMap.GetTileMapPosition(_nextTileIndex);
+                                _newPosition = _gameplay.TileObjectsPositioningInTileMap.GetTileMapPosition(_nextTileIndex);
 
                                 _newPosition.y = gameObject.transform.position.y;
 
-                                _tileObjectsPositioningInTileMap.MoveGameObjectToTileX(_nextTileIndex, gameObject);                              
+                                _gameplay.TileObjectsPositioningInTileMap.MoveGameObjectToTileX(_nextTileIndex, gameObject);                              
                             }
 
                             RotatePlayer(_movementAxis, ref direction, gameObject);

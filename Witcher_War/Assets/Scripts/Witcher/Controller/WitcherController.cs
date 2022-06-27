@@ -2,7 +2,7 @@ using UnityEngine;
 using WizardWar.Tile;
 using WizardWar.Witcher.Movement;
 using WizardWar.Witcher.Potion;
-using WizardWar.TileObjects;
+using WizardWar.GameplayObjects;
 
 namespace WizardWar 
 {
@@ -10,10 +10,6 @@ namespace WizardWar
     {
         public class WitcherController : MonoBehaviour, IDestroyable, ITileleable
         {
-            private const float _generateNewPotionTime = 3f;
-
-            private const short _initialBombsCarried = 2;
-
             private WitcherType _witcherType;
 
             private WitcherLookingDirection _witcherDirection;
@@ -24,7 +20,7 @@ namespace WizardWar
 
             private ICanUsePotion _usePotionMechanic;
 
-            private TileObjectsInstanciator _tileObjectsInstanciator;
+            private Gameplay _gameplay;
 
             public WitcherType WitcherType
             {
@@ -66,24 +62,24 @@ namespace WizardWar
 
                 WitcherDirection = WitcherLookingDirection.Down;
 
-                _tileObjectsInstanciator = GameObject.FindWithTag("Manager").GetComponent<TileObjectsInstanciator>();
+                _gameplay = GameObject.FindWithTag("Manager").GetComponent<Gameplay>();
             }
 
             private void Update()
             {
-                /*if (!_movementMechanic.IsObjectMoving())
+                if (!_movementMechanic.IsObjectMoving())
                 {
-                    _usePotionMechanic?.InstanciatePotion(_potionPrefab, _tileObjectsInstanciator.TileObjectsPositioningInTileMap.GetTileObjectIndex(gameObject), _witcherDirection);
+                    _usePotionMechanic?.InstanciatePotion(_potionPrefab, _gameplay.TileObjectsPositioningInTileMap.GetTileObjectIndex(gameObject), _witcherDirection);
                 }
 
                 _movementMechanic?.MoveInput();
 
-                _movementMechanic?.Timer();*/
+                _movementMechanic?.Timer();
             }
 
             private void FixedUpdate()
             {
-                //_movementMechanic?.Move(gameObject, ref _witcherDirection);
+                _movementMechanic?.Move(gameObject, ref _witcherDirection);
             }
 
             void SetWitcher(WitcherType witcherType)

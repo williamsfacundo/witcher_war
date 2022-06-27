@@ -7,18 +7,12 @@ namespace WizardWar
 {
     namespace TileObjects 
     {
-        public class TileObjectsInstanciator : MonoBehaviour
+        public class TileObjectsInstanciator
         {
-            [SerializeField] private GameObject _bookshelfPrefab;
-            [SerializeField] private GameObject _cauldronPrefab;
-            [SerializeField] private GameObject _witcherPrefab;
-            [SerializeField] private GameObject _potionPrefab;
-
-            [SerializeField] [Range(1, _maxLevel)] private short _level;
-
-            [SerializeField] private GateInstanciator _gateInstanciator;
-
-            private const short _maxLevel = 5;
+            private string _bookshelfPrefabResourcesPath = "Gameplay/Objects/Bookshelf";
+            private string _cauldronPrefabResourcesPath = "Gameplay/Objects/Cauldron";
+            private string _witcherPrefabResourcesPath = "Gameplay/Objects/Witcher";
+            private string _potionPrefabResourcesPath = "Gameplay/Objects/Potion";
 
             private const char bookshelfChar = 'W';
             private const char cauldronChar = 'X';
@@ -31,9 +25,13 @@ namespace WizardWar
 
             private char[] _map;
 
+            private GameObject _potionPrefab;
+
             private LevelCreator _levelCreator;
 
             private TileObjectsPositioningInTileMap _tileObjectsPositioningInTileMap;
+
+            private const short initialLevel = 1;
 
             public LevelCreator LevelCreator 
             {
@@ -49,71 +47,31 @@ namespace WizardWar
                 {
                     return _tileObjectsPositioningInTileMap;
                 }
-            }
-
-            private void Awake()
-            {
-                _levelCreator = GetComponent<LevelCreator>();                
-            }
+            }          
             
-            void Start()
+            public TileObjectsInstanciator(LevelCreator levelCreator, TileObjectsPositioningInTileMap tileObjectsPositioningInTileMap)
             {
-                SetMapWithTextFileChars();
+                _levelCreator = levelCreator;
 
-                _tileObjectsPositioningInTileMap = new TileObjectsPositioningInTileMap(_levelCreator.TileMap);
+                _tileObjectsPositioningInTileMap = tileObjectsPositioningInTileMap;
 
-                InstanciateObjects(_map);
+                SetMapWithTextFileChars(initialLevel);              
 
-                PrefabPotionRescale();
+                SetUpPotion();
+
+                InstanciateObjects();                
+            }         
+
+            public void SetMapWithTextFileChars(short level) 
+            {
+                _map = MapReader.GetMapArrayChar(level, _levelCreator.TileMap.MaxRows);
             }
 
-            public void NextLevel()
+            public void InstanciateObjects()
             {
-                if (_level < _maxLevel)
+                for (short i = 0; i < _map.Length; i++)
                 {
-                    _level++;
-
-                    _tileObjectsPositioningInTileMap.ClearTileMap();
-
-                    SetMapWithTextFileChars();
-
-                    InstanciateObjects(_map);
-                }
-            }
-
-            public void ResetTileObjects() 
-            {
-                _level = 1;
-
-                _tileObjectsPositioningInTileMap.ClearTileMap();
-
-                _gateInstanciator?.DestroyGate();
-
-                SetMapWithTextFileChars();
-
-                InstanciateObjects(_map);
-            }
-
-            public bool OnLastLevel() 
-            {
-                return _level == _maxLevel;
-            }
-
-            private void PrefabPotionRescale() 
-            {
-                RescaleTool.RescaleGameObjectBasedOnPercentageSize(_potionPrefab, potionSizePercentage, LevelCreator.TileMap.TilesSize.x);
-            }
-
-            private void SetMapWithTextFileChars() 
-            {
-                _map = MapReader.GetMapArrayChar(_level, _levelCreator.TileMap.MaxRows);
-            }
-
-            private void InstanciateObjects(char[] map)
-            {
-                for (short i = 0; i < map.Length; i++)
-                {
-                    switch (map[i])
+                    switch (_map[i])
                     {
                         case bookshelfChar:
 
@@ -141,9 +99,16 @@ namespace WizardWar
                 }
             }
 
+            private void SetUpPotion()
+            {
+                _potionPrefab = (GameObject)GameObject.Instantiate(Resources.Load(_potionPrefabResourcesPath));
+
+                RescaleTool.RescaleGameObjectBasedOnPercentageSize(_potionPrefab, potionSizePercentage, LevelCreator.TileMap.TilesSize.x);
+            }
+
             private void NewPlayer(short index) //Guardar los tags en un archivo + Posicionar objeto correctamente 
             {
-                GameObject player = Instantiate(_witcherPrefab);
+                GameObject player = (GameObject)GameObject.Instantiate(Resources.Load(_witcherPrefabResourcesPath));
 
                 WitcherController witcherController = player.GetComponent<WitcherController>();
 
@@ -160,9 +125,9 @@ namespace WizardWar
                 player.transform.tag = "Player";
             }
 
-            private void NewCauldron(short index) //Posicionar objeto correctamente
+            private void NewCauldron(short index) 
             {
-                GameObject cauldron = Instantiate(_cauldronPrefab);
+                GameObject cauldron = (GameObject)GameObject.Instantiate(Resources.Load(_cauldronPrefabResourcesPath));
 
                 GameObjectRotateRandomly(cauldron);
 
@@ -175,9 +140,9 @@ namespace WizardWar
                 GameObjectPositioningCorrectly(cauldron, arrayIndex2D);
             }
 
-            private void NewBookshelf(short index) //Posicionar objeto correctamente
+            private void NewBookshelf(short index) 
             {
-                GameObject boockshelf = Instantiate(_bookshelfPrefab);
+                GameObject boockshelf = (GameObject)GameObject.Instantiate(Resources.Load(_bookshelfPrefabResourcesPath));
 
                 GameObjectRotateRandomly(boockshelf);
 
@@ -190,9 +155,9 @@ namespace WizardWar
                 GameObjectPositioningCorrectly(boockshelf, arrayIndex2D);
             }
 
-            private void NewEnemy(short index) //Posicionar objeto correctamente
+            private void NewEnemy(short index)
             {
-                GameObject enemy = Instantiate(_witcherPrefab);
+                GameObject enemy = (GameObject)GameObject.Instantiate(Resources.Load(_witcherPrefabResourcesPath));
 
                 WitcherController witcherController = enemy.GetComponent<WitcherController>();
 

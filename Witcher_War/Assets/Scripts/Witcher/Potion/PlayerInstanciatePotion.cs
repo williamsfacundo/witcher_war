@@ -1,6 +1,6 @@
 using UnityEngine;
 using WizardWar.Tile;
-using WizardWar.TileObjects;
+using WizardWar.GameplayObjects;
 
 namespace WizardWar 
 {
@@ -10,42 +10,42 @@ namespace WizardWar
         {
             public class PlayerInstanciatePotion : ICanUsePotion
             {
-                private const KeyCode instanciatePotionKey = KeyCode.Space;
+                private const KeyCode _instanciatePotionKey = KeyCode.Space;
 
-                private const float maxPotions = 2;
+                private const float _maxPotions = 2;
 
-                private const float newPotionTime = 1.5f;
+                private const float _newPotionTime = 1.5f;
 
-                private float amountPotions;
+                private float _amountPotions;
 
-                private float newPotionTimer;
-
-                private TileObjectsInstanciator _tileObjectsInstanciator;
+                private float _newPotionTimer;
+                
+                private Gameplay _gameplay;
 
                 public PlayerInstanciatePotion()
                 {
-                    amountPotions = maxPotions;
+                    _amountPotions = _maxPotions;
 
-                    newPotionTimer = 0f;
+                    _newPotionTimer = 0f;
 
-                    _tileObjectsInstanciator = GameObject.FindWithTag("Manager").GetComponent<TileObjectsInstanciator>();
+                    _gameplay = GameObject.FindWithTag("Manager").GetComponent<Gameplay>();
                 }
 
                 public void InstanciatePotion(GameObject potionPrefab, Index2 instantiatorIndex, WitcherLookingDirection direction)
                 {
-                    if (Input.GetKeyDown(instanciatePotionKey) && amountPotions > 0)
+                    if (Input.GetKeyDown(_instanciatePotionKey) && _amountPotions > 0)
                     {
                         Index2 targetIndex = GetIndexWhereWitcherIsLooking(instantiatorIndex, direction);
 
-                        if (_tileObjectsInstanciator.LevelCreator.TileMap.IsTileEmpty(targetIndex))
+                        if (_gameplay.TileObjectsInstanciator.LevelCreator.TileMap.IsTileEmpty(targetIndex))
                         {
                             GameObject potion = Object.Instantiate(potionPrefab);
 
-                            _tileObjectsInstanciator.TileObjectsPositioningInTileMap.NewGameObjectInTile(instantiatorIndex, potion);
+                            _gameplay.TileObjectsInstanciator.TileObjectsPositioningInTileMap.NewGameObjectInTile(instantiatorIndex, potion);
                             
                             potion.GetComponent<PotionExplotion>().ExplosionIndex = targetIndex;
 
-                            amountPotions--;
+                            _amountPotions--;
                         }
                     }
 
@@ -78,15 +78,15 @@ namespace WizardWar
 
                 private void PotionRegeneration()
                 {
-                    if (amountPotions < maxPotions)
+                    if (_amountPotions < _maxPotions)
                     {
-                        newPotionTimer += Time.deltaTime;
+                        _newPotionTimer += Time.deltaTime;
                     }
 
-                    if (newPotionTimer >= newPotionTime)
+                    if (_newPotionTimer >= _newPotionTime)
                     {
-                        newPotionTimer = 0f;
-                        amountPotions++;
+                        _newPotionTimer = 0f;
+                        _amountPotions++;
                     }
                 }                
             }

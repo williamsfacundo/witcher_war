@@ -6,8 +6,8 @@ namespace WizardWar
     {
         public class FloorBlocksInstanciator 
         {
-            private const string _floorBlockOneResourceName = "Floor/Floor_Block_One";
-            private const string _floorBlockTwoResourceName = "Floor/Floor_Block_Two";
+            private const string _floorBlockOneResourceName = "Gameplay/Floor/Floor_Block_One";
+            private const string _floorBlockTwoResourceName = "Gameplay/Floor/Floor_Block_Two";
 
             private GameObject[,] _floorBlocks;
 
