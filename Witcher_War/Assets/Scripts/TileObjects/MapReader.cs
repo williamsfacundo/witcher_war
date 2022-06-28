@@ -64,7 +64,7 @@ namespace WizardWar
 
             private static string GetMapPath(short level)
             {
-                return Application.dataPath + "/Maps_Files/map_level_" + level.ToString() + ".txt";
+                return Application.streamingAssetsPath + "/Maps_Files/map_level_" + level.ToString() + ".txt";
             }
         }
     }
