@@ -94,25 +94,31 @@ namespace WizardWar
                 }
             }
 
-            public void DestroyGameObject(Index2 tileIndex)
+            public void DestroyGameObject(Index2 tileIndex, bool onlyDestroyable)
             {
                 if (_tileMap != null)
                 {
-                    if (!_tileMap.IsTileEmpty(tileIndex))
+                    if (!_tileMap.IsTileEmpty(tileIndex) && tileIndex != Index2.IndexNull)
                     {
                         GameObject tileObject = GetTileObjectInTileMap(tileIndex);
 
-                        IDestroyable aux = tileObject.GetComponent<IDestroyable>();
-
-                        if (aux != null)
+                        if (onlyDestroyable) 
                         {
-                            aux.ObjectAboutToBeDestroyed();
-                        }
+                            IDestroyable aux = tileObject.GetComponent<IDestroyable>();
 
-                        GameObject.Destroy(tileObject);
+                            if (aux != null)
+                            {
+                                aux.ObjectAboutToBeDestroyed();
+                                GameObject.Destroy(tileObject);
+                            }                            
+                        }
+                        else 
+                        {
+                            GameObject.Destroy(tileObject);
+                        }                       
                     }
                 }
-            }
+            }            
 
             public void ClearTileMap()
             {

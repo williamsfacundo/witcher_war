@@ -80,6 +80,11 @@ namespace WizardWar
                 return new Index2((short)(index1.X - index2.X), (short)(index1.Y - index2.Y));
             }
 
+            public static Index2 operator -(Index2 index)
+            {
+                return new Index2((short)-index.X, (short)-index.Y);
+            }
+
             public override bool Equals(object obj)
             {
                 return base.Equals(obj);

@@ -19,7 +19,7 @@ namespace WizardWar
             private const char playerChar = 'P';
             private const char enemyChar = 'E';
 
-            private const float potionSizePercentage = 0.15f;
+            private const float potionSizePercentage = 0.35f;
             private const float bookshelfSizePercentage = 0.80f;
             private const float cauldronSizePercentage = 0.65f;            
 
@@ -101,7 +101,7 @@ namespace WizardWar
 
             private void SetUpPotion()
             {
-                _potionPrefab = (GameObject)GameObject.Instantiate(Resources.Load(_potionPrefabResourcesPath));
+                _potionPrefab = (GameObject)Resources.Load(_potionPrefabResourcesPath);
 
                 RescaleTool.RescaleGameObjectBasedOnPercentageSize(_potionPrefab, potionSizePercentage, LevelCreator.TileMap.TilesSize.x);
             }

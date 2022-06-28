@@ -35,19 +35,19 @@ namespace WizardWar
                     _gameplay = GameObject.FindWithTag("Manager").GetComponent<Gameplay>();
                 }
                 
-                void Start()
+                private void Start()
                 {
                     _explotionTimer = _explotionTime;
                 }
                 
-                void Update()
+                private void Update()
                 {
                     Explotion();
 
                     DecreaseTimer();
                 }
 
-                void Explotion()
+                private void Explotion()
                 {
                     if (_explotionTimer <= 0f)
                     {
@@ -57,12 +57,30 @@ namespace WizardWar
                     }
                 }
 
-                void DestroyAdjacentObjectsInTileMap() //Terminar la mecanica 
-                {                    
-                    _gameplay.TileObjectsPositioningInTileMap.DestroyGameObject(_explosionIndex);
+                private void DestroyAdjacentObjectsInTileMap() //Terminar la mecanica 
+                {
+                    DestroyObjectInGameObjectPlusIndex(Index2.Up);
+
+                    DestroyObjectInGameObjectPlusIndex(-Index2.Up);
+
+                    DestroyObjectInGameObjectPlusIndex(Index2.Right);
+                    
+                    DestroyObjectInGameObjectPlusIndex(-Index2.Right);
                 }
 
-                void DecreaseTimer()
+                private void DestroyObjectInGameObjectPlusIndex(Index2 additionIndex) 
+                {
+                    if (_explosionIndex != Index2.IndexNull) 
+                    {
+                        Index2 _explosionIndexAux = _explosionIndex;
+
+                        _explosionIndexAux = _gameplay.TileObjectsPositioningInTileMap.GetTileObjectIndexPlusOtherIndex(gameObject, additionIndex);
+                        
+                        _gameplay.TileObjectsPositioningInTileMap.DestroyGameObject(_explosionIndexAux, true);
+                    }                    
+                }
+
+                private void DecreaseTimer()
                 {
                     _explotionTimer -= Time.deltaTime;
                 }
