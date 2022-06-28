@@ -25,7 +25,7 @@ namespace WizardWar
                 return ReturnArrayWithOutLineBreaks(map, tileMapMaxRows);
             }
 
-            public static Index2 CovertArrayIndexIntoArray2DIndex(int arrayIndex, short tileMapMaxRows)
+            public static Index2 ConvertArrayIndexIntoArray2DIndex(int arrayIndex, short tileMapMaxRows)
             {
                 Index2 index = new Index2(0, 0);
 

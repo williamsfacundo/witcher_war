@@ -9,11 +9,18 @@ namespace WizardWar
         {
             public delegate void StaticObjectAboutToBeDestroyed();
 
-            public static StaticObjectAboutToBeDestroyed objectAboutToBeDestroyed;
+            public static StaticObjectAboutToBeDestroyed BookshelfAboutToBeDestroyed;
 
             public void ObjectAboutToBeDestroyed()
             {
+                if (gameObject.tag == "Bookshelf") 
+                {
+                    TileObjectsInstanciator.BookshelfsCount--;
 
+                    Debug.Log(TileObjectsInstanciator.BookshelfsCount);
+
+                    BookshelfAboutToBeDestroyed();
+                }
             }
         }
     }

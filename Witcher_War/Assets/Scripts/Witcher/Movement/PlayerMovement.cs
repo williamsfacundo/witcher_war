@@ -12,6 +12,10 @@ namespace WizardWar
         {
             public class PlayerMovement : IMovable
             {
+                public delegate void Moved();
+
+                public static Moved PlayerMoveing;
+
                 private const float _displacementTime = 0.3f;
 
                 private short _freezePos;
@@ -95,7 +99,7 @@ namespace WizardWar
                                 _gameplay.TileObjectsPositioningInTileMap.MoveGameObjectToTileX(_nextTileIndex, gameObject);                              
                             }
 
-                            RotatePlayer(_movementAxis, ref direction, gameObject);
+                            RotatePlayer(_movementAxis, ref direction, gameObject);                            
                         }
                     }        
 
@@ -104,6 +108,8 @@ namespace WizardWar
                         _percentageMoved = _movementTimer / _displacementTime;
 
                         gameObject.transform.position = Vector3.Lerp(_oldPosition, _newPosition, _percentageMoved);
+
+                        PlayerMoveing();
                     }
                 }   
 

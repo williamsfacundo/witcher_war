@@ -6,13 +6,15 @@ using WizardWar.Enums;
 namespace WizardWar 
 {
     namespace TileObjects 
-    {
+    {        
         public class TileObjectsInstanciator
         {
-            private string _bookshelfPrefabResourcesPath = "Gameplay/Objects/Bookshelf";
-            private string _cauldronPrefabResourcesPath = "Gameplay/Objects/Cauldron";
-            private string _witcherPrefabResourcesPath = "Gameplay/Objects/Witcher";
-            private string _potionPrefabResourcesPath = "Gameplay/Objects/Potion";
+            private static short _bookshelfsCount;
+                        
+            private const string _bookshelfPrefabResourcesPath = "Gameplay/Objects/Bookshelf";
+            private const string _cauldronPrefabResourcesPath = "Gameplay/Objects/Cauldron";
+            private const string _witcherPrefabResourcesPath = "Gameplay/Objects/Witcher";
+            private const string _potionPrefabResourcesPath = "Gameplay/Objects/Potion";
 
             private const char bookshelfChar = 'W';
             private const char cauldronChar = 'X';
@@ -32,6 +34,18 @@ namespace WizardWar
             private TileObjectsPositioningInTileMap _tileObjectsPositioningInTileMap;
 
             private const short initialLevel = 1;
+
+            public static short BookshelfsCount 
+            {
+                set 
+                {
+                    _bookshelfsCount = value;
+                }
+                get 
+                {
+                    return _bookshelfsCount;
+                }
+            }
 
             public LevelCreator LevelCreator 
             {
@@ -55,11 +69,13 @@ namespace WizardWar
 
                 _tileObjectsPositioningInTileMap = tileObjectsPositioningInTileMap;
 
+                _bookshelfsCount = 0;
+
                 SetMapWithTextFileChars(initialLevel);              
 
                 SetUpPotion();
 
-                InstanciateObjects();                
+                InstanciateObjects();
             }         
 
             public void SetMapWithTextFileChars(short level) 
@@ -116,7 +132,7 @@ namespace WizardWar
 
                 witcherController.PotionPrefab = _potionPrefab;
 
-                Index2 arrayIndex2D = MapReader.CovertArrayIndexIntoArray2DIndex(index, _levelCreator.TileMap.MaxRows);
+                Index2 arrayIndex2D = MapReader.ConvertArrayIndexIntoArray2DIndex(index, _levelCreator.TileMap.MaxRows);
 
                 _tileObjectsPositioningInTileMap.NewGameObjectInTile(arrayIndex2D, player);
 
@@ -133,7 +149,7 @@ namespace WizardWar
 
                 RescaleTool.RescaleGameObjectBasedOnPercentageSize(cauldron, cauldronSizePercentage, LevelCreator.TileMap.TilesSize.x);
 
-                Index2 arrayIndex2D = MapReader.CovertArrayIndexIntoArray2DIndex(index, _levelCreator.TileMap.MaxRows);
+                Index2 arrayIndex2D = MapReader.ConvertArrayIndexIntoArray2DIndex(index, _levelCreator.TileMap.MaxRows);
 
                 _tileObjectsPositioningInTileMap.NewGameObjectInTile(arrayIndex2D, cauldron);
 
@@ -148,11 +164,13 @@ namespace WizardWar
 
                 RescaleTool.RescaleGameObjectBasedOnPercentageSize(boockshelf, bookshelfSizePercentage, LevelCreator.TileMap.TilesSize.x);
 
-                Index2 arrayIndex2D = MapReader.CovertArrayIndexIntoArray2DIndex(index, _levelCreator.TileMap.MaxRows);
+                Index2 arrayIndex2D = MapReader.ConvertArrayIndexIntoArray2DIndex(index, _levelCreator.TileMap.MaxRows);
 
                 _tileObjectsPositioningInTileMap.NewGameObjectInTile(arrayIndex2D, boockshelf);
 
                 GameObjectPositioningCorrectly(boockshelf, arrayIndex2D);
+
+                _bookshelfsCount++;
             }
 
             private void NewEnemy(short index)
@@ -165,7 +183,7 @@ namespace WizardWar
 
                 witcherController.PotionPrefab = _potionPrefab;
 
-                Index2 arrayIndex2D = MapReader.CovertArrayIndexIntoArray2DIndex(index, _levelCreator.TileMap.MaxRows);
+                Index2 arrayIndex2D = MapReader.ConvertArrayIndexIntoArray2DIndex(index, _levelCreator.TileMap.MaxRows);
 
                 _tileObjectsPositioningInTileMap.NewGameObjectInTile(arrayIndex2D, enemy);
 

@@ -1,6 +1,7 @@
 using UnityEngine;
 using WizardWar.Tile;
 using WizardWar.TileObjects;
+using WizardWar.GameplayObjects;
 
 namespace WizardWar 
 {
@@ -12,20 +13,27 @@ namespace WizardWar
 
             [SerializeField] [Range(0, 100)] private short _probabilityToSpawnGate = 35;
 
-            [SerializeField] private TileObjectsInstanciator _tileObjectsInstanciator;
+            private TileObjectsInstanciator _tileObjectsInstanciator;
 
-            private bool gateInstanciated = false;
+            private bool gateInstanciated;
 
             private GameObject gate;
 
             private void OnEnable()
             {
-                DestroyableObject.objectAboutToBeDestroyed += InstanciateGateMechanic;
+                DestroyableObject.BookshelfAboutToBeDestroyed += InstanciateGateMechanic;
             }
 
             private void OnDisable()
             {
-                DestroyableObject.objectAboutToBeDestroyed -= InstanciateGateMechanic;
+                DestroyableObject.BookshelfAboutToBeDestroyed -= InstanciateGateMechanic;
+            }           
+
+            private void Start()
+            {
+                _tileObjectsInstanciator = GameObject.FindWithTag("Manager").GetComponent<Gameplay>().TileObjectsInstanciator;                
+
+                gateInstanciated = false;
             }
 
             private void InstanciateGateMechanic()
@@ -34,12 +42,9 @@ namespace WizardWar
                 {
                     if (!gateInstanciated)
                     {
-                        if (Random.Range(1, 100) <= _probabilityToSpawnGate) //Hacer que si la cantidad de librerias es igual a cero si o si instanciar portal
+                        if (Random.Range(1, 100) <= _probabilityToSpawnGate && TileObjectsInstanciator.BookshelfsCount > 0)
                         {
-                            if (Random.Range(1, 100) <= _probabilityToSpawnGate)
-                            {
-                                InstanciateGate();
-                            }
+                            InstanciateGate();
                         }
                         else
                         {
@@ -51,7 +56,7 @@ namespace WizardWar
 
             private void InstanciateGate()
             {
-                if (_gatePrefab != null)
+                if (!gateInstanciated && _gatePrefab != null)
                 {
                     gateInstanciated = true;
 
@@ -70,7 +75,7 @@ namespace WizardWar
 
             public void DestroyGate()
             {
-                if (gate != null)
+                if (gateInstanciated)
                 {
                     _tileObjectsInstanciator.TileObjectsPositioningInTileMap.DestroySpecialTile(gameObject);
 
