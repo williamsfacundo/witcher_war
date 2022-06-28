@@ -26,13 +26,11 @@ namespace WizardWar
 
                 Gameplay _gameplay;
 
-                public Movement() 
+                protected Movement() 
                 {
                     _movementTimer = _displacementTime;
 
-                    _percentageMoved = 0f;
-
-                   
+                    _percentageMoved = 0f;                   
 
                     _nextTileIndex = Index2.IndexNull;
 

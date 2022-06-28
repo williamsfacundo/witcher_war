@@ -83,6 +83,11 @@ namespace WizardWar
                     }
                 }
 
+                public void MoveUpdate() 
+                {
+
+                }                
+
                 public void Move(GameObject witcher, ref WitcherLookingDirection direction)
                 {
                     if (_potionInstanciated)

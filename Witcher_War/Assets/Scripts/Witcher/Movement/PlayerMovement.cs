@@ -50,7 +50,7 @@ namespace WizardWar
                     _gameplay = GameObject.FindWithTag("Manager").GetComponent<Gameplay>();                   
                 }
 
-                public void MoveInput() 
+                public void MoveInput()
                 {
                     _movementAxis.X = (short)Input.GetAxisRaw("Horizontal");
 
@@ -61,13 +61,18 @@ namespace WizardWar
                         _movementAxis.Y *= -1;
                     }
 
-                    if (_movementAxis.X != 0 && _movementAxis.Y != 0) 
+                    if (_movementAxis.X != 0 && _movementAxis.Y != 0)
                     {
                         _movementAxis.Y = 0;
                     }
 
-                    _freezePos = (short)Input.GetAxisRaw("Freeze");                    
-                }    
+                    _freezePos = (short)Input.GetAxisRaw("Freeze");
+                }
+
+                public void MoveUpdate()
+                {
+
+                }                  
 
                 public void Move(GameObject witcher, ref WitcherLookingDirection direction)
                 {                    

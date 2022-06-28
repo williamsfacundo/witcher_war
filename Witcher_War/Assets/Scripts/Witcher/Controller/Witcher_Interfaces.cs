@@ -16,7 +16,9 @@ namespace WizardWar
 
                 void Timer();
 
-                bool IsObjectMoving();
+                bool IsObjectMoving();                
+
+                void MoveUpdate();
             }
 
             public interface IDestroyable
