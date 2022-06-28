@@ -17,8 +17,6 @@ namespace WizardWar
                 {
                     TileObjectsInstanciator.BookshelfsCount--;
 
-                    Debug.Log(TileObjectsInstanciator.BookshelfsCount);
-
                     BookshelfAboutToBeDestroyed();
                 }
             }

@@ -9,9 +9,11 @@ namespace WizardWar
     {
         public class GateInstanciator : MonoBehaviour
         {
+            private const short _maxProbability = 100;
+
             [SerializeField] private GameObject _gatePrefab;
 
-            [SerializeField] [Range(0, 100)] private short _probabilityToSpawnGate = 35;
+            [SerializeField] [Range(0, _maxProbability)] private short _probabilityToSpawnGate = 35;
 
             private TileObjectsInstanciator _tileObjectsInstanciator;
 
@@ -42,9 +44,12 @@ namespace WizardWar
                 {
                     if (!gateInstanciated)
                     {
-                        if (Random.Range(1, 100) <= _probabilityToSpawnGate && TileObjectsInstanciator.BookshelfsCount > 0)
+                        if (TileObjectsInstanciator.BookshelfsCount > 0)
                         {
-                            InstanciateGate();
+                            if ((short)Random.Range(1, _maxProbability) <= _probabilityToSpawnGate) 
+                            {
+                                InstanciateGate();
+                            }                            
                         }
                         else
                         {
@@ -77,7 +82,7 @@ namespace WizardWar
             {
                 if (gateInstanciated)
                 {
-                    _tileObjectsInstanciator.TileObjectsPositioningInTileMap.DestroySpecialTile(gameObject);
+                    _tileObjectsInstanciator.TileObjectsPositioningInTileMap.DestroySpecialTile();
 
                     gateInstanciated = false;
                 }

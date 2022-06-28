@@ -53,7 +53,7 @@ namespace WizardWar
 
                 _tileObjectsPositioningInTileMap = new TileObjectsPositioningInTileMap(_levelCreator.TileMap);
 
-                _tileObjectsInstanciator = new TileObjectsInstanciator(_levelCreator, _tileObjectsPositioningInTileMap);                                
+                _tileObjectsInstanciator = new TileObjectsInstanciator(_levelCreator, _tileObjectsPositioningInTileMap);               
             }            
 
             public void GoToNextLevel()
@@ -82,7 +82,9 @@ namespace WizardWar
             {
                 _tileObjectsPositioningInTileMap.ClearTileMap();
 
-                _gateInstanciator?.DestroyGate();
+                _gateInstanciator.DestroyGate();
+
+                Debug.Log(_gateInstanciator == null);
 
                 _tileObjectsInstanciator.SetMapWithTextFileChars(_level);
 

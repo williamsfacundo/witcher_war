@@ -15,7 +15,7 @@ namespace WizardWar
 
             private TileObjectsPositioningInTileMap _tileObjectsPositioningInTileMap; 
             
-            private GameObject _player;
+            private GameObject _player;            
 
             private void Start()
             {
@@ -25,15 +25,18 @@ namespace WizardWar
 
                 if (_gameplay != null) 
                 {
-                    _tileObjectsPositioningInTileMap = _gameplay.TileObjectsPositioningInTileMap;
+                    _tileObjectsPositioningInTileMap = _gameplay.TileObjectsPositioningInTileMap;                    
+                }              
+            }
 
-                    PlayerMovement.PlayerMoveing += ActionWhenPlayerInGate;
-                }               
-            }            
+            private void Update()
+            {
+                ActionWhenPlayerInGate();               
+            }
 
             private void ActionWhenPlayerInGate() 
             {
-                if (_player != null && _tileObjectsPositioningInTileMap != null)
+                if (_player != null && _tileObjectsPositioningInTileMap != null && _gameplay != null)
                 {
                     if (_tileObjectsPositioningInTileMap.GetTileObjectIndex(_player) == _tileObjectsPositioningInTileMap.SpecialTileIndex2
                         && Vector3.Distance(transform.position, _player.transform.position) <= _gameplay.LevelCreator.TileMapSize.y
@@ -49,12 +52,7 @@ namespace WizardWar
                         }
                     }
                 }
-            }
-
-            private void OnDestroy()
-            {
-                PlayerMovement.PlayerMoveing -= ActionWhenPlayerInGate;
-            }
+            }            
         }
     }
 }

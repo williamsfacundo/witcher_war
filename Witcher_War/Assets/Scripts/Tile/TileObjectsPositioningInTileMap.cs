@@ -128,7 +128,7 @@ namespace WizardWar
                     {
                         for (short v = 0; v < _tileMap.MaxRows; v++)
                         {
-                            if (_tileMap.TileArray2D[i, v].IsEmpty)
+                            if (!_tileMap.TileArray2D[i, v].IsEmpty)
                             {
                                 GameObject.Destroy(_tileMap.TileArray2D[i, v].TileObject);
 
@@ -190,22 +190,17 @@ namespace WizardWar
                 return Index2.IndexNull;
             }            
 
-            public void DestroySpecialTile(GameObject specialObject)
+            public void DestroySpecialTile()
             {
                 if (_specialTile != null && _tileMap != null)
                 {
                     if (_specialTile.TileObject != null)
                     {
-                        if (_specialTile.TileObject == specialObject) 
-                        {
-                            GameObject.Destroy(_specialTile.TileObject);
+                        GameObject.Destroy(_specialTile.TileObject);
 
-                            _specialTile.TileObject = null;
-
-                            specialObject = null;
-
-                            _specialTileIndex2 = Index2.IndexNull;
-                        }                        
+                        _specialTile.TileObject = null;
+                        
+                        _specialTileIndex2 = Index2.IndexNull;
                     }
                 }
             }
@@ -214,15 +209,38 @@ namespace WizardWar
             {
                 if (_tileMap != null) 
                 {
+                    Index2 indexAux = new Index2(0, 0);
+
+                    indexAux.X = (short)Random.Range(0, _tileMap.MaxColumns - 1);
+                    indexAux.Y = (short)Random.Range(0, _tileMap.MaxRows - 1);
+
                     for (short i = 0; i < _tileMap.MaxRows; i++) 
                     {
                         for (short v = 0; v < _tileMap.MaxColumns; i++) 
                         {
-                            if (_tileMap.TileArray2D[i, v].IsEmpty) 
+                            if (indexAux.Y == i && indexAux.X == v && _tileMap.TileArray2D[i, v].IsEmpty) 
                             {
                                 return new Index2(v, i);
-                            }
+                            }                            
                         }
+                    }
+
+                    indexAux = GetFirstEmptyIndex();
+                }               
+
+                return Index2.IndexNull;
+            }
+
+            private Index2 GetFirstEmptyIndex()
+            {
+                for (short i = 0; i < _tileMap.MaxRows; i++)
+                {
+                    for (short v = 0; v < _tileMap.MaxColumns; i++)
+                    {
+                        if (_tileMap.TileArray2D[i, v].IsEmpty)
+                        {
+                            return new Index2(v, i);
+                        }                       
                     }
                 }
 
