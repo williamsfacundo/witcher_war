@@ -22,7 +22,7 @@ namespace WizardWar
 
                 private Index2 _movementAxis;
 
-                private Index2 _nextTileIndex;
+                private Index2 _nextTileIndex;                
 
                 private Vector3 _oldPosition;
 
@@ -38,9 +38,9 @@ namespace WizardWar
 
                     _percentageMoved = 0f;
 
-                    _movementAxis = Index2.IndexNull;
+                    _movementAxis = Index2.IndexZero;                    
 
-                    _nextTileIndex = Index2.IndexNull;
+                    _nextTileIndex = Index2.IndexZero;
 
                     _oldPosition = Vector3.zero;
 
@@ -65,21 +65,21 @@ namespace WizardWar
                         _movementAxis.Y = 0;
                     }
 
-                    _freezePos = Input.GetAxisRaw("Freeze");
+                    _freezePos = Input.GetAxisRaw("Freeze");                    
                 }    
 
                 public void Move(GameObject gameObject, ref WitcherLookingDirection direction)
-                {
-                    if (_movementAxis != Index2.IndexNull && !IsObjectMoving()) 
+                {                    
+                    if (_movementAxis != Index2.IndexZero && !IsObjectMoving()) 
                     {
                         if (_freezePos != 0f) 
-                        {
+                        {                           
                             RotatePlayer(_movementAxis, ref direction, gameObject);
                         }
                         else 
                         {
                             _nextTileIndex = _gameplay.TileObjectsPositioningInTileMap.GetTileObjectIndexPlusOtherIndex(gameObject, _movementAxis);
-
+                            
                             if (_gameplay.TileObjectsInstanciator.LevelCreator.TileMap.IsTileEmpty(_nextTileIndex))
                             {
                                 _movementTimer = 0f;

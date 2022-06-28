@@ -119,14 +119,17 @@ namespace WizardWar
                 {
                     Index2 index = GetTileObjectIndex(tileObject);
 
-                    index += otherIndex;
-
-                    if (_tileMap.IsIndexValid(index))
+                    if (index != Index2.IndexNull) 
                     {
-                        index = Index2.IndexNull;
-                    }
+                        index += otherIndex;
 
-                    return index;
+                        if (_tileMap.IsIndexValid(index))
+                        {
+                            index = Index2.IndexNull;
+                        }
+
+                        return index;
+                    }                    
                 }
 
                 return Index2.IndexNull;
@@ -195,6 +198,17 @@ namespace WizardWar
                 }
 
                 return Index2.IndexNull;
+            }
+
+            public void ShowTileMap() 
+            {
+                for (short i = 0; i < _tileMap.MaxRows; i++)
+                {
+                    for (short v = 0; v < _tileMap.MaxColumns; i++)
+                    {
+                        Debug.Log("Y: " + i + " X: " + v + "(empty): " + _tileMap.IsTileEmpty(new Index2(i, v)));
+                    }
+                }
             }
 
             private bool IsGameObjectTilable(GameObject tileObject) 

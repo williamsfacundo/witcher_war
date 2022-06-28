@@ -2,7 +2,7 @@ namespace WizardWar
 {
     namespace Tile 
     {
-        public class Index2
+        public struct Index2
         {
             private short _x;
             private short _y;            
@@ -38,6 +38,14 @@ namespace WizardWar
                 {
                     return new Index2(-1, -1);
                 }
+            }   
+            
+            public static Index2 IndexZero 
+            {
+                get 
+                {
+                    return new Index2(0, 0);
+                }
             }
 
             public static Index2 Right 
@@ -54,13 +62,7 @@ namespace WizardWar
                 {
                     return new Index2(0, 1);
                 }
-            }
-
-            public Index2() 
-            {
-                _x = 0;
-                _y = 0;
-            }
+            }            
 
             public Index2(short x, short y) 
             {
@@ -95,7 +97,7 @@ namespace WizardWar
 
             public static bool operator != (Index2 index1, Index2 index2) 
             {
-                return index1.X != index2.X && index1.Y != index2.Y;
+                return index1.X != index2.X || index1.Y != index2.Y;
             }
         }        
     }

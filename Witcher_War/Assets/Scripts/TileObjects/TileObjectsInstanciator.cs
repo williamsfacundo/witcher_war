@@ -96,7 +96,7 @@ namespace WizardWar
                         default:
                             break;
                     }
-                }
+                }                
             }
 
             private void SetUpPotion()

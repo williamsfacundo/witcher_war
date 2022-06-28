@@ -69,7 +69,7 @@ namespace WizardWar
             }
 
             private void Update()
-            {
+            {                
                 if (!_movementMechanic.IsObjectMoving())
                 {
                     _usePotionMechanic?.InstanciatePotion(_potionPrefab, _gameplay.TileObjectsPositioningInTileMap.GetTileObjectIndex(gameObject), _witcherDirection);
