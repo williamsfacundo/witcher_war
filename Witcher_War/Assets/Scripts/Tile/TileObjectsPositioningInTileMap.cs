@@ -92,7 +92,27 @@ namespace WizardWar
                         GameObject.Destroy(tileObject);
                     }                   
                 }
-            }            
+            }
+
+            public void DestroyGameObject(Index2 tileIndex)
+            {
+                if (_tileMap != null)
+                {
+                    if (!_tileMap.IsTileEmpty(tileIndex))
+                    {
+                        GameObject tileObject = GetTileObjectInTileMap(tileIndex);
+
+                        IDestroyable aux = tileObject.GetComponent<IDestroyable>();
+
+                        if (aux != null)
+                        {
+                            aux.ObjectAboutToBeDestroyed();
+                        }
+
+                        GameObject.Destroy(tileObject);
+                    }
+                }
+            }
 
             public void ClearTileMap()
             {
@@ -162,7 +182,7 @@ namespace WizardWar
                 }                
 
                 return Index2.IndexNull;
-            }
+            }            
 
             public void DestroySpecialTile(GameObject specialObject)
             {
@@ -201,7 +221,30 @@ namespace WizardWar
                 }
 
                 return Index2.IndexNull;
-            }            
+            }
+
+            private GameObject GetTileObjectInTileMap(Index2 tileIndex)
+            {
+                for (short i = 0; i < _tileMap.MaxRows; i++)
+                {
+                    for (short v = 0; v < _tileMap.MaxColumns; v++)
+                    {
+                        if (tileIndex.X == v && tileIndex.Y == i)
+                        {
+                            if (_tileMap.IsTileEmpty(tileIndex))
+                            {
+                                return null;
+                            }
+                            else
+                            {
+                                return _tileMap.TileArray2D[i, v].TileObject;
+                            }
+                        }
+                    }
+                }
+
+                return null;
+            }
 
             private bool IsGameObjectTilable(GameObject tileObject) 
             {

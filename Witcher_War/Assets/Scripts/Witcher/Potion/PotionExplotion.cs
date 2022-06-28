@@ -12,13 +12,13 @@ namespace WizardWar
             {
                 private PotionAnimationController _potionAnimationController;
 
+                private Gameplay _gameplay;
+
                 private const float _explotionTime = 1.5f;
 
                 private float _explotionTimer;
 
-                private Index2 _explosionIndex;
-
-                 Gameplay _gameplay;
+                private Index2 _explosionIndex;               
 
                 public Index2 ExplosionIndex
                 {
@@ -53,13 +53,13 @@ namespace WizardWar
                     {
                         DestroyAdjacentObjectsInTileMap();
 
-                        _gameplay?.TileObjectsInstanciator.TileObjectsPositioningInTileMap.DestroyGameObject(gameObject);
+                        _gameplay?.TileObjectsPositioningInTileMap.DestroyGameObject(gameObject);
                     }
                 }
 
                 void DestroyAdjacentObjectsInTileMap() //Terminar la mecanica 
-                {
-
+                {                    
+                    _gameplay.TileObjectsPositioningInTileMap.DestroyGameObject(_explosionIndex);
                 }
 
                 void DecreaseTimer()
