@@ -39,12 +39,14 @@ namespace WizardWar
                     {
                         Index2 targetIndex = GetIndexWhereWitcherIsLooking(instantiatorIndex, direction);
 
-                        if (_gameplay.TileObjectsInstanciator.LevelCreator.TileMap.IsTileEmpty(targetIndex))
+                        if (_gameplay.LevelCreator.TileMap.IsTileEmpty(targetIndex))
                         {
                             GameObject potion = Object.Instantiate(potionPrefab);
 
-                            _gameplay.TileObjectsInstanciator.TileObjectsPositioningInTileMap.NewGameObjectInTile(instantiatorIndex, potion);
-                            
+                            _gameplay.TileObjectsInstanciator.TileObjectsPositioningInTileMap.NewGameObjectInTile(targetIndex, potion);
+
+                            _gameplay.TileObjectsInstanciator.GameObjectPositioningCorrectly(potion, targetIndex);
+
                             potion.GetComponent<PotionExplotion>().ExplosionIndex = targetIndex;
 
                             _amountPotions--;

@@ -19,7 +19,7 @@ namespace WizardWar
             private const char playerChar = 'P';
             private const char enemyChar = 'E';
 
-            private const float potionSizePercentage = 0.35f;
+            private const float potionSizePercentage = 0.15f;
             private const float bookshelfSizePercentage = 0.80f;
             private const float cauldronSizePercentage = 0.65f;            
 
@@ -190,7 +190,7 @@ namespace WizardWar
                 }
             }
 
-            private void GameObjectPositioningCorrectly(GameObject gameObject, Index2 index) 
+            public void GameObjectPositioningCorrectly(GameObject gameObject, Index2 index) 
             {
                 Vector3 halfTileMapYSize = Vector3.up * (LevelCreator.TileMap.TilesSize.y / 2f);
                 Vector3 playerHalfSize = Vector3.up * (GetGameObjectHeight(gameObject) / 2f);

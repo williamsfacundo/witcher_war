@@ -45,7 +45,7 @@ namespace WizardWar
                 {
                     _player = GameObject.FindWithTag("Player");
 
-                    this._cpu = cpuGameObject;
+                    _cpu = cpuGameObject;
 
                     RandomMoveTimer();
 
@@ -128,7 +128,7 @@ namespace WizardWar
                                 _gameplay.TileObjectsPositioningInTileMap.MoveGameObjectToTileX(_nextTileIndex, _cpu);
                             }
 
-                            RotatePlayer(_movementDirection, ref direction, gameObject);
+                            RotateEnemy(_movementDirection, ref direction, gameObject);
 
                             _calculateNewPosition = false;
                         }
@@ -237,7 +237,7 @@ namespace WizardWar
                     }
                 }
 
-                private void RotatePlayer(Index2 movementAxis, ref WitcherLookingDirection witcherDirection, GameObject gameObject)
+                private void RotateEnemy(Index2 movementAxis, ref WitcherLookingDirection witcherDirection, GameObject gameObject)
                 {
                     WitcherLookingDirection newDirection = WitcherLookingDirection.Left;
 
