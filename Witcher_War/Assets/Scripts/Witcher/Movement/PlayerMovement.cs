@@ -1,14 +1,15 @@
 using UnityEngine;
-using WizardWar.Tile;
-using WizardWar.GameplayObjects;
 using WizardWar.Enums;
+using WizardWar.GameplayObjects;
+using WizardWar.Tile;
 using WizardWar.Witcher.Interfaces;
+using WizardWar.Witcher.RotationFuncs;
 
 namespace WizardWar
 {
-    namespace Witcher 
+    namespace Witcher
     {
-        namespace Movement 
+        namespace Movement
         {
             public class PlayerMovement : IMovable
             {
@@ -68,34 +69,34 @@ namespace WizardWar
                     _freezePos = (short)Input.GetAxisRaw("Freeze");                    
                 }    
 
-                public void Move(GameObject gameObject, ref WitcherLookingDirection direction)
+                public void Move(GameObject witcher, ref WitcherLookingDirection direction)
                 {                    
                     if (_movementAxis != Index2.IndexZero && !IsObjectMoving()) 
                     {
                         if (_freezePos != 0) 
                         {                           
-                            RotatePlayer(_movementAxis, ref direction, gameObject);
+                            Rotation.RotateWitcher(witcher, _movementAxis, ref direction);
                         }
                         else 
                         {
-                            _nextTileIndex = _gameplay.TileObjectsPositioningInTileMap.GetTileObjectIndexPlusOtherIndex(gameObject, _movementAxis);
+                            _nextTileIndex = _gameplay.TileObjectsPositioningInTileMap.GetTileObjectIndexPlusOtherIndex(witcher, _movementAxis);
                             
                             if (_gameplay.TileObjectsInstanciator.LevelCreator.TileMap.IsTileEmpty(_nextTileIndex))
                             {
                                 _movementTimer = 0f;
 
-                                _oldPosition = _gameplay.TileObjectsPositioningInTileMap.GetTileMapPosition(_gameplay.TileObjectsPositioningInTileMap.GetTileObjectIndex(gameObject));
+                                _oldPosition = _gameplay.TileObjectsPositioningInTileMap.GetTileMapPosition(_gameplay.TileObjectsPositioningInTileMap.GetTileObjectIndex(witcher));
 
-                                _oldPosition.y = gameObject.transform.position.y;
+                                _oldPosition.y = witcher.transform.position.y;
 
                                 _newPosition = _gameplay.TileObjectsPositioningInTileMap.GetTileMapPosition(_nextTileIndex);
 
-                                _newPosition.y = gameObject.transform.position.y;
+                                _newPosition.y = witcher.transform.position.y;
 
-                                _gameplay.TileObjectsPositioningInTileMap.MoveGameObjectToTileX(_nextTileIndex, gameObject);                              
+                                _gameplay.TileObjectsPositioningInTileMap.MoveGameObjectToTileX(_nextTileIndex, witcher);                              
                             }
 
-                            RotatePlayer(_movementAxis, ref direction, gameObject);                            
+                            Rotation.RotateWitcher(witcher, _movementAxis, ref direction);                            
                         }
                     }        
 
@@ -103,7 +104,7 @@ namespace WizardWar
                     {
                         _percentageMoved = _movementTimer / _displacementTime;
 
-                        gameObject.transform.position = Vector3.Lerp(_oldPosition, _newPosition, _percentageMoved);                        
+                        witcher.transform.position = Vector3.Lerp(_oldPosition, _newPosition, _percentageMoved);                        
                     }
                 }   
 
@@ -123,73 +124,7 @@ namespace WizardWar
                 public bool IsObjectMoving()
                 {
                     return _movementTimer < _displacementTime;
-                }
-
-                void RotatePlayer(Index2 movementAxis, ref WitcherLookingDirection witcherDirection, GameObject gameObject) 
-                {
-                    WitcherLookingDirection newDirection = WitcherLookingDirection.Left;
-
-                    switch (movementAxis.X) 
-                    {
-                        case -1:
-
-                            newDirection = WitcherLookingDirection.Left;
-                            break;
-                        case 1:
-
-                            newDirection = WitcherLookingDirection.Right;
-                            break;
-                        default:
-                            break;
-                    }
-
-                    if (movementAxis.X == 0) 
-                    {
-                        switch (movementAxis.Y)
-                        {
-                            case -1:
-
-                                newDirection = WitcherLookingDirection.Up;
-                                break;
-                            case 1:
-
-                                newDirection = WitcherLookingDirection.Down;
-                                break;
-                            default:
-                                break;
-                        }
-                    }        
-
-                    if (newDirection != witcherDirection) 
-                    {
-                        witcherDirection = newDirection;
-
-                        switch (witcherDirection) 
-                        {
-                            case WitcherLookingDirection.Down:
-
-                                gameObject.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
-                                break;
-                            case WitcherLookingDirection.Up:
-
-                                gameObject.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
-                                break;
-
-                            case WitcherLookingDirection.Right:
-
-                                gameObject.transform.rotation = Quaternion.Euler(0f, -90f, 0f);
-                                break;
-
-                            case WitcherLookingDirection.Left:
-
-                                gameObject.transform.rotation = Quaternion.Euler(0f, 90f, 0f);
-                                break;
-
-                            default:
-                                break;
-                        }
-                    }
-                }              
+                }                           
             }
         }
     }

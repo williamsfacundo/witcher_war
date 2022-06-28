@@ -8,11 +8,11 @@ namespace WizardWar
     {
         namespace Interfaces 
         {
-            public interface IMovable
+            public interface IMovable //Replace functions with input and update
             {
                 void MoveInput();
 
-                void Move(GameObject gameObject, ref WitcherLookingDirection direction);
+                void Move(GameObject witcher, ref WitcherLookingDirection direction);
 
                 void Timer();
 

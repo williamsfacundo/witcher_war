@@ -6,7 +6,7 @@ namespace WizardWar
 {
     namespace Witcher 
     {
-        namespace Rotation 
+        namespace RotationFuncs 
         {
             public static class Rotation
             {
