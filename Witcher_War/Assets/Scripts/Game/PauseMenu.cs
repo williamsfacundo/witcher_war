@@ -1,6 +1,6 @@
 using UnityEngine;
-using WizardWar.TileObjects;
 using WizardWar.GameplayObjects;
+using WizardWar.Scenes;
 
 namespace WizardWar
 {
