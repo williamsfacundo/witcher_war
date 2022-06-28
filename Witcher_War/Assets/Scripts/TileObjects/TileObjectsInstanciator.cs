@@ -1,7 +1,7 @@
 using UnityEngine;
 using WizardWar.Tile;
 using WizardWar.Witcher;
-
+using WizardWar.Enums;
 
 namespace WizardWar 
 {

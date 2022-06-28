@@ -2,6 +2,8 @@ using UnityEngine;
 using WizardWar.Witcher.Movement;
 using WizardWar.GameplayObjects;
 using WizardWar.Tile;
+using WizardWar.Enums;
+using WizardWar.Witcher.Interfaces;
 
 namespace WizardWar 
 {

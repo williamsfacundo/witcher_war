@@ -4,6 +4,8 @@ using WizardWar.Witcher.Movement;
 using WizardWar.Witcher.Potion;
 using WizardWar.GameplayObjects;
 using WizardWar.Scenes;
+using WizardWar.Enums;
+using WizardWar.Witcher.Interfaces;
 
 namespace WizardWar 
 {

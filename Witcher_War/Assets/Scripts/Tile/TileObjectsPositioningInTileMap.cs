@@ -1,4 +1,5 @@
 using UnityEngine;
+using WizardWar.Witcher.Interfaces;
 
 namespace WizardWar 
 {

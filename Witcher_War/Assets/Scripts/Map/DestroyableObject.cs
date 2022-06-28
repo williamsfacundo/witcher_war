@@ -1,13 +1,20 @@
 using UnityEngine;
+using WizardWar.Witcher.Interfaces;
 
-public class DestroyableObject : MonoBehaviour, IDestroyable
+namespace WizardWar 
 {
-    public delegate void StaticObjectAboutToBeDestroyed();
-
-    public static StaticObjectAboutToBeDestroyed objectAboutToBeDestroyed;
-
-    public void ObjectAboutToBeDestroyed()  
+    namespace TileObjects 
     {
-        
+        public class DestroyableObject : MonoBehaviour, IDestroyable
+        {
+            public delegate void StaticObjectAboutToBeDestroyed();
+
+            public static StaticObjectAboutToBeDestroyed objectAboutToBeDestroyed;
+
+            public void ObjectAboutToBeDestroyed()
+            {
+
+            }
+        }
     }
 }

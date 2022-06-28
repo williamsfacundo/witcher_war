@@ -1,6 +1,7 @@
 using UnityEngine;
 using WizardWar.Tile;
 using WizardWar.TileObjects;
+using WizardWar.Gate;
 
 namespace WizardWar 
 {

@@ -1,17 +1,26 @@
 using UnityEngine;
 
-public class PotionAnimationController : MonoBehaviour
+namespace WizardWar 
 {
-    private Animator potionExplotionAnimator;    
+    namespace Witcher 
+    {
+        namespace Potion 
+        {
+            public class PotionAnimationController : MonoBehaviour
+            {
+                private Animator potionExplotionAnimator;
 
-    private void Awake()
-    {
-        potionExplotionAnimator = GetComponent<Animator>();
-        potionExplotionAnimator.SetBool("Exploted", false);
-    }
-    
-    public void StartAnimation()
-    {
-        potionExplotionAnimator.SetBool("Exploted", true);          
+                private void Awake()
+                {
+                    potionExplotionAnimator = GetComponent<Animator>();
+                    potionExplotionAnimator.SetBool("Exploted", false);
+                }
+
+                public void StartAnimation()
+                {
+                    potionExplotionAnimator.SetBool("Exploted", true);
+                }
+            }
+        }
     }
 }

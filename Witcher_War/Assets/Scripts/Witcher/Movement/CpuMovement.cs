@@ -1,6 +1,8 @@
 using UnityEngine;
 using WizardWar.Tile;
 using WizardWar.GameplayObjects;
+using WizardWar.Enums;
+using WizardWar.Witcher.Interfaces;
 
 namespace WizardWar 
 {

@@ -1,23 +1,33 @@
 using UnityEngine;
 using WizardWar.Tile;
+using WizardWar.Enums;
 
-public interface IMovable 
+namespace WizardWar 
 {
-    void MoveInput();
+    namespace Witcher 
+    {
+        namespace Interfaces 
+        {
+            public interface IMovable
+            {
+                void MoveInput();
 
-    void Move(GameObject gameObject, ref WitcherLookingDirection direction);
+                void Move(GameObject gameObject, ref WitcherLookingDirection direction);
 
-    void Timer();
+                void Timer();
 
-    bool IsObjectMoving();
-}
+                bool IsObjectMoving();
+            }
 
-public interface IDestroyable
-{
-    void ObjectAboutToBeDestroyed();
-}
+            public interface IDestroyable
+            {
+                void ObjectAboutToBeDestroyed();
+            }
 
-public interface ICanUsePotion 
-{
-    void InstanciatePotion(GameObject potionPrefab, Index2 instantiatorIndex, WitcherLookingDirection direction);   
+            public interface ICanUsePotion
+            {
+                void InstanciatePotion(GameObject potionPrefab, Index2 instantiatorIndex, WitcherLookingDirection direction);
+            }
+        }      
+    }
 }
