@@ -223,6 +223,30 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4388462040444565693, guid: 536c5d3f212dc5f438dbfd633866570f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 514378295}
+    - target: {fileID: 4388462040444565693, guid: 536c5d3f212dc5f438dbfd633866570f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Resume
+      objectReference: {fileID: 0}
+    - target: {fileID: 4388462040444565693, guid: 536c5d3f212dc5f438dbfd633866570f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: WizardWar.Menu.Pause.PauseMenu, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 4388462041253740850, guid: 536c5d3f212dc5f438dbfd633866570f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 514378295}
+    - target: {fileID: 4388462041253740850, guid: 536c5d3f212dc5f438dbfd633866570f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ChangeToMainMenu
+      objectReference: {fileID: 0}
+    - target: {fileID: 4388462041253740850, guid: 536c5d3f212dc5f438dbfd633866570f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: WizardWar.Menu.Pause.PauseMenu, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 4388462041853609312, guid: 536c5d3f212dc5f438dbfd633866570f, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -310,6 +334,18 @@ PrefabInstance:
     - target: {fileID: 4388462041853609316, guid: 536c5d3f212dc5f438dbfd633866570f, type: 3}
       propertyPath: m_Name
       value: Pause Canvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 4388462042399859428, guid: 536c5d3f212dc5f438dbfd633866570f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 514378295}
+    - target: {fileID: 4388462042399859428, guid: 536c5d3f212dc5f438dbfd633866570f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: RestartButtonAction
+      objectReference: {fileID: 0}
+    - target: {fileID: 4388462042399859428, guid: 536c5d3f212dc5f438dbfd633866570f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: WizardWar.Menu.Pause.PauseMenu, Assembly-CSharp
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 536c5d3f212dc5f438dbfd633866570f, type: 3}
@@ -439,6 +475,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 470a567d601466540af74d003b563fe0, type: 3}
+--- !u!114 &514378295 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 794378612126545323, guid: 470a567d601466540af74d003b563fe0, type: 3}
+  m_PrefabInstance: {fileID: 468128325}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3dc24f052e0c8d34eb94a3c9ea8db1f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!223 &850480832 stripped
 Canvas:
   m_CorrespondingSourceObject: {fileID: 4388462041853609319, guid: 536c5d3f212dc5f438dbfd633866570f, type: 3}

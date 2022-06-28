@@ -42,13 +42,17 @@ namespace WizardWar
                 {
                     ScenesManagement.ChangeToMainMenuScene();
 
+                    _gameplay.GoToLevelOne();
+
+                    Resume();
+
                     if (Time.timeScale != 1f)
                     {
                         Time.timeScale = 1f;
                     }
                 }
 
-                private void Resume()
+                public void Resume()
                 {
                     _gamePaused = false;
 
