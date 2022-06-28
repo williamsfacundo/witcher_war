@@ -14,7 +14,7 @@ namespace WizardWar
             {
                 private const float _displacementTime = 0.3f;
 
-                private float _freezePos;
+                private short _freezePos;
 
                 private float _movementTimer;
 
@@ -32,7 +32,7 @@ namespace WizardWar
 
                 public PlayerMovement() 
                 {
-                    _freezePos = 0f;
+                    _freezePos = 0;
 
                     _movementTimer = _displacementTime;
 
@@ -65,14 +65,14 @@ namespace WizardWar
                         _movementAxis.Y = 0;
                     }
 
-                    _freezePos = Input.GetAxisRaw("Freeze");                    
+                    _freezePos = (short)Input.GetAxisRaw("Freeze");                    
                 }    
 
                 public void Move(GameObject gameObject, ref WitcherLookingDirection direction)
                 {                    
                     if (_movementAxis != Index2.IndexZero && !IsObjectMoving()) 
                     {
-                        if (_freezePos != 0f) 
+                        if (_freezePos != 0) 
                         {                           
                             RotatePlayer(_movementAxis, ref direction, gameObject);
                         }

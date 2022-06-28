@@ -53,11 +53,7 @@ namespace WizardWar
 
                 _tileObjectsPositioningInTileMap = new TileObjectsPositioningInTileMap(_levelCreator.TileMap);
 
-                _tileObjectsInstanciator = new TileObjectsInstanciator(_levelCreator, _tileObjectsPositioningInTileMap);
-
-                _gateInstanciator = GetComponent<GateInstanciator>();
-
-                TileObjectsPositioningInTileMap.ShowTileMap();
+                _tileObjectsInstanciator = new TileObjectsInstanciator(_levelCreator, _tileObjectsPositioningInTileMap);                                
             }            
 
             public void GoToNextLevel()

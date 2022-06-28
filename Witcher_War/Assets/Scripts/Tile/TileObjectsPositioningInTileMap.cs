@@ -123,7 +123,7 @@ namespace WizardWar
                     {
                         index += otherIndex;
 
-                        if (_tileMap.IsIndexValid(index))
+                        if (!_tileMap.IsIndexValid(index))
                         {
                             index = Index2.IndexNull;
                         }
@@ -147,23 +147,26 @@ namespace WizardWar
 
             public Index2 GetTileObjectIndex(GameObject tileObject)
             {
-                for (short i = 0; i < _tileMap.MaxRows; i++)
+                if (_tileMap != null) 
                 {
-                    for (short v = 0; v < _tileMap.MaxColumns; v++)
+                    for (short i = 0; i < _tileMap.MaxRows; i++)
                     {
-                        if (_tileMap.TileArray2D[i, v].TileObject == tileObject)
+                        for (short v = 0; v < _tileMap.MaxColumns; v++)
                         {
-                            return new Index2(v, i);
+                            if (_tileMap.TileArray2D[i, v].TileObject == tileObject)
+                            {
+                                return new Index2(v, i);
+                            }
                         }
                     }
-                }
+                }                
 
                 return Index2.IndexNull;
             }
 
             public void DestroySpecialTile(GameObject specialObject)
             {
-                if (_specialTile != null)
+                if (_specialTile != null && _tileMap != null)
                 {
                     if (_specialTile.TileObject != null)
                     {
@@ -198,18 +201,7 @@ namespace WizardWar
                 }
 
                 return Index2.IndexNull;
-            }
-
-            public void ShowTileMap() 
-            {
-                for (short i = 0; i < _tileMap.MaxRows; i++)
-                {
-                    for (short v = 0; v < _tileMap.MaxColumns; i++)
-                    {
-                        Debug.Log("Y: " + i + " X: " + v + "(empty): " + _tileMap.IsTileEmpty(new Index2(i, v)));
-                    }
-                }
-            }
+            }            
 
             private bool IsGameObjectTilable(GameObject tileObject) 
             {

@@ -106,7 +106,7 @@ namespace WizardWar
                 RescaleTool.RescaleGameObjectBasedOnPercentageSize(_potionPrefab, potionSizePercentage, LevelCreator.TileMap.TilesSize.x);
             }
 
-            private void NewPlayer(short index) //Guardar los tags en un archivo + Posicionar objeto correctamente 
+            private void NewPlayer(short index) 
             {
                 GameObject player = (GameObject)GameObject.Instantiate(Resources.Load(_witcherPrefabResourcesPath));
 
