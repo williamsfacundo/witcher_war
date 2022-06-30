@@ -10,7 +10,7 @@ namespace WizardWar
     {
         namespace Movement 
         {
-            public class Movement
+            public class BasedMovement
             {
                 private const float _displacementTime = 0.3f;
 
@@ -26,7 +26,7 @@ namespace WizardWar
 
                 Gameplay _gameplay;
 
-                protected Movement() 
+                protected BasedMovement() 
                 {
                     _movementTimer = _displacementTime;
 

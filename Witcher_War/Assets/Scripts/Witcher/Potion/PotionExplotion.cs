@@ -7,7 +7,7 @@ namespace WizardWar
     namespace Witcher 
     {
         namespace Potion 
-        {
+        {      
             public class PotionExplotion : MonoBehaviour
             {
                 private PotionAnimationController _potionAnimationController;
