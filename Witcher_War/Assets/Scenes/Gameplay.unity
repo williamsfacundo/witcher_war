@@ -848,6 +848,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Gameplay
       objectReference: {fileID: 0}
+    - target: {fileID: 3723077763595447132, guid: 1505b47399e257443b3a8b23b78493fa, type: 3}
+      propertyPath: _level
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3723077763595447134, guid: 1505b47399e257443b3a8b23b78493fa, type: 3}
       propertyPath: m_RootOrder
       value: 1
