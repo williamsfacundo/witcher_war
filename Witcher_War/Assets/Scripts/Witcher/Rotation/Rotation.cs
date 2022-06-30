@@ -60,7 +60,36 @@ namespace WizardWar
                                 break;
                         }
                     }                    
-                }                
+                } 
+                
+                public static void RandomRotation(GameObject witcher, ref WitcherLookingDirection witcherDirection) 
+                {
+                    int aux = Random.Range(1, 5);
+
+                    switch (aux)
+                    {
+                        case 1:
+
+                            RotateWitcher(witcher, Index2.Up, ref witcherDirection);
+                            break;
+                        case 2:
+
+                            RotateWitcher(witcher, -Index2.Up, ref witcherDirection);
+                            break;
+                        case 3:
+
+                            RotateWitcher(witcher, Index2.Right, ref witcherDirection);
+                            break;
+                        case 4:
+
+                            RotateWitcher(witcher, -Index2.Right, ref witcherDirection);
+                            break;
+                        default:
+
+                            RotateWitcher(witcher, Index2.Up, ref witcherDirection);
+                            break;
+                    }
+                }
             }
         }
     }
