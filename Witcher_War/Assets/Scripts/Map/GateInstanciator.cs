@@ -46,7 +46,7 @@ namespace WizardWar
                     {
                         if (TileObjectsInstanciator.BookshelfsCount > 0)
                         {
-                            if ((short)Random.Range(1, _maxProbability) <= _probabilityToSpawnGate) 
+                            if ((short)Random.Range(1, _maxProbability + 1) <= _probabilityToSpawnGate) 
                             {
                                 InstanciateGate();
                             }                            

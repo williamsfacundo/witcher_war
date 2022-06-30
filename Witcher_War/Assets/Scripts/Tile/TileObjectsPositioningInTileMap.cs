@@ -209,8 +209,8 @@ namespace WizardWar
             {
                 if (_tileMap != null) 
                 {
-                    int xIndex = Random.Range(0, _tileMap.MaxColumns - 1);
-                    int yIndex = Random.Range(0, _tileMap.MaxRows - 1);
+                    int xIndex = Random.Range(0, _tileMap.MaxColumns);
+                    int yIndex = Random.Range(0, _tileMap.MaxRows);
 
                     if (_tileMap.TileArray2D[yIndex, xIndex].IsEmpty) 
                     {

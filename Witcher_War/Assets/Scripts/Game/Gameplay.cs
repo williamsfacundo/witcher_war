@@ -10,7 +10,7 @@ namespace WizardWar
         [RequireComponent(typeof(GateInstanciator))]
         public class Gameplay : MonoBehaviour
         {            
-            private const short _maxLevel = 5;
+            private const short _maxLevel = 4;
 
             [SerializeField] [Range(1, _maxLevel)] private short _level;
 
@@ -83,8 +83,6 @@ namespace WizardWar
                 _tileObjectsPositioningInTileMap.ClearTileMap();
 
                 _gateInstanciator.DestroyGate();
-
-                Debug.Log(_gateInstanciator == null);
 
                 _tileObjectsInstanciator.SetMapWithTextFileChars(_level);
 

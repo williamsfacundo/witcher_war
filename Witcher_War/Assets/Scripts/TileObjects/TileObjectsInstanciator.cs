@@ -187,7 +187,7 @@ namespace WizardWar
 
                 _tileObjectsPositioningInTileMap.NewGameObjectInTile(arrayIndex2D, enemy);
 
-                GameObjectPositioningCorrectly(enemy, arrayIndex2D);
+                GameObjectPositioningCorrectly(enemy, arrayIndex2D);                
             }
 
             private void GameObjectRotateRandomly(GameObject gameObject)

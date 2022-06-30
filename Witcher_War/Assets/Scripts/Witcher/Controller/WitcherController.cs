@@ -6,6 +6,7 @@ using WizardWar.GameplayObjects;
 using WizardWar.Scenes;
 using WizardWar.Enums;
 using WizardWar.Witcher.Interfaces;
+using WizardWar.Witcher.RotationFuncs;
 
 namespace WizardWar 
 {
@@ -64,6 +65,8 @@ namespace WizardWar
                 transform.rotation = Quaternion.identity;
 
                 WitcherDirection = WitcherLookingDirection.Down;
+                
+                Rotation.RandomRotation(gameObject, ref _witcherDirection);
 
                 _gameplay = GameObject.FindWithTag("Manager").GetComponent<Gameplay>();
             }
