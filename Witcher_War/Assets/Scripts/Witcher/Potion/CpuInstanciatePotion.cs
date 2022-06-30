@@ -22,91 +22,48 @@ namespace WizardWar
                 
                 private Gameplay _gameplay;
 
-                public CpuInstanciatePotion(CpuMovement cpuMovement)
+                private GameObject _witcher;
+
+                public CpuInstanciatePotion(GameObject witcher, CpuMovement cpuMovement)
                 {
-                    _timer = 0f;
+                    RandomTime();
 
                     _cpuMovement = cpuMovement;
 
                     _gameplay = GameObject.FindWithTag("Manager").GetComponent<Gameplay>();
 
-                    RandomTime();
+                    _witcher = witcher;
                 }
 
-                public void InstanciatePotion(GameObject potionPrefab, Index2 instantiatorIndex, WitcherLookingDirection direction)
+                public void InstanciatePotion(GameObject potionPrefab, WitcherLookingDirection direction)
                 {
                     if (_timer > 0f)
                     {
                         _timer -= Time.deltaTime;
                     }
 
-                    if (!_cpuMovement.IsObjectMoving() && _timer <= 0f)
+                    if (!_cpuMovement.IsMoving() && _timer <= 0f)
                     {
-                        Index2 targetIndex = PlayerInstanciatePotion.GetIndexWhereWitcherIsLooking(instantiatorIndex, direction);
-                        Index2 moveIndex = GetOpositeTileIndex(instantiatorIndex, direction);
+                        Index2 indexWhereWitcherIsLooking = WitcherController.GetIndexWhereWitcherIsLooking(_witcher, _gameplay, direction);
 
-                        if (_gameplay.LevelCreator.TileMap.IsTileEmpty(targetIndex) && _gameplay.LevelCreator.TileMap.IsTileEmpty(moveIndex))
+                        Index2 opositeTileIndex = WitcherController.GetOpositeTileDirectionOfTheOneWitcherIsLooking(direction);
+
+                        if (_gameplay.LevelCreator.TileMap.IsTileEmpty(indexWhereWitcherIsLooking) && _gameplay.LevelCreator.TileMap.IsTileEmpty(opositeTileIndex))
                         {
                             GameObject potion = Object.Instantiate(potionPrefab);
 
-                            _gameplay.TileObjectsPositioningInTileMap.NewGameObjectInTile(targetIndex, potion);
+                            _gameplay.TileObjectsPositioningInTileMap.NewGameObjectInTile(indexWhereWitcherIsLooking, potion);
 
-                            _gameplay.TileObjectsInstanciator.GameObjectPositioningCorrectly(potion, targetIndex);
+                            _gameplay.TileObjectsInstanciator.GameObjectPositioningCorrectly(potion, indexWhereWitcherIsLooking);
 
-                            potion.GetComponent<PotionExplotion>().ExplosionIndex = targetIndex;                            
+                            potion.GetComponent<PotionExplotion>().ExplosionIndex = indexWhereWitcherIsLooking;                            
 
-                            direction = GetOpositeTileDirection(direction);
-
-                            _cpuMovement.PotionInstanciated(moveIndex, direction);
+                            _cpuMovement.AlterMovementToScapeBombExplotion(opositeTileIndex);
                         }
 
                         RandomTime();
                     }
-                }
-
-                public static Index2 GetOpositeTileIndex(Index2 witcherIndex, WitcherLookingDirection witcherDirection)
-                {
-                    switch (witcherDirection)
-                    {
-                        case WitcherLookingDirection.Down:
-
-                            return witcherIndex - Index2.Up;
-                        case WitcherLookingDirection.Up:
-
-                            return witcherIndex + Index2.Up;
-                        case WitcherLookingDirection.Right:
-
-                            return witcherIndex - Index2.Right;
-                        case WitcherLookingDirection.Left:
-
-                            return witcherIndex + Index2.Right;
-                        default:
-
-                            return witcherIndex - Index2.Up;
-                    }
-                }
-
-                public static WitcherLookingDirection GetOpositeTileDirection(WitcherLookingDirection witcherDirection)
-                {
-                    switch (witcherDirection)
-                    {
-                        case WitcherLookingDirection.Down:
-
-                            return WitcherLookingDirection.Up;
-                        case WitcherLookingDirection.Up:
-
-                            return WitcherLookingDirection.Down;
-                        case WitcherLookingDirection.Right:
-
-                            return WitcherLookingDirection.Left;
-                        case WitcherLookingDirection.Left:
-
-                            return WitcherLookingDirection.Right;
-                        default:
-
-                            return WitcherLookingDirection.Up;
-                    }
-                }
+                }                                
 
                 private void RandomTime()
                 {

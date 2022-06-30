@@ -14,11 +14,7 @@ namespace WizardWar
 
                 void Move(GameObject witcher, ref WitcherLookingDirection direction);
 
-                void Timer();
-
-                bool IsObjectMoving();                
-
-                void MoveUpdate();
+                void Timer();         
             }
 
             public interface IDestroyable
@@ -28,7 +24,7 @@ namespace WizardWar
 
             public interface ICanUsePotion
             {
-                void InstanciatePotion(GameObject potionPrefab, Index2 instantiatorIndex, WitcherLookingDirection direction);
+                void InstanciatePotion(GameObject potionPrefab, WitcherLookingDirection direction);
             }
         }      
     }

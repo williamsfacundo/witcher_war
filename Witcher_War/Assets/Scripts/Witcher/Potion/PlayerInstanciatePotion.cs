@@ -3,6 +3,7 @@ using WizardWar.Tile;
 using WizardWar.GameplayObjects;
 using WizardWar.Enums;
 using WizardWar.Witcher.Interfaces;
+using WizardWar.Witcher.Movement;
 
 namespace WizardWar 
 {
@@ -21,23 +22,31 @@ namespace WizardWar
                 private float _amountPotions;
 
                 private float _newPotionTimer;
-                
+
+                PlayerMovement _playerMovement;
+
                 private Gameplay _gameplay;
 
-                public PlayerInstanciatePotion()
+                private GameObject _witcher;
+
+                public PlayerInstanciatePotion(GameObject witcher, PlayerMovement playerMovement)
                 {
                     _amountPotions = _maxPotions;
 
                     _newPotionTimer = 0f;
 
+                    _playerMovement = playerMovement;
+
                     _gameplay = GameObject.FindWithTag("Manager").GetComponent<Gameplay>();
+
+                    _witcher = witcher;
                 }
 
-                public void InstanciatePotion(GameObject potionPrefab, Index2 instantiatorIndex, WitcherLookingDirection direction)
+                public void InstanciatePotion(GameObject potionPrefab, WitcherLookingDirection direction)
                 {
-                    if (Input.GetKeyDown(_instanciatePotionKey) && _amountPotions > 0)
+                    if (Input.GetKeyDown(_instanciatePotionKey) && _amountPotions > 0 && !_playerMovement.IsMoving())
                     {
-                        Index2 targetIndex = GetIndexWhereWitcherIsLooking(instantiatorIndex, direction);
+                        Index2 targetIndex = WitcherController.GetIndexWhereWitcherIsLooking(_witcher, _gameplay, direction);
 
                         if (_gameplay.LevelCreator.TileMap.IsTileEmpty(targetIndex))
                         {
@@ -54,31 +63,7 @@ namespace WizardWar
                     }
 
                     PotionRegeneration();
-                }
-
-                public static Index2 GetIndexWhereWitcherIsLooking(Index2 index, WitcherLookingDirection witcherDirection)
-                {
-                    switch (witcherDirection)
-                    {
-                        case WitcherLookingDirection.Down:
-
-                            return index + Index2.Up;
-
-                        case WitcherLookingDirection.Up:
-
-                            return index - Index2.Up;
-
-                        case WitcherLookingDirection.Right:
-
-                            return index + Index2.Right;
-                        case WitcherLookingDirection.Left:
-
-                            return index - Index2.Right;
-                        default:
-
-                            return index + Index2.Up;
-                    }
-                }
+                }               
 
                 private void PotionRegeneration()
                 {

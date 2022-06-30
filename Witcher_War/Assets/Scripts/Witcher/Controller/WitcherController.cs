@@ -69,11 +69,8 @@ namespace WizardWar
             }
 
             private void Update()
-            {                
-                if (!_movementMechanic.IsObjectMoving())
-                {
-                    _usePotionMechanic?.InstanciatePotion(_potionPrefab, _gameplay.TileObjectsPositioningInTileMap.GetTileObjectIndex(gameObject), _witcherDirection);
-                }
+            {
+                _usePotionMechanic?.InstanciatePotion(_potionPrefab, _witcherDirection);
 
                 _movementMechanic?.MoveInput();
 
@@ -85,46 +82,88 @@ namespace WizardWar
                 _movementMechanic?.Move(gameObject, ref _witcherDirection);
             }
 
-            void SetWitcher(WitcherType witcherType)
+            public static Index2 GetIndexWhereWitcherIsLooking(GameObject witcher, Gameplay gameplay, WitcherLookingDirection witcherDirection)
             {
-                CpuMovement auxCpuMovement;
+                Index2 witcherIndex = gameplay.TileObjectsPositioningInTileMap.GetTileObjectIndex(witcher);
 
+                switch (witcherDirection)
+                {
+                    case WitcherLookingDirection.Down:
+
+                        return witcherIndex + Index2.Up;
+
+                    case WitcherLookingDirection.Up:
+
+                        return witcherIndex - Index2.Up;
+
+                    case WitcherLookingDirection.Right:
+
+                        return witcherIndex + Index2.Right;
+                    case WitcherLookingDirection.Left:
+
+                        return witcherIndex - Index2.Right;
+                    default:
+
+                        return witcherIndex + Index2.Up;
+                }
+            }
+
+            public static Index2 GetOpositeTileDirectionOfTheOneWitcherIsLooking(WitcherLookingDirection witcherDirection)
+            {
+                switch (witcherDirection)
+                {
+                    case WitcherLookingDirection.Down:
+
+                        return -Index2.Up;
+                    case WitcherLookingDirection.Up:
+
+                        return Index2.Up;
+                    case WitcherLookingDirection.Right:
+
+                        return -Index2.Right;
+                    case WitcherLookingDirection.Left:
+
+                        return Index2.Right;
+                    default:
+
+                        return -Index2.Up;
+                }
+            }
+
+            public void ObjectAboutToBeDestroyed()
+            {
+                if (_witcherType == WitcherType.Player)
+                {
+                    ScenesManagement.ChangeToEndGameScene();
+                }
+            }            
+
+            private void SetWitcher(WitcherType witcherType)
+            {
                 switch (witcherType)
                 {
                     case WitcherType.Player:
 
                         _movementMechanic = new PlayerMovement();
 
-                        _usePotionMechanic = new PlayerInstanciatePotion();
+                        _usePotionMechanic = new PlayerInstanciatePotion(gameObject, (PlayerMovement)_movementMechanic);
 
                         break;
                     case WitcherType.Cpu:
 
 
-                        auxCpuMovement = new CpuMovement(gameObject);
+                        CpuMovement auxCpuMovement = new CpuMovement(gameObject);
+                        
                         _movementMechanic = auxCpuMovement;
 
-                        _usePotionMechanic = new CpuInstanciatePotion(auxCpuMovement);
+                        _usePotionMechanic = new CpuInstanciatePotion(gameObject, auxCpuMovement);
 
                         break;
                     default:
-
-                        auxCpuMovement = new CpuMovement(gameObject);
-
-                        _movementMechanic = auxCpuMovement;
-
-                        _usePotionMechanic = new CpuInstanciatePotion(auxCpuMovement);
+                        
                         break;
                 }
-            }
-
-            public void ObjectAboutToBeDestroyed()
-            {
-                if (_witcherType == WitcherType.Player) 
-                {
-                    ScenesManagement.ChangeToEndGameScene();
-                }
-            }
+            }           
         }
     }
 }

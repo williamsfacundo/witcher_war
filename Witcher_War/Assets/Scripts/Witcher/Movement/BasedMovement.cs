@@ -24,7 +24,15 @@ namespace WizardWar
 
                 private Vector3 _newPosition;
 
-                Gameplay _gameplay;
+                private Gameplay _gameplay;
+
+                public Gameplay Gameplay 
+                {
+                    get 
+                    {
+                        return _gameplay;
+                    }
+                }
 
                 protected BasedMovement() 
                 {
@@ -86,7 +94,7 @@ namespace WizardWar
                     }
                 }
 
-                protected bool IsMoving()
+                public bool IsMoving()
                 {
                     return _movementTimer < _displacementTime;
                 }

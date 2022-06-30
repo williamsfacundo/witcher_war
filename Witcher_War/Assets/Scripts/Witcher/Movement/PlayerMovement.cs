@@ -34,35 +34,24 @@ namespace WizardWar
                     }                   
 
                     _freezePos = (short)Input.GetAxisRaw("Freeze");
-                }
-
-                public void MoveUpdate()
-                {
-
-                }                  
+                }                                 
 
                 public void Move(GameObject witcher, ref WitcherLookingDirection direction)
                 {
-                    if (_freezePos == 0) 
-                    {
-                        MoveFromCurrentTileToNewTile(witcher, _movementAxis, ref direction);
-                    }
-                    else if (_movementAxis != Index2.IndexZero)                  
+                    if (_freezePos != 0) 
                     {
                         Rotation.RotateWitcher(witcher, _movementAxis, ref direction);
-                    }
-                                        
+
+                        _movementAxis = Index2.IndexZero;
+                    }                    
+
+                    MoveFromCurrentTileToNewTile(witcher, _movementAxis, ref direction);
                 }   
 
                 public void Timer() 
                 {
                     UpdateMovementTimer();                       
-                }   
-
-                public bool IsObjectMoving()
-                {
-                    return IsMoving();                   
-                }                           
+                }                
             }
         }
     }

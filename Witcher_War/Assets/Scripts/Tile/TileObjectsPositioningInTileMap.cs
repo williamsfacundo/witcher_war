@@ -267,7 +267,7 @@ namespace WizardWar
                 return false;
             }
 
-            private bool IsGameObjectInTileMap(GameObject tileObject)
+            public bool IsGameObjectInTileMap(GameObject tileObject)
             {
                 if (_tileMap != null) 
                 {
