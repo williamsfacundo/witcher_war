@@ -14,6 +14,8 @@ namespace WizardWar
     {
         public class WitcherController : MonoBehaviour, IDestroyable, ITileleable
         {
+            private const string endGameResourcesPath = "Gameplay/EndGame/EndGameTimer";
+
             private WitcherType _witcherType;
 
             private WitcherLookingDirection _witcherDirection;
@@ -137,7 +139,7 @@ namespace WizardWar
             {
                 if (_witcherType == WitcherType.Player)
                 {
-                    ScenesManagement.ChangeToEndGameScene();
+                    GameObject.Instantiate(Resources.Load(endGameResourcesPath));
                 }
             }            
 
