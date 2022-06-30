@@ -982,7 +982,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3450283750946809955, guid: 13a1ad42719aafb458c0f2b9e73e86e3, type: 3}
       propertyPath: m_Name
-      value: Win_Text
+      value: WinText
       objectReference: {fileID: 0}
     - target: {fileID: 3450283750946809965, guid: 13a1ad42719aafb458c0f2b9e73e86e3, type: 3}
       propertyPath: m_text
@@ -992,11 +992,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3450283750946809965, guid: 13a1ad42719aafb458c0f2b9e73e86e3, type: 3}
       propertyPath: m_fontSize
-      value: 185
+      value: 160
       objectReference: {fileID: 0}
     - target: {fileID: 3450283750946809965, guid: 13a1ad42719aafb458c0f2b9e73e86e3, type: 3}
       propertyPath: m_fontSizeBase
-      value: 185
+      value: 160
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 13a1ad42719aafb458c0f2b9e73e86e3, type: 3}
