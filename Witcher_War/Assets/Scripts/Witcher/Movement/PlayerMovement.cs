@@ -26,12 +26,14 @@ namespace WizardWar
                 {
                     _movementAxis.X = (short)Input.GetAxisRaw("Horizontal");
 
-                    if (_movementAxis.X == 0) 
-                    {
-                        _movementAxis.Y = (short)Input.GetAxisRaw("Vertical");
+                    _movementAxis.Y = (short)Input.GetAxisRaw("Vertical");
 
-                        _movementAxis.Y *= -1;
-                    }                   
+                    _movementAxis.Y *= -1;
+
+                    if (_movementAxis.X != 0 && _movementAxis.Y != 0) 
+                    {
+                        _movementAxis.Y = 0;
+                    }
 
                     _freezePos = (short)Input.GetAxisRaw("Freeze");
                 }                                 
