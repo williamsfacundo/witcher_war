@@ -11,7 +11,7 @@ namespace WizardWar
     {
         namespace Potion
         {
-            public class PlayerInstanciatePotion : ICanUsePotion
+            public class PlayerInstanciatePotion : IPotionInstanceable
             {
                 private const KeyCode _instanciatePotionKey = KeyCode.Space;
 

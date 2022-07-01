@@ -11,7 +11,7 @@ namespace WizardWar
     {
         namespace Potion 
         {
-            public class CpuInstanciatePotion : ICanUsePotion
+            public class CpuInstanciatePotion : IPotionInstanceable
             {
                 private const float _minTimeToSpawnPotion = 3.5f;
                 private const float _maxTimeToSpawnPotion = 6.5f;

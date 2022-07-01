@@ -1,5 +1,4 @@
 using UnityEngine;
-using WizardWar.Tile;
 using WizardWar.Enums;
 
 namespace WizardWar 
@@ -22,7 +21,7 @@ namespace WizardWar
                 void ObjectAboutToBeDestroyed();
             }
 
-            public interface ICanUsePotion
+            public interface IPotionInstanceable
             {
                 void InstanciatePotion(GameObject potionPrefab, WitcherLookingDirection direction);
             }

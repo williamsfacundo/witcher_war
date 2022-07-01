@@ -24,7 +24,7 @@ namespace WizardWar
 
             private IMovable _movementMechanic;
 
-            private ICanUsePotion _usePotionMechanic;
+            private IPotionInstanceable _usePotionMechanic;
 
             private Gameplay _gameplay;
 
