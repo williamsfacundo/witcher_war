@@ -8,7 +8,7 @@ namespace WizardWar
         {
             public class TutorialManager : MonoBehaviour
             {
-                [SerializeField] private Canvas tutorialCanvas;
+                [SerializeField] private Canvas _tutorialCanvas;
 
                 public static bool _showTutorial = true;
 
@@ -22,16 +22,22 @@ namespace WizardWar
 
                 public void ActiveTutorial() 
                 {
-                    tutorialCanvas.gameObject?.SetActive(true);
+                    if (_tutorialCanvas != null) 
+                    {
+                        _tutorialCanvas.gameObject.SetActive(true);
 
-                    Time.timeScale = 0f;
+                        Time.timeScale = 0f;
+                    }                    
                 }     
                 
                 public void CloseTutorial() 
                 {
-                    tutorialCanvas.gameObject?.SetActive(false);
+                    if (_tutorialCanvas != null) 
+                    {
+                        _tutorialCanvas.gameObject?.SetActive(false);
 
-                    Time.timeScale = 1f;
+                        Time.timeScale = 1f;
+                    }                    
                 }                
 
                 public static void SetShowTutorial(bool showTutorial) 
