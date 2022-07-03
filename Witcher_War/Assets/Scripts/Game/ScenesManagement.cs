@@ -25,17 +25,7 @@ namespace WizardWar
             public static void ChangeToEndGameScene()
             {
                 SceneManager.LoadScene("EndGame");
-            }
-
-            public static void ChangeToOptionsScene()
-            {
-                SceneManager.LoadScene("Options");
-            }
-
-            public static void ChangeToTutorialScene()
-            {
-                SceneManager.LoadScene("Tutorial");
-            }
+            }                     
 
             public static void ChangeToWinningScene()
             {
