@@ -1,64 +1,62 @@
 using UnityEngine;
 using WizardWar.GameplayObjects;
 using WizardWar.Scenes;
-using WizardWar.Gate;
-using WizardWar.EndGame;
 
 namespace WizardWar 
 {
     namespace Menu 
-    {       
-        public class WinningCanvasController : MonoBehaviour
+    {
+        public class EndGameCanvasController : MonoBehaviour
         {
-            [SerializeField] private Canvas _winningCanvas;
+            [SerializeField] private Canvas _endGameCanvas;
 
             [SerializeField] private Gameplay _gameplay;
 
             private void OnEnable()
             {
-                PlayerIsInGate.playerWon += PlayerWon;
+                EndGame.EndGame.GameplayEnded += GameOver;
             }
 
             private void OnDisable()
             {
-                PlayerIsInGate.playerWon -= PlayerWon;
+                EndGame.EndGame.GameplayEnded -= GameOver;
             }
 
             private void Awake()
             {
                 HideCanvas();
-            }
+            }            
 
-            private void ShowCanvas() 
+            private void ShowCanvas()
             {
-                _winningCanvas.gameObject.SetActive(true);
+                _endGameCanvas.gameObject.SetActive(true);
             }
 
-            private void HideCanvas() 
+            private void HideCanvas()
             {
-                _winningCanvas.gameObject.SetActive(false);
+                _endGameCanvas.gameObject.SetActive(false);
             }
 
-            public void PlayerWon() 
+            public void GameOver()
             {
                 Time.timeScale = 0f;
 
                 ShowCanvas();
             }
 
-            public void ResetGame() 
+            public void ResetGame()
             {
                 Time.timeScale = 1f;
 
                 _gameplay.GoToLevelOne();
 
-                HideCanvas(); 
+                HideCanvas();
             }
 
-            public void GoToMainMenu() 
+            public void GoToMainMenu()
             {
                 ScenesManagement.ChangeToMainMenuScene();
-            }            
+            }
         }
     }
 }

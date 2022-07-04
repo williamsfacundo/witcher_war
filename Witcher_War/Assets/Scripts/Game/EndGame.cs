@@ -1,5 +1,5 @@
 using UnityEngine;
-using WizardWar.Scenes;
+using System;
 
 namespace WizardWar 
 {
@@ -7,10 +7,12 @@ namespace WizardWar
     {
         public class EndGame : MonoBehaviour
         {
-            const float _timeToEndGame = 1.5f;
+            private const float _timeToEndGame = 1f;
 
-            float _timer;
-           
+            private float _timer;
+
+            public static Action GameplayEnded;
+
             void Start()
             {
                 _timer = 0;
@@ -20,7 +22,7 @@ namespace WizardWar
             {
                 UpdateTimer();
 
-                ChangeToEndGame();
+                GameplayEnds();
             }
 
             private void UpdateTimer()
@@ -28,11 +30,13 @@ namespace WizardWar
                 _timer += Time.deltaTime;
             }
 
-            private void ChangeToEndGame() 
+            private void GameplayEnds() 
             {
                 if (_timer >= _timeToEndGame) 
                 {
-                    //ScenesManagement.ChangeToEndGameScene();
+                    GameplayEnded();
+
+                    Destroy(gameObject);
                 }
             }
         }

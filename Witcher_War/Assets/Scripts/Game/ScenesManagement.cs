@@ -15,7 +15,12 @@ namespace WizardWar
             public static void ChangeToMainMenuScene()
             {
                 SceneManager.LoadScene("MainMenu");
-            }                        
+            }
+
+            public static void ChangeToCreditsScene()
+            {
+                SceneManager.LoadScene("Credits");
+            }            
             
             public void ExitGame()
             {
