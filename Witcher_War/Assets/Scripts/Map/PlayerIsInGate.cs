@@ -1,9 +1,8 @@
+using System;
 using UnityEngine;
 using WizardWar.Tile;
 using WizardWar.GameplayObjects;
-using WizardWar.Scenes;
 using WizardWar.TileObjects;
-using WizardWar.Witcher.Movement;
 
 namespace WizardWar 
 {
@@ -15,7 +14,9 @@ namespace WizardWar
 
             private TileObjectsPositioningInTileMap _tileObjectsPositioningInTileMap; 
             
-            private GameObject _player;            
+            private GameObject _player;
+
+            public static Action playerWon;
 
             private void Start()
             {
@@ -25,7 +26,7 @@ namespace WizardWar
 
                 if (_gameplay != null) 
                 {
-                    _tileObjectsPositioningInTileMap = _gameplay.TileObjectsPositioningInTileMap;                    
+                    _tileObjectsPositioningInTileMap = _gameplay.TileObjectsPositioningInTileMap;                       
                 }              
             }
 
@@ -46,9 +47,9 @@ namespace WizardWar
                         {
                             _gameplay.GoToNextLevel();
                         }
-                        else //No cambia la escena sera la misma solo hay que activar el canvas de endgame defeat  
+                        else   
                         {
-                            ScenesManagement.ChangeToWinningScene();
+                            playerWon();
                         }
                     }
                 }

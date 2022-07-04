@@ -10,7 +10,7 @@ namespace WizardWar
         [RequireComponent(typeof(GateInstanciator))]
         public class Gameplay : MonoBehaviour
         {            
-            private const short _maxLevel = 4;
+            private const short _maxLevel = 1;
 
             [SerializeField] [Range(1, _maxLevel)] private short _level;
 
