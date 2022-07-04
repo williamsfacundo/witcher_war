@@ -206,13 +206,13 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
+      - m_Target: {fileID: 114211421}
+        m_TargetAssemblyTypeName: WizardWar.Menu.WinningCanvasController, Assembly-CSharp
+        m_MethodName: ResetGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -267,6 +267,7 @@ GameObject:
   - component: {fileID: 114211419}
   - component: {fileID: 114211420}
   - component: {fileID: 794378612214517754}
+  - component: {fileID: 114211421}
   m_Layer: 0
   m_Name: Canvaces Manager
   m_TagString: Untagged
@@ -302,6 +303,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _pauseMenuCanvas: {fileID: 915393603}
   _pauseMenuKey: 112
+  _gameplay: {fileID: 995868470}
+--- !u!114 &114211421
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 114211418}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3923eb6e259df2b4ebabd853bb26db13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _winningCanvas: {fileID: 1256356797}
   _gameplay: {fileID: 995868470}
 --- !u!1 &132363057
 GameObject:
@@ -431,7 +446,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &218944142
 GameObject:
@@ -701,7 +716,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 976785351}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 114211421}
+        m_TargetAssemblyTypeName: WizardWar.Menu.WinningCanvasController, Assembly-CSharp
+        m_MethodName: GoToMainMenu
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &976785351
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1097,7 +1124,7 @@ RectTransform:
   - {fileID: 1702020661}
   - {fileID: 132363058}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
