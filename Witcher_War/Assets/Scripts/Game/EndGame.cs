@@ -32,7 +32,7 @@ namespace WizardWar
             {
                 if (_timer >= _timeToEndGame) 
                 {
-                    ScenesManagement.ChangeToEndGameScene();
+                    //ScenesManagement.ChangeToEndGameScene();
                 }
             }
         }

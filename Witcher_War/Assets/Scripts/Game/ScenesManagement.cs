@@ -20,18 +20,8 @@ namespace WizardWar
             public static void ChangeToCreditsScene()
             {
                 SceneManager.LoadScene("Credits");
-            }
-
-            public static void ChangeToEndGameScene()
-            {
-                SceneManager.LoadScene("EndGame");
-            }                     
-
-            public static void ChangeToWinningScene()
-            {
-                SceneManager.LoadScene("Winning");
-            }
-
+            }            
+            
             public void ExitGame()
             {
                 Application.Quit();
