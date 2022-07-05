@@ -1,6 +1,7 @@
 using UnityEngine;
 using WizardWar.GameplayObjects;
 using WizardWar.Scenes;
+using WizardWar.Menu.Tutorial;
 
 namespace WizardWar
 {
@@ -14,6 +15,8 @@ namespace WizardWar
 
                 [SerializeField] private KeyCode _pauseMenuKey = KeyCode.P;
 
+                private const KeyCode _pauseDefault = KeyCode.Escape;
+
                 [SerializeField] private Gameplay _gameplay;
 
                 private bool _gamePaused;
@@ -25,7 +28,8 @@ namespace WizardWar
                 
                 private void Update()
                 {
-                    if (Input.GetKeyDown(_pauseMenuKey) && !_gamePaused)
+                    if ((Input.GetKeyDown(_pauseMenuKey) || Input.GetKeyDown(_pauseDefault)) && !_gamePaused
+                        && !WinningCanvasController.WinningActivated && !EndGameCanvasController.EndGameActivated && !TutorialManager.TutorialActivated)
                     {
                         Pause();
                     }

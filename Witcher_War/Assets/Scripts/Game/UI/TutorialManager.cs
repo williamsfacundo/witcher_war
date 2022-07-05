@@ -12,6 +12,16 @@ namespace WizardWar
 
                 public static bool _showTutorial = true;
 
+                public static bool _tutorialActivated;
+
+                public static bool TutorialActivated 
+                {                    
+                    get 
+                    {
+                        return _tutorialActivated;
+                    }
+                }
+
                 private void Awake()
                 {
                     if (_showTutorial) 
@@ -27,6 +37,8 @@ namespace WizardWar
                         _tutorialCanvas.gameObject.SetActive(true);
 
                         Time.timeScale = 0f;
+
+                        _tutorialActivated = true;
                     }                    
                 }     
                 
@@ -37,6 +49,8 @@ namespace WizardWar
                         _tutorialCanvas.gameObject?.SetActive(false);
 
                         Time.timeScale = 1f;
+
+                        _tutorialActivated = false;
                     }                    
                 }                
 

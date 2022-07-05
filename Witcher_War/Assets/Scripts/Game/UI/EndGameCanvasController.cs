@@ -12,6 +12,16 @@ namespace WizardWar
 
             [SerializeField] private Gameplay _gameplay;
 
+            public static bool _endGameActivated;
+
+            public static bool EndGameActivated
+            {
+                get
+                {
+                    return _endGameActivated;
+                }
+            }
+
             private void OnEnable()
             {
                 EndGame.EndGame.GameplayEnded += GameOver;
@@ -30,11 +40,15 @@ namespace WizardWar
             private void ShowCanvas()
             {
                 _endGameCanvas.gameObject.SetActive(true);
+
+                _endGameActivated = true;
             }
 
             private void HideCanvas()
             {
                 _endGameCanvas.gameObject.SetActive(false);
+
+                _endGameActivated = false;
             }
 
             public void GameOver()
