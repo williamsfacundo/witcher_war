@@ -86,6 +86,8 @@ namespace WizardWar
 
                 _tileObjectsInstanciator.SetMapWithTextFileChars(_level);
 
+                TileObjectsInstanciator.BookshelfsCount = 0;
+
                 _tileObjectsInstanciator.InstanciateObjects();
             }
         }
