@@ -9,7 +9,7 @@ namespace WizardWar
             public class OptionsManager : MonoBehaviour
             {
                 [SerializeField] private Canvas _optionsCanvas;
-
+                                
                 private void Awake()
                 {
                     CloseOptionsCanvas();
@@ -23,7 +23,7 @@ namespace WizardWar
                 public void CloseOptionsCanvas()
                 {
                     _optionsCanvas.gameObject.SetActive(false);
-                }
+                }                
             }
         }
     }
